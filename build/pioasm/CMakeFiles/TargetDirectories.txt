@@ -1,0 +1,3 @@
+/home/keyvin/pico-term/build/pioasm/CMakeFiles/rebuild_cache.dir
+/home/keyvin/pico-term/build/pioasm/CMakeFiles/edit_cache.dir
+/home/keyvin/pico-term/build/pioasm/CMakeFiles/pioasm.dir

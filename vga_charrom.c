@@ -1,3 +1,6 @@
+#define UART_TERMINAL 1
+//#define Z80_BUS 1
+
 #include  "pico/stdlib.h"
 #include "hardware/pio.h"
 #include "hardware/gpio.h"
@@ -5,8 +8,6 @@
 #include "hardware/dma.h"
 #include "hardware/structs/bus_ctrl.h"
 #include "pico/multicore.h"
-//#include "rgb.pio.h"
-//#include "sync.pio.h"
 #include "nrgb.pio.h"
 #include "vsync.pio.h"
 #include "hsync.pio.h"
@@ -15,6 +16,20 @@
 #include <string.h>
 #include "z80io.pio.h"
 
+
+//Static values for screen layout
+#define ROW 30
+#define COL 80
+#define LAST_CHAR 2401
+
+#ifdef UART_TERMINAL
+#include "hardware/uart.h"
+#define UART_ID uart0
+#define BAUD_RATE 115200
+#define UART_TX_PIN 16
+#define UART_RX_PIN 17
+#endif
+
 #define VSYNC_PIN 8
 #define HSYNC_PIN 9
 #define RGB_PIN 0
@@ -22,50 +37,9 @@
 #define V_ACTIVE   479    // (active - 1)
 #define RGB_ACTIVE 639    // (horizontal active)/2 - 1
 #define TXCOUNT 640
+
 // #define RGB_ACTIVE 639 // change to this if 1 pixel/byte
-
-//Goal is to create functions that 
-//create buffers with the timing pixels
-//embedded. 
-
-//Ex. a 640x480@60hz has 800 pixels per line
-//640 visible (RGB values, but no H&V sync)
-//16 Front porch, 96 sync pulse, 48 back porch
-//after 480 of these lines, we have a few vblank lines
-//10 Front porch (hsync normal), 2 sync pulse (vsync and hysnc), 33 back porch
-
-//The PIO must change pin values every
-// (1/25.175mhz)s
-
-//the pico defaults to 125mhz.
-//code given in datasheet...
-//float freq = 25175000
-//float div = clock_get_hz(clk_sys) / ();
-//     sm_config_set_clkdiv(&c, div)
-
-
-//we pregenerate several lines, give them to the
-//dma engine, then prepare several more
-//until we've done enough lines it's time
-//for a vsync
-
-//My first mode will use 160x120 upscaled to 
-//640x480 as my monitors do not aspect correct
-//lower. Each pixel from the z80 will be x4
-//and every scanline will repeat 4x. The pico
-//only has 240k RAM. 
-
-//Our Dma buffers Will take ~1kb per line. 
-
-//Hsync pin is first, vsync pin is second
-//480 lines of hsync buffer
-//10 lines of blank, with hsync lines
-//and 0s on RGB pins
-//2 lines of vsync buffer
-//33 back porch  - normal hsync lines
-
-//need to be divisible by 4 for simplest possible pio. 
-//dma buffers
+//Terminal color codes
 uint32_t t_color[] = { 0x00000000,
 			 0xC0C0C0C0,
 			 0x38383838,
@@ -102,33 +76,39 @@ uint32_t bt_color[] = { 0x00000000,
 			 0xFFFFFFFF
 };
 			
-
+//DMA BUFFERS
 uint8_t RGB_buffer[2][800]; //8bpp
 
 
+//TODO - figure out how to avoid this 
 uint32_t unpacked_font[8400];
 uint32_t unpacked_mask[8400];
-//character buffer
+
+//character buffer - 80x30
 char sbuffer[2401];
-//attribute buffer
+//attribute buffer - 80x30
 char abuffer[2401];
-//cursor
+
+//Keyboard buffer
+#define KB_BUFFER_SIZE 20
+char kb_buffer[KB_BUFFER_SIZE];
+uint8_t kb_count;
+
+
+//cursor   - cursor position in sbuffer/abuffer 
 uint cursor;
 uint mode;
 
 #define T_MONOCHROME 0;
 #define T_64C_80x30 1;  //2grb, 2status
 
-void generate_rgb_scan(uint8_t *);
-void generate_vblank_rgb(uint8_t *);
-void generate_hsync_scan(uint8_t *);
-void generate_vsync_scan(uint8_t *);
 
-
+//TODO better to use memset
 void fill_background() {
   for (int i =0; i < 25; i++)
     for (int j = 0;  j < 80; j++) {
       sbuffer[(i*j)+i] =' ' ;
+      abuffer[(i*j)+i] = 0;
     }
   //static string.
   strcpy(sbuffer, "Initial buffer - IO 39-10 to reset");
@@ -178,7 +158,7 @@ void fill_scan_m(uint8_t *buffer, char *string, int line) {
   }
 }
 
-
+//test pattern
 /*void fill_scan(uint8_t *buffer, char *string, char*attr, int line) {
 
   if (line%4==0 || line%4==1){
@@ -194,7 +174,7 @@ void fill_scan_m(uint8_t *buffer, char *string, int line) {
 }
 */
 
-
+//Fills a DMA buffer with font. 
 void fill_scan(uint8_t *buffer, char *string, char*attr, int line) {
   unsigned int p;
 
@@ -216,7 +196,7 @@ void fill_scan(uint8_t *buffer, char *string, char*attr, int line) {
       background = 0x00000000;
 	
     }
-      
+    
     b[p] = unpacked_font[offs] & foreground | (unpacked_mask[offs] & background);  
     b[p+1] = unpacked_font[offs+1] & foreground | (unpacked_mask[offs+1] & background);         
   }
@@ -232,21 +212,108 @@ uint sm_z80io;
 extern void tuh_task();
 extern void hid_app_task();
 
-void usb_main() {
-  unsigned int count = 0;
- while(1) {
-   
-	tuh_task();
-	hid_app_task();
-   
-}
+uint8_t in_escape;
 
-}
-
+//Callback. 
 void keypress(char p) {
- sbuffer[cursor++] = p;
- if (cursor >=2000) cursor = 0;
+  if (kb_count < KB_BUFFER_SIZE) {
+    kb_buffer[kb_count]=p;
+    kb_count++;
+    sbuffer[cursor]=p;
+  }
 }
+
+void init_keyboard(){
+  kb_count=0;
+  for (int a=0; a<KB_BUFFER_SIZE;a++){
+    kb_buffer[a]=0;
+  }
+  return;
+}
+
+char get_keypress() {
+  char ch=0;
+  if (kb_count >0){
+    ch = kb_buffer[0];
+    for (int a = 1; a < kb_count ; a++){
+	kb_buffer[a-1] = kb_buffer[a];
+    }
+    kb_count--;
+  }
+  return ch;
+}
+
+bool key_ready(){
+  if (kb_count > 0)
+    return true;
+  return false;
+}
+
+
+
+void scroll_screen(){
+  uint32_t *ptr = (uint32_t *) sbuffer;
+  for (unsigned int a = 0; a < ((ROW-1)*COL)/4; a++)
+    ptr[a] = ptr[a+20];
+  for (unsigned int a = 0; a < 80; a++)
+    sbuffer[LAST_CHAR-a-1] = '\0';
+  
+}
+
+void process_recieve(char c) {
+  if (c >= ' ' && c <= '~') {
+    sbuffer[cursor] = c;
+    cursor++;    
+  }
+  if (c=='\r'){
+    cursor = (cursor / COL)*COL; //integer division. Place at start of row
+    cursor = cursor +COL;
+  }
+  if (c=='\n') {
+
+    cursor = (cursor / COL)*COL;
+    cursor = cursor + COL;
+  }
+    if (cursor >= 2400) {
+    scroll_screen();
+    cursor = 2320;
+  }     
+}
+
+
+void io_main() {
+  unsigned int count = 0;
+  char ch = 0;
+  in_escape = 0;
+  while(1) {
+   tuh_task();
+   hid_app_task();
+   ch =  0; 
+   if (uart_is_readable(UART_ID)){
+     ch = uart_getc(UART_ID);
+   }
+   if (ch) process_recieve(ch);
+   if (uart_is_writable(UART_ID) && key_ready()){
+     ch = get_keypress();
+     uart_putc(UART_ID, (char)ch);
+   }   
+  }
+  
+}
+
+#ifdef UART_TERMINAL
+void serial_setup() {
+  uart_init(UART_ID, BAUD_RATE);
+  gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
+  gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);  
+  uart_set_hw_flow(UART_ID, false, false);  
+  uart_set_fifo_enabled(UART_ID, false);
+}
+#endif
+
+
+
+
 
 
 void z80io_setup() {
@@ -310,25 +377,20 @@ void bus_read() {
 }
 
 
-//uses pio1
+
+
 
 extern void usb_init();
 int main(){
-  //our output is 480 lines of rgb and hsync.
-  //10 lines of vblank and hsync
-  //2 lines of vblank and vsync
-  //33 lines of vblank and hsync
-  //  char th[] = "This is the message I'd like to repeat. 1234567890\xb0\xb1\xBB";
   usb_init();
   set_sys_clock_khz(180000, true);
-  multicore_launch_core1(usb_main);
-   
+  #ifdef UART_TERMINAL
+  serial_setup();
+  #endif
+  multicore_launch_core1(io_main);   
   unpack_font();
-  // generate_rgb_scan(RGB_buffer[0]);
-  //	generate_rgb_scan(RGB_buffer[1]);
-  //	generate_vblank_rgb(Vblank);
-  //	generate_hsync_scan(Hsync_buffer);
-  //	generate_vsync_scan(Vsync_buffer);	
+  //  generate_rgb_scan(RGB_buffer[0]);
+  // generate_rgb_scan(RGB_buffer[1]);
   fill_background();
   fill_scan(RGB_buffer[0],sbuffer,abuffer,0);
   fill_scan(RGB_buffer[1],sbuffer,abuffer,0);
@@ -348,7 +410,7 @@ int main(){
 
       // DMA channels - 0 sends color data, 1 reconfigures and restarts 0
     int rgb_chan_0 = 0;
-
+    
 
     // Channel Zero (sends color data to PIO VGA machine)
     dma_channel_config c0 = dma_channel_get_default_config(rgb_chan_0);  // default configs
@@ -386,7 +448,7 @@ int main(){
   uint8_t *sync;	
   uint32_t flip = 0;
     
-  z80io_setup();
+  // z80io_setup();
   fill_scan((uint8_t *)RGB_buffer[0], sbuffer, abuffer, 0);
   fill_scan((uint8_t *)RGB_buffer[1], sbuffer, abuffer, 0);
   uint32_t bstart = 0;
