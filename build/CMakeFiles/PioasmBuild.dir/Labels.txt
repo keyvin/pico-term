@@ -1,0 +1,13 @@
+# Target labels
+ PioasmBuild
+# Source files and their labels
+/home/keyvin/pico-term/build/CMakeFiles/PioasmBuild
+/home/keyvin/pico-term/build/CMakeFiles/PioasmBuild.rule
+/home/keyvin/pico-term/build/CMakeFiles/PioasmBuild-complete.rule
+/home/keyvin/pico-term/build/pioasm/src/PioasmBuild-stamp/PioasmBuild-build.rule
+/home/keyvin/pico-term/build/pioasm/src/PioasmBuild-stamp/PioasmBuild-configure.rule
+/home/keyvin/pico-term/build/pioasm/src/PioasmBuild-stamp/PioasmBuild-download.rule
+/home/keyvin/pico-term/build/pioasm/src/PioasmBuild-stamp/PioasmBuild-install.rule
+/home/keyvin/pico-term/build/pioasm/src/PioasmBuild-stamp/PioasmBuild-mkdir.rule
+/home/keyvin/pico-term/build/pioasm/src/PioasmBuild-stamp/PioasmBuild-patch.rule
+/home/keyvin/pico-term/build/pioasm/src/PioasmBuild-stamp/PioasmBuild-update.rule

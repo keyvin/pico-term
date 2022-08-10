@@ -20,7 +20,7 @@
 //Static values for screen layout
 #define ROW 30
 #define COL 80
-#define LAST_CHAR 2401
+#define LAST_CHAR 2400
 
 #ifdef UART_TERMINAL
 #include "hardware/uart.h"
@@ -158,23 +158,6 @@ void fill_scan_m(uint8_t *buffer, char *string, int line) {
   }
 }
 
-//test pattern
-/*void fill_scan(uint8_t *buffer, char *string, char*attr, int line) {
-
-  if (line%4==0 || line%4==1){
-    for (int a = 0; a < 320; a++)buffer[a]=0xff;
-    for (int a = 320; a<640; a++)buffer[a]=0x00;
-  }
-  else{
-    for (int a = 0; a < 320; a++)buffer[a]=0x00;
-    for (int a = 320; a<640; a++)buffer[a]=0xff;
-  }
-  buffer[639] = 0;
-  
-}
-*/
-
-//Fills a DMA buffer with font. 
 void fill_scan(uint8_t *buffer, char *string, char*attr, int line) {
   unsigned int p;
 
@@ -219,7 +202,6 @@ void keypress(char p) {
   if (kb_count < KB_BUFFER_SIZE) {
     kb_buffer[kb_count]=p;
     kb_count++;
-    sbuffer[cursor]=p;
   }
 }
 
@@ -255,7 +237,7 @@ void scroll_screen(){
   uint32_t *ptr = (uint32_t *) sbuffer;
   for (unsigned int a = 0; a < ((ROW-1)*COL)/4; a++)
     ptr[a] = ptr[a+20];
-  for (unsigned int a = 0; a < 80; a++)
+  for (unsigned int a = 0; a < COL; a++)
     sbuffer[LAST_CHAR-a-1] = '\0';
   
 }
@@ -267,16 +249,13 @@ void process_recieve(char c) {
   }
   if (c=='\r'){
     cursor = (cursor / COL)*COL; //integer division. Place at start of row
-    cursor = cursor +COL;
   }
   if (c=='\n') {
-
-    cursor = (cursor / COL)*COL;
     cursor = cursor + COL;
   }
-    if (cursor >= 2400) {
+    if (cursor >= LAST_CHAR) {
     scroll_screen();
-    cursor = 2320;
+    cursor = LAST_CHAR-COL;
   }     
 }
 
@@ -383,7 +362,7 @@ void bus_read() {
 extern void usb_init();
 int main(){
   usb_init();
-  set_sys_clock_khz(180000, true);
+  set_sys_clock_khz(220000, true);
   #ifdef UART_TERMINAL
   serial_setup();
   #endif
@@ -467,8 +446,9 @@ int main(){
       dma_channel_set_read_addr(rgb_chan_0, rgb, true);
       //fill the buffer for the flip
       scanline++;      
+ 
       fill_scan(RGB_buffer[((flip+1)%2)], (char *)(sbuffer+bstart),
-		(char *)(abuffer+bstart),scanline%16);
+		  (char *)(abuffer+bstart),scanline%16);
       //while(dma_channel_is_busy(rgb_chan_0)){
 	//bus_read();
       //      }
@@ -476,10 +456,13 @@ int main(){
     }
     
     else {
-    scanline =0;
+      scanline =0;
     //continue;
     }
-    //we could alternate buffers, assign blocks, etc. 
-    
+    //safeguard against desynchronizing
+    if (!gpio_get(VSYNC_PIN)){
+      scanline=0;
+      // pio_interrupt_clear(pio,5);
+    }
   }
 }
