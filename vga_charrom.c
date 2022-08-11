@@ -15,7 +15,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "z80io.pio.h"
-
+#define CPU_FREQ 190000
+#define PIXEL_CLOCK 25000000
 
 //Static values for screen layout
 #define ROW 30
@@ -293,8 +294,6 @@ void serial_setup() {
 
 
 
-
-
 void z80io_setup() {
   //  stdio_init_all();
   float freq = 40000000.0;
@@ -362,11 +361,12 @@ void bus_read() {
 extern void usb_init();
 int main(){
   usb_init();
-  set_sys_clock_khz(220000, true);
+  set_sys_clock_khz(CPU_FREQ, true);
   #ifdef UART_TERMINAL
   serial_setup();
   #endif
   multicore_launch_core1(io_main);   
+  sleep_ms(1500);
   unpack_font();
   //  generate_rgb_scan(RGB_buffer[0]);
   // generate_rgb_scan(RGB_buffer[1]);
@@ -382,7 +382,7 @@ int main(){
   uint hsync_sm = 0;
   uint vsync_sm = 1;
   uint rgb_sm = 2;
-  float freq = 25175000.0;
+  float freq = PIXEL_CLOCK;
   float div1 = ((float)clock_get_hz(clk_sys)) / freq;
   float div2 = ((float)clock_get_hz(clk_sys)) / (freq*5); //run it 3 times faster?
 
@@ -424,6 +424,7 @@ int main(){
   uint16_t buffer_line =0;
   uint16_t pixel = 0;
   uint8_t *rgb;
+  uint8_t *rgb_n;
   uint8_t *sync;	
   uint32_t flip = 0;
     
@@ -435,34 +436,45 @@ int main(){
   uint32_t vb;
   // dma_channel_set_read_addr(rgb_chan_0, &RGB_buffer[0], true);
   pio_enable_sm_mask_in_sync(pio, ((1u << hsync_sm) | (1u << vsync_sm) | (1u << rgb_sm)));
- 
+  unsigned int frame = 0;
+  uint32_t *ptr;
+  uint8_t *tmp_p;
+  rgb = (uint8_t *) RGB_buffer[0];
+  rgb_n = (uint8_t *) RGB_buffer[1];
+  bstart = (scanline / 16)*COL;
   while (1) {   
-    
-    if (scanline <  480) {
-      bstart = (scanline / 16)*80;
-      if (flip==1)flip=0;
-      else if (flip==0)flip=1;
-      rgb = (uint8_t *) RGB_buffer[flip];	    
+    if (scanline <=  480) {
+      tmp_p = rgb;
+      rgb = rgb_n;	    
+      rgb_n = tmp_p;
+      if (!gpio_get(VSYNC_PIN)){
+	scanline=0;
+	sbuffer[cursor]='O';
+	continue;	
+      }
       dma_channel_set_read_addr(rgb_chan_0, rgb, true);
       //fill the buffer for the flip
-      scanline++;      
- 
-      fill_scan(RGB_buffer[((flip+1)%2)], (char *)(sbuffer+bstart),
+      scanline++;
+      bstart = (scanline / 16)*COL;
+
+      if (scanline == 480){
+	   fill_scan(rgb_n, (char *)(sbuffer),
+		(char *)(abuffer),0);
+	   scanline=0;
+	   frame++;
+      }
+      else {
+	fill_scan(rgb_n, (char *)(sbuffer+bstart),
 		  (char *)(abuffer+bstart),scanline%16);
-      //while(dma_channel_is_busy(rgb_chan_0)){
-	//bus_read();
-      //      }
+      }
+      if ((frame%60)<30 &&  (cursor/COL)==(bstart/COL)) {
+	ptr = (uint32_t *) rgb_n;
+	ptr[(cursor%COL)*2]=0xFFFFFFFF;
+	ptr[(cursor%COL)*2+1]=0xFFFFFFFF;
+	  
+      }      
       dma_channel_wait_for_finish_blocking(rgb_chan_0);
     }
-    
-    else {
-      scanline =0;
-    //continue;
-    }
-    //safeguard against desynchronizing
-    if (!gpio_get(VSYNC_PIN)){
-      scanline=0;
-      // pio_interrupt_clear(pio,5);
-    }
+      
   }
 }
