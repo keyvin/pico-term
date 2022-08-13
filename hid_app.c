@@ -159,10 +159,13 @@ static void process_kbd_report(hid_keyboard_report_t const *report)
 	uint8_t ch = 0;
 	if (!is_ctrl)
 	  ch = keycode2ascii[report->keycode[i]][is_shift ? 1 : 0];
-	else
-	  ch = keycode2ascii[report->keycode[i]][0] ^ 0x40;
+	else {
+	  ch = keycode2ascii[report->keycode[i]][1];
+	  if ((ch >= 'A' && ch <='Z') || (ch >='a' && ch <= 'z'))
+	    ch = ch &0x3F;
+	}
         keypress(ch);
-        if ( ch == '\r' ) keypress('\n'); // added new line for enter key
+        //if ( ch == '\r' ) keypress('\n'); // added new line for enter key
     
       }
     }

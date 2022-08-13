@@ -11,8 +11,7 @@ wait 1 irq 1 [4]            ; Wait for vsync active mode (starts 5 cycles after 
 
 colorout:
     pull block              ; Pull color value
-    out pins, 8             ; Push out to pins (pixel)
-    nop [1]
+    out pins, 8 [2]          ; Push out to pins (pixel)
     jmp x-- colorout        ; Stay here thru horizontal active mode
 .wrap
 

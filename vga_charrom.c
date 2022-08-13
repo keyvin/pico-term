@@ -15,8 +15,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "z80io.pio.h"
-#define CPU_FREQ 190000
-#define PIXEL_CLOCK 25000000
+#include "hardware/irq.h"
+#define CPU_FREQ 180000
+#define PIXEL_CLOCK 25175000
 
 //Static values for screen layout
 #define ROW 30
@@ -35,9 +36,11 @@
 #define HSYNC_PIN 9
 #define RGB_PIN 0
 #define H_ACTIVE   655    // (active + frontporch - 1) - one cycle delay for mov
-#define V_ACTIVE   479    // (active - 1)
+#define V_ACTIVE   480    // (active - 1)
 #define RGB_ACTIVE 639    // (horizontal active)/2 - 1
 #define TXCOUNT 640
+
+
 
 // #define RGB_ACTIVE 639 // change to this if 1 pixel/byte
 //Terminal color codes
@@ -76,7 +79,9 @@ uint32_t bt_color[] = { 0x00000000,
 			 0x38383838,
 			 0xFFFFFFFF
 };
-			
+
+uint16_t scanline;
+
 //DMA BUFFERS
 uint8_t RGB_buffer[2][800]; //8bpp
 
@@ -102,6 +107,8 @@ uint mode;
 
 #define T_MONOCHROME 0;
 #define T_64C_80x30 1;  //2grb, 2status
+
+
 
 
 //TODO better to use memset
@@ -177,8 +184,7 @@ void fill_scan(uint8_t *buffer, char *string, char*attr, int line) {
     }
     else {
       foreground = 0xFFFFFFFF;
-      background = 0x00000000;
-	
+      background = 0x00000000;   
     }
     
     b[p] = unpacked_font[offs] & foreground | (unpacked_mask[offs] & background);  
@@ -254,20 +260,29 @@ void process_recieve(char c) {
   if (c=='\n') {
     cursor = cursor + COL;
   }
-    if (cursor >= LAST_CHAR) {
+  if (cursor >= LAST_CHAR) {
     scroll_screen();
     cursor = LAST_CHAR-COL;
-  }     
+  }
+  if (c == '\b' ) {
+    if (cursor!=0)
+      cursor--;
+    sbuffer[cursor]='\0';
+  }      
 }
 
 
 void io_main() {
+  irq_set_priority(7, 0x40);
+  irq_set_priority(8,0x40);
+  irq_set_priority(11, 0x40);
+  irq_set_priority(12, 0x40);
   unsigned int count = 0;
   char ch = 0;
   in_escape = 0;
   while(1) {
-   tuh_task();
-   hid_app_task();
+    tuh_task();
+    hid_app_task();
    ch =  0; 
    if (uart_is_readable(UART_ID)){
      ch = uart_getc(UART_ID);
@@ -278,7 +293,7 @@ void io_main() {
      uart_putc(UART_ID, (char)ch);
    }   
   }
-  
+  sleep_us(300);
 }
 
 #ifdef UART_TERMINAL
@@ -360,13 +375,18 @@ void bus_read() {
 
 extern void usb_init();
 int main(){
+  irq_set_priority(7, 0x40);
+  irq_set_priority(8,0x40);
+  irq_set_priority(11, 0x40);
+  irq_set_priority(12, 0x40);
+
   usb_init();
   set_sys_clock_khz(CPU_FREQ, true);
   #ifdef UART_TERMINAL
   serial_setup();
   #endif
   multicore_launch_core1(io_main);   
-  sleep_ms(1500);
+  sleep_ms(3000);
   unpack_font();
   //  generate_rgb_scan(RGB_buffer[0]);
   // generate_rgb_scan(RGB_buffer[1]);
@@ -385,7 +405,7 @@ int main(){
   float freq = PIXEL_CLOCK;
   float div1 = ((float)clock_get_hz(clk_sys)) / freq;
   float div2 = ((float)clock_get_hz(clk_sys)) / (freq*5); //run it 3 times faster?
-
+  //float div3 = ((float)clock_get_hz(clk_sys)) / (freq*2);
 
       // DMA channels - 0 sends color data, 1 reconfigures and restarts 0
     int rgb_chan_0 = 0;
@@ -420,14 +440,14 @@ int main(){
 
   
   
-  uint16_t scanline = 0;
+  scanline = 0;
   uint16_t buffer_line =0;
   uint16_t pixel = 0;
   uint8_t *rgb;
   uint8_t *rgb_n;
   uint8_t *sync;	
   uint32_t flip = 0;
-    
+
   // z80io_setup();
   fill_scan((uint8_t *)RGB_buffer[0], sbuffer, abuffer, 0);
   fill_scan((uint8_t *)RGB_buffer[1], sbuffer, abuffer, 0);
@@ -442,39 +462,37 @@ int main(){
   rgb = (uint8_t *) RGB_buffer[0];
   rgb_n = (uint8_t *) RGB_buffer[1];
   bstart = (scanline / 16)*COL;
+  char tmpbuff[12];
   while (1) {   
-    if (scanline <=  480) {
-      tmp_p = rgb;
-      rgb = rgb_n;	    
-      rgb_n = tmp_p;
-      if (!gpio_get(VSYNC_PIN)){
-	scanline=0;
-	sbuffer[cursor]='O';
-	continue;	
-      }
-      dma_channel_set_read_addr(rgb_chan_0, rgb, true);
-      //fill the buffer for the flip
-      scanline++;
-      bstart = (scanline / 16)*COL;
 
-      if (scanline == 480){
-	   fill_scan(rgb_n, (char *)(sbuffer),
-		(char *)(abuffer),0);
-	   scanline=0;
-	   frame++;
+    tmp_p = rgb;
+    rgb = rgb_n;	    
+    rgb_n = tmp_p;
+    dma_channel_set_read_addr(rgb_chan_0, rgb, true);
+    //fill the buffer for the flip
+    scanline++;
+    bstart = (scanline / 16)*COL;
+    if (pio_interrupt_get(pio,5)) {
+      pio_interrupt_clear(pio,5);
+      if (scanline != 480){
+	scanline=480;
       }
-      else {
-	fill_scan(rgb_n, (char *)(sbuffer+bstart),
-		  (char *)(abuffer+bstart),scanline%16);
-      }
-      if ((frame%60)<30 &&  (cursor/COL)==(bstart/COL)) {
-	ptr = (uint32_t *) rgb_n;
-	ptr[(cursor%COL)*2]=0xFFFFFFFF;
-	ptr[(cursor%COL)*2+1]=0xFFFFFFFF;
-	  
-      }      
-      dma_channel_wait_for_finish_blocking(rgb_chan_0);
     }
-      
+    if (scanline == 480){	
+      bstart =0;
+      scanline=0;
+      frame++;
+    }
+    fill_scan(rgb_n, (char *)(sbuffer+bstart),
+	      (char *)(abuffer+bstart),scanline%16);
+    
+    if ((frame%60)<30 &&  (cursor/COL)==(bstart/COL) && scanline!=479) {
+      ptr = (uint32_t *) rgb_n;
+      ptr[(cursor%COL)*2]=0xFFFFFFFF;
+      ptr[(cursor%COL)*2+1]=0xFFFFFFFF;
+	
+    }      
+    dma_channel_wait_for_finish_blocking(rgb_chan_0);
   }
+      
 }
