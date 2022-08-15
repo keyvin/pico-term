@@ -83,14 +83,6 @@ bool key_ready(){
 
 
 
-void scroll_screen(){
-  uint32_t *ptr = (uint32_t *) sbuffer;
-  for (unsigned int a = 0; a < ((ROW-1)*COL)/4; a++)
-    ptr[a] = ptr[a+20];
-  for (unsigned int a = 0; a < COL; a++)
-    sbuffer[LAST_CHAR-a-1] = '\0';
-  
-}
 
 
 

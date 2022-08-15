@@ -149,9 +149,7 @@ void handle_erase(char c){
     if (c == 'K') {
       if (escape_buffer_position ==0 || command =='0') {
 	working = cursor;
-	abuffer[cursor] = 0; //handle end of line
-	sbuffer[cursor] = 0;
-
+	
 	while (working%COL != 0) {
 	  abuffer[working] = 0;
 	  sbuffer[working] = 0;
@@ -160,9 +158,7 @@ void handle_erase(char c){
       }
       if (command =='1') {
 	working = cursor;
-	abuffer[cursor] = 0; //handle end of line
-	sbuffer[cursor] = 0;
-
+       
 	while (working%COL != COL-1) {
 	  abuffer[working] = 0;
 	  sbuffer[working] = 0;
@@ -183,14 +179,24 @@ void handle_erase(char c){
     
   }    
   in_escape = false;
-  escape_buffer_position = 0;
+  escape_buffer_position = 0;  
+}
+
+void scroll_screen(){
+  uint32_t *ptr = (uint32_t *) sbuffer;
+  for (unsigned int a = 0; a < ((ROW-1)*COL)/4; a++)
+    ptr[a] = ptr[a+20];
+  for (unsigned int a = 0; a < COL; a++)
+    sbuffer[LAST_CHAR-a-1] = '\0';
   
 }
+
 
 void process_recieve(char c) {
 
   if (!in_escape &&!start_escape) {
     if (c >= ' ' && c <= '~') {
+
       sbuffer[cursor] = c;
       cursor++;    
     }
@@ -200,10 +206,7 @@ void process_recieve(char c) {
     else if (c=='\n') {
       cursor = cursor + COL;
     }
-    else if (cursor >= LAST_CHAR) {
-      scroll_screen();
-      cursor = LAST_CHAR-COL;
-    }
+ 
     else if (c == '\b' ) {
       if (cursor!=0)
 	cursor--;
@@ -267,12 +270,18 @@ void process_recieve(char c) {
     default:
       escape_buffer[escape_buffer_position] = c;
       escape_buffer_position++;
+      if ((c >= 'a' && c <= 'z') || (c >='A' && c<= 'Z')) //Unhandled code
+	  escape_buffer_position=30;   
       if (escape_buffer_position >= 30) {
 	in_escape = false;
 	escape_buffer_position = 0;
       }
     }    
     
+  }
+  if (cursor >= LAST_CHAR) {
+      scroll_screen();
+      cursor = LAST_CHAR-COL;
   }
     
 }
