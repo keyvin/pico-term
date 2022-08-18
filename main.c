@@ -91,6 +91,7 @@ void io_main() {
   irq_set_priority(8,0x40);
   irq_set_priority(11, 0x40);
   irq_set_priority(12, 0x40);
+    usb_init();
   unsigned int count = 0;
   char ch = 0;
   in_escape = 0;
@@ -192,8 +193,6 @@ int main(){
   irq_set_priority(8,0x40);
   irq_set_priority(11, 0x40);
   irq_set_priority(12, 0x40);
-
-  usb_init();
   set_sys_clock_khz(CPU_FREQ, true);
   #ifdef UART_TERMINAL
   serial_setup();
