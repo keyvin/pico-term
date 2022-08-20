@@ -91,7 +91,7 @@ void io_main() {
   irq_set_priority(8,0x40);
   irq_set_priority(11, 0x40);
   irq_set_priority(12, 0x40);
-  usb_init();
+
   unsigned int count = 0;
   char ch = 0;
   in_escape = 0;
@@ -186,20 +186,23 @@ void bus_read() {
 
 
 
-
+extern void build_f_table();
 
 int main(){
-  #ifdef UART_TERMINAL
-   serial_setup();
-  #endif
-  //  irq_set_priority(7, 0x40);
-  // irq_set_priority(8,0x40);
-  // irq_set_priority(11, 0x40);
-  // irq_set_priority(12, 0x40);
   set_sys_clock_khz(CPU_FREQ, true);
-  multicore_launch_core1(io_main);   
+#ifdef UART_TERMINAL
+   serial_setup();
+#endif
+  irq_set_priority(7, 0x40);
+ irq_set_priority(8,0x40);
+   irq_set_priority(11, 0x40);
+   irq_set_priority(12, 0x40);
+   build_f_table();
+   usb_init();
+  
+   multicore_launch_core1(io_main);   
   sleep_ms(3000);
-  unpack_font();
+  //unpack_font();
  
   fill_background();
   PIO pio = pio0;

@@ -25,13 +25,12 @@
 #define RGB_ACTIVE 639    
 #define TXCOUNT 640
 
-extern uint32_t unpacked_font[8400];
-extern uint32_t unpacked_mask[8400];
-
 //character buffer - 80x30
 extern char sbuffer[LAST_CHAR+1];
 //attribute buffer - 80x30
 extern char abuffer[LAST_CHAR+1];
+extern char fbuffer[LAST_CHAR+1];
+extern char bbuffer[LAST_CHAR+1];
 extern void tuh_task();
 extern void hid_app_task();
 
