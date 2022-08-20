@@ -59,29 +59,45 @@ void fill_scan_m(uint8_t *buffer, char *string, int line) {
   }
 }
 
-void fill_scan(uint8_t *buffer, char *string, char*attr, int line) {
+void fill_scan(uint8_t *buffer, char *string, char*attr, int line, int frame) {
   unsigned int p=0;
   uint32_t *b= (uint32_t *) buffer;
   uint8_t stats=0;
   uint32_t offs=0;
   uint32_t foreground =  0x00;
   uint32_t background =  0x00;
-  
+  uint32_t tmp;
   for (int i =0; i < COL; i++) {
     p = 2*i;    
     offs = ((string[i]*2)*16)+(2*line);
     stats = attr[i];
     if (stats){
-      foreground = t_color[stats & 0x0F];
-      background = bt_color[(stats & 0xF0) >> 4];
+      if (stats & BOLD) {
+	foreground = 0x1F1F1F1F;
+	background = 0x00000000;
+      }
+      if (stats & REVERSE) {
+	tmp = foreground;
+	foreground = background;
+	background = tmp;
+      }
+      if ((stats & BLINK) && (frame%60 < 30)) {
+	foreground = background;	
+      }
+	
     }
     else {
       foreground = 0xFFFFFFFF;
       background = 0x00000000;   
     }
-    
+    if ((stats & UNDERSCORE) && scanline==15){
+      b[p] = foreground;
+      b[p+1] = foreground;
+    }
+    else{
     b[p] = unpacked_font[offs] & foreground | (unpacked_mask[offs] & background);  
     b[p+1] = unpacked_font[offs+1] & foreground | (unpacked_mask[offs+1] & background);         
+    }
   }
   b[160]=0;
 }

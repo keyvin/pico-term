@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int e_pos = 2100;
-int e_pos_old=0;
+uint8_t cursor_attributes = 0;
+uint8_t num_arguments = 0;
 uint32_t t_color[] = { 0x00000000,
 			 0xC0C0C0C0,
 			 0x38383838,
@@ -53,29 +53,76 @@ void scroll_screen(){
   
 }
 
+void get_argument() {
+  unsigned int argument;
+  int conversions = 0;
+  if (escape_buffer_position > 0) {
+    conversions = sscanf(escape_buffer, "%u", &argument);
+    if (conversions == 1){
+      if (num_arguments != MAX_ESCAPE_ARGUMENTS){
+	escape_arguments[num_arguments++] = argument;
+	escape_buffer_position=0;
+	escape_buffer[0]='\0';
+	return;
+      }
+
+    }
+    
+  }
+  in_escape=false;
+  return;
+}
+
+void handle_m(char c){
+  if (escape_buffer_position !=0){
+    get_argument();
+    if (in_escape==false) return;
+  }
+  if (num_arguments ==0) return;
+  for (int a = 0; a < num_arguments; a++){
+    switch (escape_arguments[a]){
+    case 0:
+      cursor_attributes = 0;
+      break;
+    case 1:
+      cursor_attributes = cursor_attributes | BOLD;
+      break;
+    case 4:
+      cursor_attributes = cursor_attributes | UNDERSCORE;
+      break;
+    case 5:
+      cursor_attributes = cursor_attributes | BLINK;
+      break;
+    case 7:
+      cursor_attributes = cursor_attributes | REVERSE;
+      break;
+    }
+  }
+  in_escape=false;
+}
+
+
 void handle_h(char c){
-   int t_row = 0;
-   int t_col = 0;
+   unsigned int t_row = 0;
+   unsigned int t_col = 0;
    uint8_t conversions = 0;
    if (escape_buffer_position ==0 && (c == 'H' || c=='f')) {
     cursor = 0;
    }
    else{
-    conversions = sscanf(escape_buffer, "%d;%d", &t_row, &t_col);
-    //failure conditions
-    if (conversions != 2){      
+     get_argument();
+    if (num_arguments != 2){      
       return;
     }
+    t_row = escape_arguments[0];
+    t_col = escape_arguments[1];
     if (t_row > ROW || t_col > COL || t_col < 1 || t_row <1)  {
       return;
     }
     //ANSI home is 1,1
     cursor = (t_row-1)*COL + (t_col-1);
    }
-   in_escape=false;
-   escape_buffer_position=0;
 }
-
 
 void handle_move(char c){
   int move_count = 0;
@@ -127,8 +174,6 @@ void handle_move(char c){
     old_cursor = cursor;
   if (c =='u')
     cursor = old_cursor;  
-  in_escape = false;
-  escape_buffer_position = 0;
 }
 
 void handle_erase(char c){
@@ -193,8 +238,7 @@ void handle_erase(char c){
       }
     }
   }    
-  in_escape = false;
-  escape_buffer_position = 0;  
+
 }
 
 
@@ -202,6 +246,7 @@ void process_recieve(char c) {
   if (!in_escape &&!start_escape) {
     if (c >= ' ' && c <= '~') {
       sbuffer[cursor] = c;
+      abuffer[cursor] = cursor_attributes;
       cursor++;    
     }
     else if (c=='\r'){
@@ -243,7 +288,7 @@ void process_recieve(char c) {
  
   else {   //manage escape codes
     //^[H -- return home
-    e_pos_old = escape_buffer_position;
+ 
     switch (c) {
     case 'H':
     case 'f':
@@ -261,40 +306,38 @@ void process_recieve(char c) {
     case 's':
     case 'u':
       handle_move(c);
-      escape_buffer_position=0;
       in_escape=false;
       break;
     case 'J':
     case 'K':
       handle_erase(c);
-      escape_buffer_position=0;
       in_escape=false;
       break;
     case 'm':
+      handle_m(c);
       in_escape=false;
-      escape_buffer_position=0;
+
+      break;
+    case ';':
+      get_argument();
       break;
     default:
       escape_buffer[escape_buffer_position] = c;
       escape_buffer_position++;
       escape_buffer[escape_buffer_position]='\0';
       if ((c >= 'a' && c <= 'z') || (c >='A' && c<= 'Z')) //Unhandled code
-	  escape_buffer_position=30;   
-      if (escape_buffer_position >= 30) {
+	escape_buffer_position=MAX_ARG_LENGTH;   
+      if (escape_buffer_position >= MAX_ARG_LENGTH) {
 	in_escape = false;
 	escape_buffer_position = 0;
       }
     }    
-    /*
+    
     if (in_escape==false) {
-      sbuffer[e_pos++] ='[';
-      for (int a =0; a < e_pos_old; a++)
-	sbuffer[e_pos++] = escape_buffer[a];
-      sbuffer[e_pos++] = c;
+      escape_buffer_position = 0;
+      num_arguments = 0;
     }
-    if (e_pos > (ROW-1)*COL)
-      e_pos = (ROW-5)*COL;
-    */
+
 
   }
   if (cursor >= LAST_CHAR) {

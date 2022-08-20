@@ -255,8 +255,8 @@ int main(){
   uint32_t flip = 0;
 
   // z80io_setup();
-  fill_scan(RGB_buffer[0], sbuffer, abuffer, 0);
-  fill_scan(RGB_buffer[1], sbuffer, abuffer, 0);
+  fill_scan(RGB_buffer[0], sbuffer, abuffer, 0, 0);
+  fill_scan(RGB_buffer[1], sbuffer, abuffer, 0, 0);
   uint32_t bstart = 0;
   uint32_t vb;
   pio_enable_sm_mask_in_sync(pio, ((1u << hsync_sm) | (1u << vsync_sm) | (1u << rgb_sm)));
@@ -288,7 +288,7 @@ int main(){
       frame++;
     }
     fill_scan(rgb_n, (char *)(sbuffer+bstart),
-	      (char *)(abuffer+bstart),scanline%16);
+	      (char *)(abuffer+bstart),scanline%16,frame);
 
     
     if ((frame%60)<30 &&  (cursor/COL)==(bstart/COL) && scanline!=479) {
