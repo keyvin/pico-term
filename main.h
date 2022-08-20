@@ -29,9 +29,9 @@ extern uint32_t unpacked_font[8400];
 extern uint32_t unpacked_mask[8400];
 
 //character buffer - 80x30
-extern char sbuffer[2401];
+extern char sbuffer[LAST_CHAR+1];
 //attribute buffer - 80x30
-extern char abuffer[2401];
+extern char abuffer[LAST_CHAR+1];
 extern void tuh_task();
 extern void hid_app_task();
 

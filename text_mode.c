@@ -5,8 +5,8 @@
 
 
 void fill_background() {
-  for (int i =0; i < 25; i++)
-    for (int j = 0;  j < 80; j++) {
+  for (int i =0; i < ROW; i++)
+    for (int j = 0;  j < COL; j++) {
       sbuffer[(i*j)+i] =' ' ;
       abuffer[(i*j)+i] = 0;
     }
@@ -26,17 +26,17 @@ void unpack_font() {
       buffer[6] = offs & 0x02 ? 255: 0;
       mask[6] = offs & 0x02 ? 0:255;
       buffer[5] = offs & 0x04 ? 255: 0;
-      mask[5] = offs & 0x02 ? 0:255;
+      mask[5] = offs & 0x04 ? 0:255;
       buffer[4] = offs & 0x08 ? 255: 0;
-      mask[4] = offs & 0x02 ? 0:255;
+      mask[4] = offs & 0x08 ? 0:255;
       buffer[3] = offs & 0x10 ? 255: 0;
-      mask[3] = offs & 0x02 ? 0:255;
+      mask[3] = offs & 0x10 ? 0:255;
       buffer[2] = offs & 0x20 ? 255: 0;
-      mask[2] = offs & 0x02 ? 0:255;
+      mask[2] = offs & 0x20 ? 0:255;
       buffer[1] = offs & 0x40 ? 255: 0;
-      mask[1] = offs & 0x02 ? 0:255;
+      mask[1] = offs & 0x40 ? 0:255;
       buffer[0] = offs & 0x80 ? 255: 0;
-      mask[0] = offs & 0x02 ? 0:255;
+      mask[0] = offs & 0x80 ? 0:255;
       unpacked_font[((i*2)*16)+(l*2)] = *((uint32_t *) buffer);
       unpacked_font[((i*2)*16)+(l*2)+1] = *((uint32_t *) (buffer+4));
       unpacked_mask[((i*2)*16)+(l*2)] = *((uint32_t *) mask);
@@ -60,14 +60,14 @@ void fill_scan_m(uint8_t *buffer, char *string, int line) {
 }
 
 void fill_scan(uint8_t *buffer, char *string, char*attr, int line) {
-  unsigned int p;
+  unsigned int p=0;
   uint32_t *b= (uint32_t *) buffer;
-  uint8_t stats;
-  uint32_t offs;
-  uint32_t foreground =  0xC0C0C0C0;
-  uint32_t background =  0x02020202;
+  uint8_t stats=0;
+  uint32_t offs=0;
+  uint32_t foreground =  0x00;
+  uint32_t background =  0x00;
   
-  for (int i =0; i < 80; i++) {
+  for (int i =0; i < COL; i++) {
     p = 2*i;    
     offs = ((string[i]*2)*16)+(2*line);
     stats = attr[i];

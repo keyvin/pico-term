@@ -45,7 +45,6 @@ static inline void vsync_program_init(PIO pio, uint sm, uint offset, uint pin, f
 
     // Set this pin's GPIO function (connect PIO to the pad)
     pio_gpio_init(pio, pin);
-    // pio_gpio_init(pio, pin+1);
     
     // Set the pin direction to output at the PIO
     pio_sm_set_consecutive_pindirs(pio, sm, pin, 1, true);

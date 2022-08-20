@@ -24,8 +24,6 @@ target_link_libraries(simple_vga PRIVATE
 	tinyusb_host
 	tinyusb_board)
 
-pico_enable_stdio_uart(simple_vga 0)
-
 pico_add_extra_outputs(simple_vga)
 
 

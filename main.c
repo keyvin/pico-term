@@ -91,7 +91,7 @@ void io_main() {
   irq_set_priority(8,0x40);
   irq_set_priority(11, 0x40);
   irq_set_priority(12, 0x40);
-    usb_init();
+  usb_init();
   unsigned int count = 0;
   char ch = 0;
   in_escape = 0;
@@ -108,14 +108,14 @@ void io_main() {
      uart_putc(UART_ID, (char)ch);
    }   
   }
-  sleep_us(300);
+  //  sleep_us(00);
 }
  
 
 void serial_setup() {
-  uart_init(UART_ID, BAUD_RATE);
   gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
   gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);  
+  uart_init(UART_ID, BAUD_RATE);
   uart_set_hw_flow(UART_ID, false, false);  
   uart_set_fifo_enabled(UART_ID, false);
 }
@@ -189,14 +189,14 @@ void bus_read() {
 
 
 int main(){
-  irq_set_priority(7, 0x40);
-  irq_set_priority(8,0x40);
-  irq_set_priority(11, 0x40);
-  irq_set_priority(12, 0x40);
-  set_sys_clock_khz(CPU_FREQ, true);
   #ifdef UART_TERMINAL
-  serial_setup();
+   serial_setup();
   #endif
+  //  irq_set_priority(7, 0x40);
+  // irq_set_priority(8,0x40);
+  // irq_set_priority(11, 0x40);
+  // irq_set_priority(12, 0x40);
+  set_sys_clock_khz(CPU_FREQ, true);
   multicore_launch_core1(io_main);   
   sleep_ms(3000);
   unpack_font();
@@ -216,11 +216,11 @@ int main(){
   float div2 = ((float)clock_get_hz(clk_sys)) / (freq*5); //run it 3 times faster?
   //float div3 = ((float)clock_get_hz(clk_sys)) / (freq*2);
 
-      // DMA channels - 0 sends color data, 1 reconfigures and restarts 0
+  // DMA channels - 0 sends color data, 1 reconfigures and restarts 0
   int rgb_chan_0 = 0;
     
 
-    // Channel Zero (sends color data to PIO VGA machine)
+  // Channel Zero (sends color data to PIO VGA machine)
   dma_channel_config c0 = dma_channel_get_default_config(rgb_chan_0);  // default configs
   channel_config_set_transfer_data_size(&c0, DMA_SIZE_8);              // 32-bit txfers
   channel_config_set_read_increment(&c0, true);                        // yes read incrementing
@@ -266,6 +266,8 @@ int main(){
   rgb = (uint8_t *) RGB_buffer[0];
   rgb_n = (uint8_t *) RGB_buffer[1];
   bstart = (scanline / 16)*COL;
+  //  gpio_set_dir(0,true);
+  //gpio_set_function(0, GPIO_FUNC_PIO0);
   while (1) {   
     tmp_p = rgb;
     rgb = rgb_n;	    
@@ -287,6 +289,7 @@ int main(){
     }
     fill_scan(rgb_n, (char *)(sbuffer+bstart),
 	      (char *)(abuffer+bstart),scanline%16);
+
     
     if ((frame%60)<30 &&  (cursor/COL)==(bstart/COL) && scanline!=479) {
       ptr = (uint32_t *) rgb_n;

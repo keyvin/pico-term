@@ -57,7 +57,7 @@ void handle_h(char c){
    int t_row = 0;
    int t_col = 0;
    uint8_t conversions = 0;
-   if (escape_buffer_position ==0 && c == 'H') {
+   if (escape_buffer_position ==0 && (c == 'H' || c=='f')) {
     cursor = 0;
    }
    else{
@@ -156,7 +156,7 @@ void handle_erase(char c){
 	  sbuffer[a] = 0;
 	  abuffer[a] = 0;
 	}
-	cursor=0;
+	//cursor=0;
       }
       else if (command =='3') {}
     }
@@ -221,7 +221,6 @@ void process_recieve(char c) {
   }
   else if (start_escape ==true){
     start_escape = false;
-    sbuffer[e_pos++]=c;
     if (c == '['){
       in_escape=true;
     }
@@ -286,6 +285,7 @@ void process_recieve(char c) {
 	escape_buffer_position = 0;
       }
     }    
+    /*
     if (in_escape==false) {
       sbuffer[e_pos++] ='[';
       for (int a =0; a < e_pos_old; a++)
@@ -294,6 +294,8 @@ void process_recieve(char c) {
     }
     if (e_pos > (ROW-1)*COL)
       e_pos = (ROW-5)*COL;
+    */
+
   }
   if (cursor >= LAST_CHAR) {
       scroll_screen();

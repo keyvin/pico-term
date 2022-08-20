@@ -32,7 +32,6 @@
 //--------------------------------------------------------------------+
 // MACRO CONSTANT TYPEDEF PROTYPES
 //--------------------------------------------------------------------+
-void led_blinking_task(void);
 
 extern void cdc_task(void);
 extern void hid_app_task(void);
@@ -63,14 +62,14 @@ CFG_TUSB_MEM_SECTION static char serial_in_buffer[64] = { 0 };
 void tuh_mount_cb(uint8_t dev_addr)
 {
   // application set-up
-  printf("A device with address %d is mounted\r\n", dev_addr);
+
   tuh_cdc_receive(dev_addr, serial_in_buffer, sizeof(serial_in_buffer), true); // schedule first transfer
 }
 
 void tuh_umount_cb(uint8_t dev_addr)
 {
   // application tear-down
-  printf("A device with address %d is unmounted \r\n", dev_addr);
+
 }
 
 // invoked ISR context
@@ -80,7 +79,6 @@ void tuh_cdc_xfer_isr(uint8_t dev_addr, xfer_result_t event, cdc_pipeid_t pipe_i
   (void) pipe_id;
   (void) xferred_bytes;
 
-  printf(serial_in_buffer);
   tu_memclr(serial_in_buffer, sizeof(serial_in_buffer));
 
   tuh_cdc_receive(dev_addr, serial_in_buffer, sizeof(serial_in_buffer), true); // waiting for next data

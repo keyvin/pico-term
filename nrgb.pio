@@ -11,7 +11,7 @@ wait 1 irq 1 [4]            ; Wait for vsync active mode (starts 5 cycles after 
 
 colorout:
     pull block              ; Pull color value
-    out pins, 8 [2]          ; Push out to pins (pixel)
+    out pins, 8 [2]         ; Push out to pins (pixel)
     jmp x-- colorout        ; Stay here thru horizontal active mode
 .wrap
 
@@ -23,13 +23,13 @@ static inline void nrgb_program_init(PIO pio, uint sm, uint offset, uint pin, fl
         pio_sm_config c = nrgb_program_get_default_config(offset);
         //config, base, num
         sm_config_set_out_pins(&c, pin, 8);	
-	sm_config_set_set_pins(&c, pin, 8);
+	sm_config_set_set_pins(&c, pin, 3);
         //connect pins to this pio
         for (int i=0;i<8;i++) pio_gpio_init(pio, pin+i);
         pio_sm_set_consecutive_pindirs(pio, sm, pin, 8, true);
 	sm_config_set_clkdiv(&c,freq);
         //init on pio
         pio_sm_init(pio, sm, offset, &c);
-        //start
+	
 }
 %}
