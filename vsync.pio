@@ -10,6 +10,7 @@ active:
     irq 1                         ; Signal that we're in active mode
     jmp x-- active                ; Remain in active mode, decrementing counter
 ; FRONTPORCH
+irq 5;
 set y, 9                          ; Use y scratch register as counter
 frontporch:
     wait 1 irq 0                  ; Wait for hsync to go high
@@ -18,7 +19,6 @@ frontporch:
 set pins, 0                       ; Set pin low
 wait 1 irq 0                      ; Wait for one line
 wait 1 irq 0                      ; Wait for a second line
-irq 5;
 ; BACKPORCH
 set y, 31                         ; First part of back porch into y scratch register (and delays a cycle)
 backporch:

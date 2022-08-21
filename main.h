@@ -21,7 +21,7 @@
 #define HSYNC_PIN 9
 #define RGB_PIN 0
 #define H_ACTIVE   655    // (active + frontporch - 1) - one cycle delay for mov
-#define V_ACTIVE   480    // (active - 1)
+#define V_ACTIVE   479    // (active - 1)
 #define RGB_ACTIVE 639    
 #define TXCOUNT 640
 

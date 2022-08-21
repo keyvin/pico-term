@@ -277,13 +277,21 @@ int main(){
     rgb_n = tmp_p;
     dma_channel_set_read_addr(rgb_chan_0, rgb, true);
     //fill the buffer for the flip
+    
     scanline++;
     bstart = (scanline / 16)*COL;
-    if (pio_interrupt_get(pio,5)) {
+     if (pio_interrupt_get(pio,5)) {
       pio_interrupt_clear(pio,5);
-      if (scanline != 480){
+      //vblank before last scanline
+      if (scanline < 480){
 	scanline=480;
+	dma_channel_abort(rgb_chan_0);
+	pio_sm_clear_fifos(pio, rgb_sm);
+	pio_sm_put_blocking(pio, rgb_sm, RGB_ACTIVE);
+	pio_sm_restart(pio,rgb_sm);
+	
       }
+
     }
     if (scanline == 480){	
       bstart =0;
