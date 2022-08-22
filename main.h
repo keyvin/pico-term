@@ -22,8 +22,8 @@
 #define RGB_PIN 0
 #define H_ACTIVE   655    // (active + frontporch - 1) - one cycle delay for mov
 #define V_ACTIVE   479    // (active - 1)
-#define RGB_ACTIVE 639    
-#define TXCOUNT 640
+#define RGB_ACTIVE 640    
+#define TXCOUNT 641
 
 //character buffer - 80x30
 extern char sbuffer[LAST_CHAR+1];

@@ -5,6 +5,10 @@
 
 uint8_t cursor_attributes = 0;
 uint8_t num_arguments = 0;
+bool at_eol = false;
+uint16_t old_cursor;
+
+
 uint32_t t_color[] = { 0x00000000,
 			 0xC0C0C0C0,
 			 0x38383838,
@@ -41,7 +45,7 @@ uint32_t bt_color[] = { 0x00000000,
 			 0xFFFFFFFF
 };
 
-uint16_t old_cursor;
+
 
 
 void scroll_screen(){
@@ -187,7 +191,7 @@ void handle_erase(char c){
     if (c == 'J') {
       //clear from cursor down (inclusive)
       if (escape_buffer_position ==0 || command == '0') {
-	for (int a = cursor; a < (ROW-5)*COL; a++) {
+	for (int a = cursor; a < ROW*COL; a++) {
 	  sbuffer[a] = 0;
 	  abuffer[a] = 0;
 	}
@@ -201,7 +205,7 @@ void handle_erase(char c){
       }
       //clear screen
       else if (command =='2') {
-	for (int a = 0; a < (ROW-5)*COL; a++) {
+	for (int a = 0; a < ROW*COL; a++) {
 	  sbuffer[a] = 0;
 	  abuffer[a] = 0;
 	}
@@ -247,11 +251,24 @@ void handle_erase(char c){
 
 
 void process_recieve(char c) {
+  
   if (!in_escape &&!start_escape) {
     if (c >= ' ' && c <= '~') {
+      if (at_eol==true){           //emulate vt-100. Cursor doesn't wrap
+	                          //until a printable character is recieved	                         
+	if (cursor%COL==COL-1) {  //check that the cursor wasn't repositioned 
+	  cursor++;	          //advance cursor
+	}
+	at_eol=false;   
+      }
       sbuffer[cursor] = c;
       abuffer[cursor] = cursor_attributes;
-      cursor++;    
+      if (cursor%COL==COL-1){   
+	at_eol=true;
+      }
+      else {
+	cursor++;
+      }      
     }
     else if (c=='\r'){
       cursor = (cursor / COL)*COL; //integer division. Place at start of row

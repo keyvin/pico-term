@@ -289,7 +289,7 @@ int main(){
 	pio_sm_clear_fifos(pio, rgb_sm);
 	pio_sm_put_blocking(pio, rgb_sm, RGB_ACTIVE);
 	pio_sm_restart(pio,rgb_sm);
-	
+	pio_sm_clear_fifos(pio, rgb_sm);
       }
 
     }
@@ -300,14 +300,17 @@ int main(){
     }
     fill_scan(rgb_n, (char *)(sbuffer+bstart),
 	      (char *)(abuffer+bstart),scanline%16,frame);
-
-    
     if ((frame%60)<30 &&  (cursor/COL)==(bstart/COL) && scanline!=479) {
       ptr = (uint32_t *) rgb_n;
+      //TODO - should be cursor color/mode
       ptr[(cursor%COL)*2]=0xFFFFFFFF;
       ptr[(cursor%COL)*2+1]=0xFFFFFFFF;
-	
-    }      
+
+
+    }
+    rgb_n[640] = 0;
+
+
     dma_channel_wait_for_finish_blocking(rgb_chan_0);
   }
       
