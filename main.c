@@ -18,6 +18,7 @@ extern void usb_init();
 #include "main.h"
 #include "ansi_terminal.h"
 #include "text_mode.h"
+#include "hardware/pwm.h"
 
 uint16_t scanline;
 
@@ -193,15 +194,29 @@ int main(){
 #ifdef UART_TERMINAL
    serial_setup();
 #endif
-  irq_set_priority(7, 0x40);
- irq_set_priority(8,0x40);
+   irq_set_priority(7, 0x40);
+   irq_set_priority(8,0x40);
    irq_set_priority(11, 0x40);
    irq_set_priority(12, 0x40);
    build_f_table();
    usb_init();
   
    multicore_launch_core1(io_main);   
-  sleep_ms(3000);
+   gpio_set_function(BUZZER_PIN, GPIO_FUNC_PWM);
+   
+   sleep_ms(3000);
+   uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
+
+   
+   pwm_set_clkdiv(slice_num, 180.0);
+   pwm_set_wrap(slice_num, 1000);
+   pwm_set_chan_level(slice_num, PWM_CHAN_A, 900);
+   pwm_set_chan_level(slice_num, PWM_CHAN_B, 900);
+   pwm_set_enabled(slice_num, true);
+   
+
+   
+   
   //unpack_font();
  
   fill_background();

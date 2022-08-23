@@ -17,6 +17,8 @@
 #define UART_RX_PIN 17
 #endif
 
+#define BUZZER_PIN 27
+
 #define VSYNC_PIN 8
 #define HSYNC_PIN 9
 #define RGB_PIN 0

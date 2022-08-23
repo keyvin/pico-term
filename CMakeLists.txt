@@ -19,6 +19,7 @@ target_link_libraries(simple_vga PRIVATE
         pico_stdlib
         hardware_pio
 	hardware_dma
+	hardware_pwm
 	hardware_uart
 	pico_multicore
 	tinyusb_host

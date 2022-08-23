@@ -316,6 +316,7 @@ void process_recieve(char c) {
       handle_h(c);
       escape_buffer_position=0;
       in_escape=false;
+      at_eol=false;
       break;
     case 'A':
     case 'B':
@@ -328,6 +329,7 @@ void process_recieve(char c) {
     case 'u':
       handle_move(c);
       in_escape=false;
+      at_eol=false;
       break;
     case 'J':
     case 'K':
