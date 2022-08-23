@@ -16,6 +16,7 @@ extern uint8_t num_arguments;
 extern uint8_t cursor_attributes;
 
 #define BOLD 0x01
+#define DIM 0x01
 #define UNDERSCORE 0x02
 #define BLINK 0x04
 #define REVERSE 0x08

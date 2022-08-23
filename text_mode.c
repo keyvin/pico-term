@@ -117,12 +117,17 @@ void fill_scan(uint8_t *buffer, char *string, char*attr, int line, int frame) {
   uint32_t foreground =  0x00;
   uint32_t background =  0x00;
   uint32_t tmp;
+  uint32_t l = 2*line;
+
   for (int i =0; i < COL; i++) {
     p = 2*i;    
-    offs = ((string[i]*2)*16)+(2*line);
+    offs = ((string[i]*2)*16)+l;
     stats = attr[i];
+    foreground = 0xFFFFFFFF;
+    background = 0x00000000;   
+
     if (stats){
-      if (stats & BOLD) {
+      if (stats & BOLD || stats & DIM) {
 	foreground = 0x1F1F1F1F;
 	background = 0x00000000;
       }
@@ -136,14 +141,10 @@ void fill_scan(uint8_t *buffer, char *string, char*attr, int line, int frame) {
       }
 	
     }
-    else {
-      foreground = 0xFFFFFFFF;
-      background = 0x00000000;   
-    }
     if ((stats & UNDERSCORE) && line==15){
       b[p] = foreground;
       b[p+1] = foreground;
-    }
+     }
     else{
       get_f_at(string[i], line, &f0, &f1, &b0,&b1);
       b[p] = f0 & foreground | (b0 & background);  
@@ -151,5 +152,7 @@ void fill_scan(uint8_t *buffer, char *string, char*attr, int line, int frame) {
     }
   }
   b[160]=0;
+  //b[161] = 0;
+  
 }
 

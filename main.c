@@ -202,18 +202,18 @@ int main(){
    usb_init();
   
    multicore_launch_core1(io_main);   
-   gpio_set_function(BUZZER_PIN, GPIO_FUNC_PWM);
-   
-   sleep_ms(3000);
-   uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
 
    
+   sleep_ms(3000);
+   //uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
+   /*
+   gpio_set_function(BUZZER_PIN, GPIO_FUNC_PWM);   
    pwm_set_clkdiv(slice_num, 180.0);
    pwm_set_wrap(slice_num, 1000);
    pwm_set_chan_level(slice_num, PWM_CHAN_A, 900);
    pwm_set_chan_level(slice_num, PWM_CHAN_B, 900);
    pwm_set_enabled(slice_num, true);
-   
+   */
 
    
    

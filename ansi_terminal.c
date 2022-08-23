@@ -95,6 +95,8 @@ void handle_m(char c){
     case 1:
       cursor_attributes = cursor_attributes | BOLD;
       break;
+    case 2:
+      cursor_attributes = cursor_attributes| DIM;
     case 4:
       cursor_attributes = cursor_attributes | UNDERSCORE;
       break;
@@ -102,7 +104,17 @@ void handle_m(char c){
       cursor_attributes = cursor_attributes | BLINK;
       break;
     case 7:
-      cursor_attributes = cursor_attributes | REVERSE;
+     cursor_attributes = cursor_attributes | REVERSE;
+     break;
+    case 22:
+      cursor_attributes = (cursor_attributes | BOLD) ^BOLD;
+      cursor_attributes = (cursor_attributes | DIM) ^DIM;
+      break;
+    case 24:
+      cursor_attributes = (cursor_attributes | UNDERSCORE) ^UNDERSCORE;
+      break;
+    case 27:
+      cursor_attributes = (cursor_attributes | REVERSE) ^ REVERSE;
       break;
     }
   }

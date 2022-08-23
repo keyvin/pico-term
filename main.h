@@ -1,7 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H 1
 #define UART_TERMINAL 1
-#define CPU_FREQ 180000
+#define CPU_FREQ 218000
 #define PIXEL_CLOCK 25175000
 #include  "pico/stdlib.h"
 //Static values for screen layout
