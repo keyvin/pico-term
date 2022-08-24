@@ -75,10 +75,10 @@ void scroll_screen(){
 			abuffer,          // write address (RGB PIO TX FIFO)
 			abuffer+COL,            // The initial read address (pixel color array)
 			(LAST_CHAR-COL)/4,                    // Number of transfers; in this case each is 1 byte.
-			false                       // start immediately.
+			true                       // start immediately.
     );
 
-  //dma_channel_wait_for_finish_blocking(chan1);
+  dma_channel_wait_for_finish_blocking(chan1);
 
   for (int a =LAST_CHAR; a >=(LAST_CHAR-COL);a--){
     abuffer[a]=0;
@@ -98,9 +98,7 @@ void get_argument() {
 	escape_buffer[0]='\0';
 	return;
       }
-
     }
-    
   }
   in_escape=false;
   return;
@@ -156,16 +154,18 @@ void handle_h(char c){
    }
    else{
      get_argument();
-    if (num_arguments != 2){      
-      return;
-    }
-    t_row = escape_arguments[0];
-    t_col = escape_arguments[1];
-    if (t_row > ROW || t_col > COL || t_col < 1 || t_row <1)  {
-      return;
-    }
-    //ANSI home is 1,1
-    cursor = (t_row-1)*COL + (t_col-1);
+     if (num_arguments != 2){      
+       return;
+     }
+     t_row = escape_arguments[0];
+     t_col = escape_arguments[1];
+ 
+     if (t_row > ROW || t_col > COL || t_col < 1 || t_row <1)  {
+       return;
+     }
+     //ANSI home is 1,1
+     cursor = (t_row-1)*COL + (t_col-1);
+
    }
 }
 
@@ -192,13 +192,13 @@ void handle_move(char c){
   }
   if (c == 'C') {
     if (cursor%COL + move_count >=COL)
-      cursor = cursor/COL + (COL-1);
+      cursor = (cursor/COL)*COL + (COL-1);
      else
        cursor = cursor + move_count;
   }
   if (c == 'D') {
     if (cursor%COL - move_count < 0)
-      cursor = cursor/COL;
+      cursor = (cursor/COL)*COL;
     else
       cursor = cursor - move_count;
   }
@@ -209,7 +209,7 @@ void handle_move(char c){
     
   }
   if ( c == 'G') {
-    cursor = cursor/COL + move_count;
+    cursor = (cursor/COL)*COL + move_count;
   }
   //tricky one. Keypresses.
   if (c == 'n' && move_count ==6) {
@@ -287,6 +287,7 @@ void handle_erase(char c){
 }
 
 void handle_insert(char c) {
+
   int num_lines = 0;
   if (escape_buffer_position==0)
     num_lines = 1;
@@ -326,7 +327,7 @@ void handle_insert(char c) {
 	sbuffer[LAST_CHAR-t]='\0';
 	t--;
       }
-      cursor = cursor/COL;
+      cursor = (cursor/COL)*COL;
     }
   }
   if (c == 'L') {
@@ -335,7 +336,7 @@ void handle_insert(char c) {
     int destination = source + COL*num_lines;
     if (destination >= LAST_CHAR) {
       //blank current line to end of screen and set cursor to start of row
-      cursor = cursor/COL;
+      cursor = (cursor/COL)*COL;
       for (int i = cursor; i < LAST_CHAR; i++){
 	abuffer[i] = '\0';
 	sbuffer[i]= '\0';
@@ -343,8 +344,8 @@ void handle_insert(char c) {
     }
     else {
       for (int i=LAST_CHAR-1; i >= destination;i--){
-	abuffer[i]=abuffer[i-COL*num_lines];
-	sbuffer[i]=sbuffer[i-COL*num_lines];
+	abuffer[i]=abuffer[i-(COL*num_lines)];
+	sbuffer[i]=sbuffer[i-(COL*num_lines)];
 
       }
       while (source != destination) {
@@ -352,9 +353,12 @@ void handle_insert(char c) {
 	sbuffer[source] = '\0';
 	source++;
       }
-      cursor=cursor/COL;
+ 
+      cursor=(cursor/COL)*COL;
+
     }
   }
+
 }
 
 void process_recieve(char c) {
@@ -424,7 +428,6 @@ void process_recieve(char c) {
       cursor = old_cursor;
     }
   }
- 
   else {   //manage escape codes
     //^[H -- return home
  
@@ -435,6 +438,7 @@ void process_recieve(char c) {
       escape_buffer_position=0;
       in_escape=false;
       at_eol=false;
+      num_arguments=0;;
       break;
     case 'A':
     case 'B':
@@ -448,24 +452,30 @@ void process_recieve(char c) {
       handle_move(c);
       in_escape=false;
       at_eol=false;
+      num_arguments=0;
       break;
     case 'J':
     case 'K':
       handle_erase(c);
       in_escape=false;
+      num_arguments=0;
       break;
     case 'L':
     case 'M':
       handle_insert(c);
       in_escape=false;
+      num_arguments=0;
       break;
     case 'm':
       handle_m(c);
       in_escape=false;
-
+      num_arguments=0;
       break;
     case ';':
       get_argument();
+      break;
+    case 0x1b:
+      in_escape=false;
       break;
     default:
       escape_buffer[escape_buffer_position] = c;
@@ -476,19 +486,19 @@ void process_recieve(char c) {
       if (escape_buffer_position >= MAX_ARG_LENGTH) {
 	in_escape = false;
 	escape_buffer_position = 0;
+	num_arguments=0;
       }
-    }    
     
+    }
     if (in_escape==false) {
       escape_buffer_position = 0;
       num_arguments = 0;
+          
     }
-
-
   }
   if (cursor >= LAST_CHAR) {
-      scroll_screen();
-      cursor = LAST_CHAR-COL;
+    scroll_screen();
+    cursor = LAST_CHAR-COL;
   }
     
 }
