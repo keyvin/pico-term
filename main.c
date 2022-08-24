@@ -18,7 +18,13 @@ extern void usb_init();
 #include "main.h"
 #include "ansi_terminal.h"
 #include "text_mode.h"
-#include "hardware/pwm.h"
+
+
+#define BELL_ENABLED 1
+#ifdef BELL_ENABLED
+#include "bell.h"
+uint32_t bell_start_tick;
+#endif
 
 uint16_t scanline;
 
@@ -33,20 +39,14 @@ char kb_buffer[KB_BUFFER_SIZE];
 uint8_t kb_count;
 
 
-//cursor   - cursor position in sbuffer/abuffer 
 
-//TODO better to use memset
-
-//fill DMA buffer at current scanline
-
-
-//bus protocol uses pio1
+//z80 bus protocol uses pio1
 PIO p1;
 uint offset_z80io;
 uint sm_z80io;	  
 
 
-//Callback. 
+//Callback from hid_task.c. 
 void keypress(char p) {
   if (kb_count < KB_BUFFER_SIZE) {
     kb_buffer[kb_count]=p;
@@ -82,6 +82,7 @@ bool key_ready(){
 
 
 void io_main() {
+  //unsure if still necessary
   irq_set_priority(7, 0x40);
   irq_set_priority(8,0x40);
   irq_set_priority(11, 0x40);
@@ -92,14 +93,28 @@ void io_main() {
 
   in_escape = 0;
   while(1) {
+#ifdef BELL_ENABLED
+    if (bell_is_on) {
+      if (time_us_32()-bell_start_tick > BELL_DURATION_US || bell_start_tick > time_us_32())
+	stop_bell();
+    }
+#endif	  
+        
     tuh_task();
     hid_app_task();
 
-    bool full=false;
     if (uart_is_readable(UART_ID)){
       ch = uart_getc(UART_ID);
+
+
+#ifdef BELL_ENABLED
+      if (ch==BELL_CHAR){
+	start_bell(BELL_HZ);
+	bell_start_tick=time_us_32();
+      }
+#endif
       process_recieve(ch);
-    }
+}
     if (uart_is_writable(UART_ID) && key_ready()){
       ch = get_keypress();
       uart_putc(UART_ID, (char)ch);
@@ -215,20 +230,7 @@ int main(){
    multicore_launch_core1(io_main);   
 
    
-   sleep_ms(3000);
-   //uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
-   /*
-   gpio_set_function(BUZZER_PIN, GPIO_FUNC_PWM);   
-   pwm_set_clkdiv(slice_num, 180.0);
-   pwm_set_wrap(slice_num, 1000);
-   pwm_set_chan_level(slice_num, PWM_CHAN_A, 900);
-   pwm_set_chan_level(slice_num, PWM_CHAN_B, 900);
-   pwm_set_enabled(slice_num, true);
-   */
 
-   
-   
-  //unpack_font();
  
   fill_background();
   PIO pio = pio0;
