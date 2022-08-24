@@ -46,8 +46,6 @@ uint offset_z80io;
 uint sm_z80io;	  
 
 
-
-
 //Callback. 
 void keypress(char p) {
   if (kb_count < KB_BUFFER_SIZE) {
@@ -83,10 +81,6 @@ bool key_ready(){
 }
 
 
-
-
-
-
 void io_main() {
   irq_set_priority(7, 0x40);
   irq_set_priority(8,0x40);
@@ -95,21 +89,38 @@ void io_main() {
 
   unsigned int count = 0;
   char ch = 0;
+
   in_escape = 0;
   while(1) {
     tuh_task();
     hid_app_task();
-   ch =  0; 
-   if (uart_is_readable(UART_ID)){
-     ch = uart_getc(UART_ID);
-   }
-   if (ch) process_recieve(ch);
-   if (uart_is_writable(UART_ID) && key_ready()){
-     ch = get_keypress();
-     uart_putc(UART_ID, (char)ch);
-   }   
+
+    bool full=false;
+    if (uart_is_readable(UART_ID)){
+      ch = uart_getc(UART_ID);
+      process_recieve(ch);
+    }
+    if (uart_is_writable(UART_ID) && key_ready()){
+      ch = get_keypress();
+      uart_putc(UART_ID, (char)ch);
+    }   
+    /*    if (pio_interrupt_get(pio0,5)) {
+      for (uint i=0; (i < 500) && recieve_buffer_ready()==true; i++){
+	process_recieve(recieve_buffer_get());
+	if (!pio_interrupt_get(pio0,5))break; 
+	
+	if (uart_is_readable(UART_ID)){
+	  ch = uart_getc(UART_ID);
+	  recieve_buffer_put(ch);
+	}
+	
+      }
+      
+      }*/
+
+    
   }
-  //  sleep_us(00);
+
 }
  
 
@@ -187,7 +198,7 @@ void bus_read() {
 
 
 
-extern void build_f_table();
+
 
 int main(){
   set_sys_clock_khz(CPU_FREQ, true);
@@ -296,7 +307,7 @@ int main(){
     scanline++;
     bstart = (scanline / 16)*COL;
      if (pio_interrupt_get(pio,5)) {
-      pio_interrupt_clear(pio,5);
+       //pio_interrupt_clear(pio,5) //irq 5 shows we are in vblank. Do not clear
       //vblank before last scanline
       if (scanline < 480){
 	scanline=480;

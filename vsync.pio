@@ -10,7 +10,7 @@ active:
     irq 1                         ; Signal that we're in active mode
     jmp x-- active                ; Remain in active mode, decrementing counter
 ; FRONTPORCH
-irq 5;
+irq 5;			          ; Alert that vblank has started
 set y, 9                          ; Use y scratch register as counter
 frontporch:
     wait 1 irq 0                  ; Wait for hsync to go high

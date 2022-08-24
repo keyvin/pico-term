@@ -39,7 +39,7 @@ extern void hid_app_task();
 uint cursor;
 uint mode;
 
-
+extern void build_f_table();
 #define T_MONOCHROME 0;
 #define T_64C_80x30 1;  //2grb, 2status
 #endif

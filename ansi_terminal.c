@@ -49,15 +49,40 @@ uint32_t bt_color[] = { 0x00000000,
 
 
 void scroll_screen(){
-  uint32_t *ptr = (uint32_t *) sbuffer;
-  uint32_t *ptr2 = (uint32_t *) abuffer;
-  for (unsigned int a = 0; a < ((ROW-1)*COL)/4; a++){
-    ptr[a] = ptr[a+20];
-    ptr2[a] = ptr2[a+20];
-  }
-  for (unsigned int a = 0; a < COL; a++){
-    sbuffer[LAST_CHAR-a-1] = '\0';
-    abuffer[LAST_CHAR-a-1] = 0;
+  int rgb_chan_0 = 0;
+    
+
+  // Channel Zero (sends color data to PIO VGA machine)
+  int chan1 = 1; //dma channel 1. 
+  dma_channel_config c1 = dma_channel_get_default_config(chan1);  // default configs
+  channel_config_set_transfer_data_size(&c1, DMA_SIZE_32);              // 32-bit txfers
+  channel_config_set_read_increment(&c1, true);                        // yes read incrementing
+  channel_config_set_write_increment(&c1, true);                      // no write incrementing
+  
+  dma_channel_configure(
+			chan1,                 // Channel to be configured
+			&c1,                        // The configuration we just created
+			sbuffer,          // write address (RGB PIO TX FIFO)
+			sbuffer+COL,            // The initial read address (pixel color array)
+			(LAST_CHAR-COL)/4,                    // Number of transfers; in this case each is 1 byte.
+			true                       // start immediately.
+    );
+  dma_channel_wait_for_finish_blocking(chan1);
+  
+  dma_channel_configure(
+			chan1,                 // Channel to be configured
+			&c1,                        // The configuration we just created
+			abuffer,          // write address (RGB PIO TX FIFO)
+			abuffer+COL,            // The initial read address (pixel color array)
+			(LAST_CHAR-COL)/4,                    // Number of transfers; in this case each is 1 byte.
+			false                       // start immediately.
+    );
+
+  //dma_channel_wait_for_finish_blocking(chan1);
+
+  for (int a =LAST_CHAR; a >=(LAST_CHAR-COL);a--){
+    abuffer[a]=0;
+    sbuffer[a]=0;
   }
 }
 
@@ -261,6 +286,76 @@ void handle_erase(char c){
 
 }
 
+void handle_insert(char c) {
+  int num_lines = 0;
+  if (escape_buffer_position==0)
+    num_lines = 1;
+  else {
+    get_argument();
+    if (num_arguments==0) {
+      //malformed...
+      return;
+    }
+    num_lines = escape_arguments[0];
+  }
+  int lines_left = ROW - cursor/COL;
+  
+  if (c == 'M') {
+    //delete M lines
+    int destination = (cursor/COL)*COL;
+    int source = destination + COL*num_lines;
+    if (source >=LAST_CHAR) {
+      for (int a=LAST_CHAR; a >= LAST_CHAR-COL; a--){
+	abuffer[a]=0;
+	sbuffer[a]=0;
+	source = COL*(ROW-1);
+      }
+        
+    }
+    else {
+      int t=destination;
+      //from source to end of line
+      for (int a=source; a <LAST_CHAR;a++) {
+	abuffer[t]=abuffer[a];
+	sbuffer[t]=sbuffer[a];
+	t++;
+      }
+      t = num_lines*COL;
+      while (t >= 0){
+	abuffer[LAST_CHAR-t]='\0';
+	sbuffer[LAST_CHAR-t]='\0';
+	t--;
+      }
+      cursor = cursor/COL;
+    }
+  }
+  if (c == 'L') {
+    //insert lines
+    int source = (cursor/COL)*COL;
+    int destination = source + COL*num_lines;
+    if (destination >= LAST_CHAR) {
+      //blank current line to end of screen and set cursor to start of row
+      cursor = cursor/COL;
+      for (int i = cursor; i < LAST_CHAR; i++){
+	abuffer[i] = '\0';
+	sbuffer[i]= '\0';
+      }
+    }
+    else {
+      for (int i=LAST_CHAR-1; i >= destination;i--){
+	abuffer[i]=abuffer[i-COL*num_lines];
+	sbuffer[i]=sbuffer[i-COL*num_lines];
+
+      }
+      while (source != destination) {
+	abuffer[source] = '\0';
+	sbuffer[source] = '\0';
+	source++;
+      }
+      cursor=cursor/COL;
+    }
+  }
+}
 
 void process_recieve(char c) {
   
@@ -310,6 +405,17 @@ void process_recieve(char c) {
     }
     if (c == 'D') {
       cursor = cursor + COL;
+      if (cursor >= LAST_CHAR){
+	cursor = cursor-COL;
+	scroll_screen();
+      }	
+    }
+    if (c == 'E') {
+      cursor = (cursor/ROW+1)*cursor;
+      if (cursor >=LAST_CHAR) {
+	cursor = LAST_CHAR-COL-1;
+      }
+      
     }
     if (c == '7'){
       old_cursor = cursor;
@@ -346,6 +452,11 @@ void process_recieve(char c) {
     case 'J':
     case 'K':
       handle_erase(c);
+      in_escape=false;
+      break;
+    case 'L':
+    case 'M':
+      handle_insert(c);
       in_escape=false;
       break;
     case 'm':

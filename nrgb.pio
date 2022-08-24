@@ -3,9 +3,8 @@
 pull block                  ; Pull from FIFO to OSR (only once)
 mov y, osr                  ; Copy value from OSR to y scratch register
 .wrap_target
-
-set pins, 0                   ; Zero RGB pins in blanking
-mov x, y                      ; Initialize counter variable
+irq clear 5                   ;Set flag no longer in vblag
+Mov x, y                      ; Initialize counter 
 
 wait 1 irq 1 [4]            ; Wait for vsync active mode (starts 5 cycles after execution)
 

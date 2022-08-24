@@ -3,7 +3,7 @@
 #include "main.h"
 #include "text_mode.h"
 #include "pico/stdlib.h"
-
+#include "hardware/dma.h"
 
 #define MAX_ESCAPE_ARGUMENTS 20
 #define MAX_ARG_LENGTH 10
