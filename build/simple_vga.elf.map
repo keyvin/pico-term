@@ -1249,9 +1249,9 @@ Discarded input sections
                 0x0000000000000000       0x28 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
  .text.board_uart_write
                 0x0000000000000000       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
- .text          0x0000000000000000        0x0 /tmp/ccVJbyXr.o
- .data          0x0000000000000000        0x0 /tmp/ccVJbyXr.o
- .bss           0x0000000000000000        0x0 /tmp/ccVJbyXr.o
+ .text          0x0000000000000000        0x0 /tmp/cctq6DcD.o
+ .data          0x0000000000000000        0x0 /tmp/cctq6DcD.o
+ .bss           0x0000000000000000        0x0 /tmp/cctq6DcD.o
  .data          0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .bss           0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .text          0x0000000000000000       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-atexit.o)
@@ -1466,11 +1466,11 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
 .boot2          0x0000000010000000      0x100
                 0x0000000010000000                __boot2_start__ = .
  *(.boot2)
- .boot2         0x0000000010000000      0x100 /tmp/ccVJbyXr.o
+ .boot2         0x0000000010000000      0x100 /tmp/cctq6DcD.o
                 0x0000000010000100                __boot2_end__ = .
                 0x0000000000000001                ASSERT (((__boot2_end__ - __boot2_start__) == 0x100), ERROR: Pico second stage bootloader must be 256 bytes in size)
 
-.text           0x0000000010000100     0xf250
+.text           0x0000000010000100     0xf1c8
                 0x0000000010000100                __logical_binary_start = .
  *(.vectors)
  .vectors       0x0000000010000100       0xd4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj
@@ -1588,853 +1588,852 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
                 0x00000000100010d8       0xe0 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
                 0x00000000100010d8                handle_move
  .text.handle_erase
-                0x00000000100011b8      0x170 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
+                0x00000000100011b8      0x180 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
                 0x00000000100011b8                handle_erase
  .text.handle_insert
-                0x0000000010001328      0x228 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
-                0x0000000010001328                handle_insert
+                0x0000000010001338      0x234 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
+                0x0000000010001338                handle_insert
  .text.process_recieve
-                0x0000000010001550      0x34c CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
-                0x0000000010001550                process_recieve
+                0x000000001000156c      0x2ac CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
+                0x000000001000156c                process_recieve
  .text.set_sys_clock_pll
-                0x000000001000189c       0x78 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj
-                0x000000001000189c                set_sys_clock_pll
+                0x0000000010001818       0x78 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj
+                0x0000000010001818                set_sys_clock_pll
  .text.check_sys_clock_khz
-                0x0000000010001914      0x16c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj
-                0x0000000010001914                check_sys_clock_khz
+                0x0000000010001890      0x16c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj
+                0x0000000010001890                check_sys_clock_khz
  .text.gpio_set_function
-                0x0000000010001a80       0x30 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
-                0x0000000010001a80                gpio_set_function
+                0x00000000100019fc       0x30 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
+                0x00000000100019fc                gpio_set_function
  .text.gpio_init
-                0x0000000010001ab0       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
-                0x0000000010001ab0                gpio_init
+                0x0000000010001a2c       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
+                0x0000000010001a2c                gpio_init
  .text.hw_claim_lock
-                0x0000000010001aec       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
-                0x0000000010001aec                hw_claim_lock
+                0x0000000010001a68       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
+                0x0000000010001a68                hw_claim_lock
  .text.hw_claim_unlock
-                0x0000000010001b04       0x14 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
-                0x0000000010001b04                hw_claim_unlock
+                0x0000000010001a80       0x14 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
+                0x0000000010001a80                hw_claim_unlock
  .text.hw_claim_or_assert
-                0x0000000010001b18       0x48 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
-                0x0000000010001b18                hw_claim_or_assert
+                0x0000000010001a94       0x48 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
+                0x0000000010001a94                hw_claim_or_assert
  .text.hw_claim_unused_from_range
-                0x0000000010001b60       0x9c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
-                0x0000000010001b60                hw_claim_unused_from_range
+                0x0000000010001adc       0x9c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
+                0x0000000010001adc                hw_claim_unused_from_range
  .text.running_on_fpga
-                0x0000000010001bfc       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_platform/platform.c.obj
-                0x0000000010001bfc                running_on_fpga
+                0x0000000010001b78       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_platform/platform.c.obj
+                0x0000000010001b78                running_on_fpga
  .text.spin_locks_reset
-                0x0000000010001c0c       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
-                0x0000000010001c0c                spin_locks_reset
+                0x0000000010001b88       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
+                0x0000000010001b88                spin_locks_reset
  .text.next_striped_spin_lock_num
-                0x0000000010001c28       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
-                0x0000000010001c28                next_striped_spin_lock_num
+                0x0000000010001ba4       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
+                0x0000000010001ba4                next_striped_spin_lock_num
  .text.spin_lock_claim_unused
-                0x0000000010001c40       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
-                0x0000000010001c40                spin_lock_claim_unused
+                0x0000000010001bbc       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
+                0x0000000010001bbc                spin_lock_claim_unused
  .text.uart_init
-                0x0000000010001c60       0xe4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj
-                0x0000000010001c60                uart_init
+                0x0000000010001bdc       0xe4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj
+                0x0000000010001bdc                uart_init
  .text.timer_pool_entry_comparator
-                0x0000000010001d44       0x34 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010001d44                timer_pool_entry_comparator
+                0x0000000010001cc0       0x34 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001cc0                timer_pool_entry_comparator
  .text.sleep_until_callback
-                0x0000000010001d78       0x30 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001cf4       0x30 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
  .text.alarm_pool_add_alarm_at.constprop.0
-                0x0000000010001da8      0x128 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001d24      0x128 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
  .text.add_alarm_under_lock
-                0x0000000010001ed0      0x108 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001e4c      0x108 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
  .text.alarm_pool_alarm_callback
-                0x0000000010001fd8      0x1c8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001f54      0x1c8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
  .text.alarm_pool_init_default
-                0x00000000100021a0       0x64 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
-                0x00000000100021a0                alarm_pool_init_default
+                0x000000001000211c       0x64 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
+                0x000000001000211c                alarm_pool_init_default
  .text.sleep_until
-                0x0000000010002204       0xac CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010002204                sleep_until
+                0x0000000010002180       0xac CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010002180                sleep_until
  .text.sleep_ms
-                0x00000000100022b0       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
-                0x00000000100022b0                sleep_ms
+                0x000000001000222c       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
+                0x000000001000222c                sleep_ms
  .text.best_effort_wfe_or_timeout
-                0x00000000100022e8       0xd4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
-                0x00000000100022e8                best_effort_wfe_or_timeout
+                0x0000000010002264       0xd4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010002264                best_effort_wfe_or_timeout
  .text.hardware_alarm_irq_handler
-                0x00000000100023bc       0xb8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x0000000010002338       0xb8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
  .text.hardware_alarm_claim
-                0x0000000010002474       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x0000000010002474                hardware_alarm_claim
+                0x00000000100023f0       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x00000000100023f0                hardware_alarm_claim
  .text.time_us_64
-                0x000000001000248c       0x14 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x000000001000248c                time_us_64
+                0x0000000010002408       0x14 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x0000000010002408                time_us_64
  .text.busy_wait_us
-                0x00000000100024a0       0x54 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x00000000100024a0                busy_wait_us
+                0x000000001000241c       0x54 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x000000001000241c                busy_wait_us
  .text.busy_wait_until
-                0x00000000100024f4       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x00000000100024f4                busy_wait_until
+                0x0000000010002470       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x0000000010002470                busy_wait_until
  .text.hardware_alarm_set_callback
-                0x0000000010002514       0x8c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x0000000010002514                hardware_alarm_set_callback
+                0x0000000010002490       0x8c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x0000000010002490                hardware_alarm_set_callback
  .text.hardware_alarm_set_target
-                0x00000000100025a0       0xe4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x00000000100025a0                hardware_alarm_set_target
+                0x000000001000251c       0xe4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x000000001000251c                hardware_alarm_set_target
  .text.hardware_alarm_cancel
-                0x0000000010002684       0x40 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x0000000010002684                hardware_alarm_cancel
+                0x0000000010002600       0x40 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x0000000010002600                hardware_alarm_cancel
  .text.lock_init
-                0x00000000100026c4       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_sync/lock_core.c.obj
-                0x00000000100026c4                lock_init
+                0x0000000010002640       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_sync/lock_core.c.obj
+                0x0000000010002640                lock_init
  .text.mutex_init
-                0x00000000100026d4       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_sync/mutex.c.obj
-                0x00000000100026d4                mutex_init
+                0x0000000010002650       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_sync/mutex.c.obj
+                0x0000000010002650                mutex_init
  .text.recursive_mutex_init
-                0x00000000100026f0       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_sync/mutex.c.obj
-                0x00000000100026f0                recursive_mutex_init
+                0x000000001000266c       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_sync/mutex.c.obj
+                0x000000001000266c                recursive_mutex_init
  .text.critical_section_init
-                0x000000001000270c       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_sync/critical_section.c.obj
-                0x000000001000270c                critical_section_init
+                0x0000000010002688       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_sync/critical_section.c.obj
+                0x0000000010002688                critical_section_init
  .text.ph_merge_nodes
-                0x0000000010002728       0x68 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x00000000100026a4       0x68 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
  .text.ph_post_alloc_init
-                0x0000000010002790       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
-                0x0000000010002790                ph_post_alloc_init
+                0x000000001000270c       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x000000001000270c                ph_post_alloc_init
  .text.ph_merge_two_pass
-                0x00000000100027cc       0x90 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
-                0x00000000100027cc                ph_merge_two_pass
+                0x0000000010002748       0x90 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x0000000010002748                ph_merge_two_pass
  .text.ph_remove_any_head
-                0x000000001000285c       0xf8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x00000000100027d8       0xf8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
  .text.ph_remove_head
-                0x0000000010002954      0x13c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
-                0x0000000010002954                ph_remove_head
+                0x00000000100028d0      0x13c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x00000000100028d0                ph_remove_head
  .text.ph_remove_and_free_node
-                0x0000000010002a90       0x7c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
-                0x0000000010002a90                ph_remove_and_free_node
+                0x0000000010002a0c       0x7c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x0000000010002a0c                ph_remove_and_free_node
  .text.runtime_init
-                0x0000000010002b0c       0xf0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002b0c                runtime_init
- .text._sbrk    0x0000000010002bfc       0x34 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002bfc                _sbrk
- .text.exit     0x0000000010002c30        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002c30                exit
+                0x0000000010002a88       0xf0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002a88                runtime_init
+ .text._sbrk    0x0000000010002b78       0x34 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002b78                _sbrk
+ .text.exit     0x0000000010002bac        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002bac                exit
  .text.__assert_func
-                0x0000000010002c34       0x34 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002c34                __assert_func
- .text.panic    0x0000000010002c68       0x30 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002c68                panic
+                0x0000000010002bb0       0x34 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002bb0                __assert_func
+ .text.panic    0x0000000010002be4       0x30 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002be4                panic
  .text.hard_assertion_failure
-                0x0000000010002c98        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002c98                hard_assertion_failure
+                0x0000000010002c14        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002c14                hard_assertion_failure
  .text.clock_configure
-                0x0000000010002ca4      0x114 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
-                0x0000000010002ca4                clock_configure
+                0x0000000010002c20      0x114 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
+                0x0000000010002c20                clock_configure
  .text.clocks_init
-                0x0000000010002db8      0x2bc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
-                0x0000000010002db8                clocks_init
+                0x0000000010002d34      0x2bc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
+                0x0000000010002d34                clocks_init
  .text.clock_get_hz
-                0x0000000010003074        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
-                0x0000000010003074                clock_get_hz
+                0x0000000010002ff0        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
+                0x0000000010002ff0                clock_get_hz
  .text.irq_set_enabled
-                0x0000000010003080       0x24 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x0000000010003080                irq_set_enabled
+                0x0000000010002ffc       0x24 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010002ffc                irq_set_enabled
  .text.irq_is_enabled
-                0x00000000100030a4       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x00000000100030a4                irq_is_enabled
+                0x0000000010003020       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010003020                irq_is_enabled
  .text.irq_get_vtable_handler
-                0x00000000100030bc       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x00000000100030bc                irq_get_vtable_handler
+                0x0000000010003038       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010003038                irq_get_vtable_handler
  .text.irq_set_exclusive_handler
-                0x00000000100030cc       0x54 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x00000000100030cc                irq_set_exclusive_handler
+                0x0000000010003048       0x54 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010003048                irq_set_exclusive_handler
  .text.irq_remove_handler
-                0x0000000010003120      0x1b8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x0000000010003120                irq_remove_handler
+                0x000000001000309c      0x1b8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x000000001000309c                irq_remove_handler
  .text.irq_set_priority
-                0x00000000100032d8       0x28 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x00000000100032d8                irq_set_priority
+                0x0000000010003254       0x28 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010003254                irq_set_priority
  .text.irq_add_tail_to_free_list
-                0x0000000010003300       0xb8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x0000000010003300                irq_add_tail_to_free_list
+                0x000000001000327c       0xb8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x000000001000327c                irq_add_tail_to_free_list
  .text.irq_init_priorities
-                0x00000000100033b8       0x24 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x00000000100033b8                irq_init_priorities
+                0x0000000010003334       0x24 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010003334                irq_init_priorities
  .text.pll_init
-                0x00000000100033dc       0xa4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj
-                0x00000000100033dc                pll_init
+                0x0000000010003358       0xa4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj
+                0x0000000010003358                pll_init
  .text.watchdog_start_tick
-                0x0000000010003480       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj
-                0x0000000010003480                watchdog_start_tick
+                0x00000000100033fc       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj
+                0x00000000100033fc                watchdog_start_tick
  .text.xosc_init
-                0x0000000010003490       0x28 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj
-                0x0000000010003490                xosc_init
+                0x000000001000340c       0x28 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj
+                0x000000001000340c                xosc_init
  .text._out_buffer
-                0x00000000100034b8        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010003434        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._out_null
-                0x00000000100034c0        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x000000001000343c        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._out_rev
-                0x00000000100034c4       0xd0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010003440       0xd0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._ntoa_format
-                0x0000000010003594      0x1d0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010003510      0x1d0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._out_char
-                0x0000000010003764       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- .text._etoa    0x0000000010003774      0x478 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- .text._ftoa    0x0000000010003bec      0x3e0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x00000000100036e0       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+ .text._etoa    0x00000000100036f0      0x478 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+ .text._ftoa    0x0000000010003b68      0x3e0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._vsnprintf
-                0x0000000010003fcc      0xb08 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010003f48      0xb08 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text.__wrap_sprintf
-                0x0000000010004ad4       0x28 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
-                0x0000000010004ad4                __wrap_sprintf
+                0x0000000010004a50       0x28 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010004a50                __wrap_sprintf
  .text.weak_raw_printf
-                0x0000000010004afc       0x40 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
-                0x0000000010004afc                weak_raw_printf
+                0x0000000010004a78       0x40 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010004a78                weak_raw_printf
  .text.weak_raw_vprintf
-                0x0000000010004b3c       0x30 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
-                0x0000000010004b3c                weak_raw_vprintf
- .text          0x0000000010004b6c       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj
+                0x0000000010004ab8       0x30 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010004ab8                weak_raw_vprintf
+ .text          0x0000000010004ae8       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj
  .text.rom_func_lookup
-                0x0000000010004b7c       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
-                0x0000000010004b7c                rom_func_lookup
+                0x0000000010004af8       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
+                0x0000000010004af8                rom_func_lookup
  .text.rom_data_lookup
-                0x0000000010004b8c       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
-                0x0000000010004b8c                rom_data_lookup
+                0x0000000010004b08       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
+                0x0000000010004b08                rom_data_lookup
  .text.rom_funcs_lookup
-                0x0000000010004b9c       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
-                0x0000000010004b9c                rom_funcs_lookup
+                0x0000000010004b18       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
+                0x0000000010004b18                rom_funcs_lookup
  .text.__wrap___aeabi_idiv
-                0x0000000010004bd8       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
-                0x0000000010004bd8                __wrap___aeabi_idivmod
-                0x0000000010004bd8                divmod_s32s32
-                0x0000000010004bd8                div_s32s32
-                0x0000000010004bd8                __wrap___aeabi_idiv
-                0x0000000010004be0                divmod_s32s32_unsafe
-                0x0000000010004c0c                divmod_s32s32_savestate
+                0x0000000010004b54       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
+                0x0000000010004b54                __wrap___aeabi_idivmod
+                0x0000000010004b54                divmod_s32s32
+                0x0000000010004b54                div_s32s32
+                0x0000000010004b54                __wrap___aeabi_idiv
+                0x0000000010004b5c                divmod_s32s32_unsafe
+                0x0000000010004b88                divmod_s32s32_savestate
  .text.__wrap___aeabi_uidiv
-                0x0000000010004c28       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
-                0x0000000010004c28                __wrap___aeabi_uidiv
-                0x0000000010004c28                __wrap___aeabi_uidivmod
-                0x0000000010004c28                div_u32u32
-                0x0000000010004c28                divmod_u32u32
-                0x0000000010004c30                divmod_u32u32_unsafe
-                0x0000000010004c58                divmod_u32u32_savestate
+                0x0000000010004ba4       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
+                0x0000000010004ba4                __wrap___aeabi_uidiv
+                0x0000000010004ba4                __wrap___aeabi_uidivmod
+                0x0000000010004ba4                div_u32u32
+                0x0000000010004ba4                divmod_u32u32
+                0x0000000010004bac                divmod_u32u32_unsafe
+                0x0000000010004bd4                divmod_u32u32_savestate
  .text.__wrap___aeabi_ldiv
-                0x0000000010004c74      0x434 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
-                0x0000000010004c74                div_s64s64
-                0x0000000010004c74                divmod_s64s64
-                0x0000000010004c74                __wrap___aeabi_ldivmod
-                0x0000000010004cac                div_u64u64
-                0x0000000010004cac                divmod_u64u64
-                0x0000000010004cac                __wrap___aeabi_uldivmod
-                0x0000000010004cbc                divmod_u64u64_savestate
-                0x0000000010004ce4                divmod_s64s64_unsafe
-                0x0000000010004d6c                divmod_u64u64_unsafe
+                0x0000000010004bf0      0x434 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
+                0x0000000010004bf0                div_s64s64
+                0x0000000010004bf0                divmod_s64s64
+                0x0000000010004bf0                __wrap___aeabi_ldivmod
+                0x0000000010004c28                div_u64u64
+                0x0000000010004c28                divmod_u64u64
+                0x0000000010004c28                __wrap___aeabi_uldivmod
+                0x0000000010004c38                divmod_u64u64_savestate
+                0x0000000010004c60                divmod_s64s64_unsafe
+                0x0000000010004ce8                divmod_u64u64_unsafe
  .text.__wrap___aeabi_darithmetic
-                0x00000000100050a8       0x80 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100050a8                __wrap___aeabi_drsub
-                0x00000000100050ae                __wrap___aeabi_dsub
-                0x00000000100050c0                __wrap___aeabi_dadd
-                0x00000000100050d2                __wrap___aeabi_ddiv
-                0x000000001000510e                __wrap___aeabi_dmul
+                0x0000000010005024       0x80 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010005024                __wrap___aeabi_drsub
+                0x000000001000502a                __wrap___aeabi_dsub
+                0x000000001000503c                __wrap___aeabi_dadd
+                0x000000001000504e                __wrap___aeabi_ddiv
+                0x000000001000508a                __wrap___aeabi_dmul
  .text.__wrap___aeabi_cdcmple
-                0x0000000010005128       0x6c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010005128                __wrap___aeabi_cdrcmple
-                0x0000000010005138                __wrap___aeabi_cdcmple
-                0x0000000010005138                __wrap___aeabi_cdcmpeq
+                0x00000000100050a4       0x6c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x00000000100050a4                __wrap___aeabi_cdrcmple
+                0x00000000100050b4                __wrap___aeabi_cdcmple
+                0x00000000100050b4                __wrap___aeabi_cdcmpeq
  .text.__wrap___aeabi_dcmpeq
-                0x0000000010005194       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010005194                __wrap___aeabi_dcmpeq
+                0x0000000010005110       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010005110                __wrap___aeabi_dcmpeq
  .text.__wrap___aeabi_dcmplt
-                0x00000000100051a4        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100051a4                __wrap___aeabi_dcmplt
+                0x0000000010005120        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010005120                __wrap___aeabi_dcmplt
  .text.__wrap___aeabi_dcmple
-                0x00000000100051b0       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100051b0                __wrap___aeabi_dcmple
+                0x000000001000512c       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x000000001000512c                __wrap___aeabi_dcmple
  .text.__wrap___aeabi_dcmpge
-                0x00000000100051c0       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100051c0                __wrap___aeabi_dcmpge
+                0x000000001000513c       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x000000001000513c                __wrap___aeabi_dcmpge
  .text.__wrap___aeabi_dcmpgt
-                0x00000000100051d0        0xa CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100051d0                __wrap___aeabi_dcmpgt
+                0x000000001000514c        0xa CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x000000001000514c                __wrap___aeabi_dcmpgt
  .text.__wrap___aeabi_dcmpun
-                0x00000000100051da       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100051da                __wrap___aeabi_dcmpun
- *fill*         0x00000000100051f6        0x2 
+                0x0000000010005156       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010005156                __wrap___aeabi_dcmpun
+ *fill*         0x0000000010005172        0x2 
  .text.__wrap___aeabi_i2d
-                0x00000000100051f8       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100051f8                __wrap___aeabi_ui2d
-                0x0000000010005200                __wrap___aeabi_i2d
+                0x0000000010005174       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010005174                __wrap___aeabi_ui2d
+                0x000000001000517c                __wrap___aeabi_i2d
  .text.__wrap___aeabi_d2iz
-                0x0000000010005230       0x48 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010005230                __wrap___aeabi_d2iz
-                0x0000000010005230                double2int_z
+                0x00000000100051ac       0x48 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x00000000100051ac                __wrap___aeabi_d2iz
+                0x00000000100051ac                double2int_z
  .text.__wrap___aeabi_d2uiz
-                0x0000000010005278       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010005278                double2uint
-                0x0000000010005278                __wrap___aeabi_d2uiz
+                0x00000000100051f4       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x00000000100051f4                double2uint
+                0x00000000100051f4                __wrap___aeabi_d2uiz
  .text.__wrap___aeabi_l2d
-                0x0000000010005290       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010005290                __wrap___aeabi_l2d
+                0x000000001000520c       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x000000001000520c                __wrap___aeabi_l2d
  .text.__wrap___aeabi_d2lz
-                0x00000000100052a8       0x26 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100052a8                __wrap___aeabi_d2lz
-                0x00000000100052a8                double2int64_z
- *fill*         0x00000000100052ce        0x2 
+                0x0000000010005224       0x26 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010005224                __wrap___aeabi_d2lz
+                0x0000000010005224                double2int64_z
+ *fill*         0x000000001000524a        0x2 
  .text.double2int64
-                0x00000000100052d0       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100052d0                double2int64
+                0x000000001000524c       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x000000001000524c                double2int64
  .text.double2ufix64
-                0x00000000100052e8       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100052e8                double2ufix64
+                0x0000000010005264       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010005264                double2ufix64
  .text.__wrap___aeabi_d2f
-                0x0000000010005300       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010005300                __wrap___aeabi_d2f
+                0x000000001000527c       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x000000001000527c                __wrap___aeabi_d2f
  .text.__aeabi_double_init
-                0x0000000010005318       0xc0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj
-                0x0000000010005318                __aeabi_double_init
+                0x0000000010005294       0xc0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj
+                0x0000000010005294                __aeabi_double_init
  .text.double_table_shim_on_use_helper
-                0x00000000100053d8       0x2c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x00000000100053d8                double_table_shim_on_use_helper
+                0x0000000010005354       0x2c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010005354                double_table_shim_on_use_helper
  .text.__wrap___aeabi_dsub
-                0x0000000010005404       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010005404                drsub_shim
-                0x000000001000540a                dsub_shim
+                0x0000000010005380       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010005380                drsub_shim
+                0x0000000010005386                dsub_shim
  .text.dadd_shim
-                0x0000000010005414      0x15c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010005414                dadd_shim
+                0x0000000010005390      0x15c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010005390                dadd_shim
  .text.dmul_shim
-                0x0000000010005570      0x15c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010005570                dmul_shim
+                0x00000000100054ec      0x15c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x00000000100054ec                dmul_shim
  .text.ddiv_shim
-                0x00000000100056cc      0x1b0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x00000000100056cc                ddiv_shim
+                0x0000000010005648      0x1b0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010005648                ddiv_shim
  .text.double2uint_shim
-                0x000000001000587c        0xe CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x000000001000587c                double2uint_shim
-                0x000000001000587e                double2ufix_shim
+                0x00000000100057f8        0xe CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x00000000100057f8                double2uint_shim
+                0x00000000100057fa                double2ufix_shim
  .text.double2int64_shim
-                0x000000001000588a       0x1a CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x000000001000588a                double2int64_shim
-                0x000000001000588c                double2fix64_shim
+                0x0000000010005806       0x1a CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010005806                double2int64_shim
+                0x0000000010005808                double2fix64_shim
  .text.double2uint64_shim
-                0x00000000100058a4       0x70 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x00000000100058a4                double2uint64_shim
-                0x00000000100058a6                double2ufix64_shim
-                0x00000000100058c6                d2fix_a
+                0x0000000010005820       0x70 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010005820                double2uint64_shim
+                0x0000000010005822                double2ufix64_shim
+                0x0000000010005842                d2fix_a
  .text.double2float_shim
-                0x0000000010005914       0x5c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010005914                double2float_shim
+                0x0000000010005890       0x5c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010005890                double2float_shim
  .text.x2double_shims
-                0x0000000010005970       0x90 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010005970                uint2double_shim
-                0x0000000010005972                ufix2double_shim
-                0x0000000010005978                int2double_shim
-                0x000000001000597a                fix2double_shim
-                0x0000000010005980                uint642double_shim
-                0x0000000010005982                ufix642double_shim
-                0x0000000010005988                int642double_shim
-                0x000000001000598a                fix642double_shim
+                0x00000000100058ec       0x90 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x00000000100058ec                uint2double_shim
+                0x00000000100058ee                ufix2double_shim
+                0x00000000100058f4                int2double_shim
+                0x00000000100058f6                fix2double_shim
+                0x00000000100058fc                uint642double_shim
+                0x00000000100058fe                ufix642double_shim
+                0x0000000010005904                int642double_shim
+                0x0000000010005906                fix642double_shim
  .text.dunpacks
-                0x0000000010005a00       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010005a00                dunpacks
+                0x000000001000597c       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x000000001000597c                dunpacks
  .text.__aeabi_lmul
-                0x0000000010005a3c       0x32 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj
-                0x0000000010005a3c                __wrap___aeabi_lmul
- *fill*         0x0000000010005a6e        0x2 
+                0x00000000100059b8       0x32 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj
+                0x00000000100059b8                __wrap___aeabi_lmul
+ *fill*         0x00000000100059ea        0x2 
  .text.__wrap___aeabi_farithmetic
-                0x0000000010005a70       0x48 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
-                0x0000000010005a70                __wrap___aeabi_frsub
-                0x0000000010005a76                __wrap___aeabi_fsub
-                0x0000000010005a7c                __wrap___aeabi_fadd
-                0x0000000010005a82                __wrap___aeabi_fdiv
-                0x0000000010005aaa                __wrap___aeabi_fmul
+                0x00000000100059ec       0x48 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
+                0x00000000100059ec                __wrap___aeabi_frsub
+                0x00000000100059f2                __wrap___aeabi_fsub
+                0x00000000100059f8                __wrap___aeabi_fadd
+                0x00000000100059fe                __wrap___aeabi_fdiv
+                0x0000000010005a26                __wrap___aeabi_fmul
  .text.__wrap___aeabi_cfcmple
-                0x0000000010005ab8       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
-                0x0000000010005ab8                __wrap___aeabi_cfrcmple
-                0x0000000010005ac4                __wrap___aeabi_cfcmpeq
-                0x0000000010005ac4                __wrap___aeabi_cfcmple
+                0x0000000010005a34       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
+                0x0000000010005a34                __wrap___aeabi_cfrcmple
+                0x0000000010005a40                __wrap___aeabi_cfcmpeq
+                0x0000000010005a40                __wrap___aeabi_cfcmple
  .text.__wrap___aeabi_fcmple
-                0x0000000010005b08       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
-                0x0000000010005b08                __wrap___aeabi_fcmple
+                0x0000000010005a84       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
+                0x0000000010005a84                __wrap___aeabi_fcmple
  .text.__wrap___aeabi_fcmpun
-                0x0000000010005b18       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
-                0x0000000010005b18                __wrap___aeabi_fcmpun
+                0x0000000010005a94       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
+                0x0000000010005a94                __wrap___aeabi_fcmpun
  .text.__wrap___aeabi_ui2f
-                0x0000000010005b30        0xa CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
-                0x0000000010005b30                __wrap___aeabi_ui2f
- *fill*         0x0000000010005b3a        0x2 
+                0x0000000010005aac        0xa CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
+                0x0000000010005aac                __wrap___aeabi_ui2f
+ *fill*         0x0000000010005ab6        0x2 
  .text.__wrap___aeabi_i2f
-                0x0000000010005b3c       0x44 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
-                0x0000000010005b3c                __wrap___aeabi_i2f
+                0x0000000010005ab8       0x44 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
+                0x0000000010005ab8                __wrap___aeabi_i2f
  .text.__wrap___aeabi_f2uiz
-                0x0000000010005b80        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
-                0x0000000010005b80                __wrap___aeabi_f2uiz
+                0x0000000010005afc        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
+                0x0000000010005afc                __wrap___aeabi_f2uiz
  .text.__aeabi_float_init
-                0x0000000010005b8c       0x64 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj
-                0x0000000010005b8c                __aeabi_float_init
+                0x0000000010005b08       0x64 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj
+                0x0000000010005b08                __aeabi_float_init
  .text.float_table_shim_on_use_helper
-                0x0000000010005bf0       0x2c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj
-                0x0000000010005bf0                float_table_shim_on_use_helper
- .text          0x0000000010005c1c       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
-                0x0000000010005c1c                __aeabi_mem_init
- .text.memset   0x0000000010005c2c        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
-                0x0000000010005c2c                __wrap_memset
- .text.memcpy   0x0000000010005c38        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
-                0x0000000010005c38                __wrap___aeabi_memcpy
-                0x0000000010005c38                __wrap_memcpy
+                0x0000000010005b6c       0x2c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj
+                0x0000000010005b6c                float_table_shim_on_use_helper
+ .text          0x0000000010005b98       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
+                0x0000000010005b98                __aeabi_mem_init
+ .text.memset   0x0000000010005ba8        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
+                0x0000000010005ba8                __wrap_memset
+ .text.memcpy   0x0000000010005bb4        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
+                0x0000000010005bb4                __wrap___aeabi_memcpy
+                0x0000000010005bb4                __wrap_memcpy
  .text.stdio_out_chars_no_crlf
-                0x0000000010005c44       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005bc0       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
  .text.stdio_out_chars_crlf
-                0x0000000010005c54       0x94 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005bd0       0x94 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
  .text.stdio_put_string
-                0x0000000010005ce8      0x100 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005c64      0x100 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
  .text.__wrap_putchar
-                0x0000000010005de8       0xa4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x0000000010005de8                __wrap_putchar
+                0x0000000010005d64       0xa4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005d64                __wrap_putchar
  .text.__wrap_puts
-                0x0000000010005e8c       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x0000000010005e8c                __wrap_puts
- .text._read    0x0000000010005ec8       0x98 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x0000000010005ec8                _read
- .text._write   0x0000000010005f60       0xac CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x0000000010005f60                _write
+                0x0000000010005e08       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005e08                __wrap_puts
+ .text._read    0x0000000010005e44       0x98 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005e44                _read
+ .text._write   0x0000000010005edc       0xac CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005edc                _write
  .text.stdio_set_driver_enabled
-                0x000000001000600c       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x000000001000600c                stdio_set_driver_enabled
+                0x0000000010005f88       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005f88                stdio_set_driver_enabled
  .text.stdio_uart_out_chars
-                0x0000000010006048       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x0000000010005fc4       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
  .text.stdio_uart_in_chars
-                0x0000000010006094       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
-                0x0000000010006094                stdio_uart_in_chars
+                0x0000000010006010       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x0000000010006010                stdio_uart_in_chars
  .text.stdio_uart_init_full
-                0x00000000100060cc       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
-                0x00000000100060cc                stdio_uart_init_full
+                0x0000000010006048       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x0000000010006048                stdio_uart_init_full
  .text.pio_add_program
-                0x0000000010006104       0xe4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
-                0x0000000010006104                pio_add_program
+                0x0000000010006080       0xe4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
+                0x0000000010006080                pio_add_program
  .text.pio_sm_set_consecutive_pindirs
-                0x00000000100061e8       0x88 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
-                0x00000000100061e8                pio_sm_set_consecutive_pindirs
+                0x0000000010006164       0x88 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
+                0x0000000010006164                pio_sm_set_consecutive_pindirs
  .text.pio_sm_init
-                0x0000000010006270       0x90 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
-                0x0000000010006270                pio_sm_init
+                0x00000000100061ec       0x90 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
+                0x00000000100061ec                pio_sm_init
  .text.core1_trampoline
-                0x0000000010006300        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_multicore/multicore.c.obj
+                0x000000001000627c        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_multicore/multicore.c.obj
  .text.core1_wrapper
-                0x0000000010006304        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_multicore/multicore.c.obj
-                0x0000000010006304                core1_wrapper
+                0x0000000010006280        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_multicore/multicore.c.obj
+                0x0000000010006280                core1_wrapper
  .text.multicore_launch_core1_raw
-                0x0000000010006310       0x84 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_multicore/multicore.c.obj
-                0x0000000010006310                multicore_launch_core1_raw
+                0x000000001000628c       0x84 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_multicore/multicore.c.obj
+                0x000000001000628c                multicore_launch_core1_raw
  .text.multicore_launch_core1
-                0x0000000010006394       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_multicore/multicore.c.obj
-                0x0000000010006394                multicore_launch_core1
+                0x0000000010006310       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_multicore/multicore.c.obj
+                0x0000000010006310                multicore_launch_core1
  .text.hcd_rp2040_irq
-                0x00000000100063e0      0x2a0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x000000001000635c      0x2a0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
  .text.hcd_init
-                0x0000000010006680       0x48 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
-                0x0000000010006680                hcd_init
+                0x00000000100065fc       0x48 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x00000000100065fc                hcd_init
  .text.hcd_port_reset
-                0x00000000100066c8        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
-                0x00000000100066c8                hcd_port_reset
+                0x0000000010006644        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x0000000010006644                hcd_port_reset
  .text.hcd_port_connect_status
-                0x00000000100066cc       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
-                0x00000000100066cc                hcd_port_connect_status
+                0x0000000010006648       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x0000000010006648                hcd_port_connect_status
  .text.hcd_port_speed_get
-                0x00000000100066e4       0x24 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
-                0x00000000100066e4                hcd_port_speed_get
+                0x0000000010006660       0x24 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x0000000010006660                hcd_port_speed_get
  .text.hcd_device_close
-                0x0000000010006708        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
-                0x0000000010006708                hcd_device_close
+                0x0000000010006684        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x0000000010006684                hcd_device_close
  .text.hcd_int_enable
-                0x000000001000670c        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
-                0x000000001000670c                hcd_int_enable
+                0x0000000010006688        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x0000000010006688                hcd_int_enable
  .text.hcd_edpt_open
-                0x0000000010006718      0x20c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
-                0x0000000010006718                hcd_edpt_open
+                0x0000000010006694      0x20c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x0000000010006694                hcd_edpt_open
  .text.hcd_edpt_xfer
-                0x0000000010006924      0x2d8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
-                0x0000000010006924                hcd_edpt_xfer
+                0x00000000100068a0      0x2d8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x00000000100068a0                hcd_edpt_xfer
  .text.hcd_setup_send
-                0x0000000010006bfc       0x98 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
-                0x0000000010006bfc                hcd_setup_send
+                0x0000000010006b78       0x98 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x0000000010006b78                hcd_setup_send
  .text._hw_endpoint_buffer_control_update32.part.0
-                0x0000000010006c94       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+                0x0000000010006c10       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
  .text.rp2040_usb_init
-                0x0000000010006cb4       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
-                0x0000000010006cb4                rp2040_usb_init
+                0x0000000010006c30       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+                0x0000000010006c30                rp2040_usb_init
  .text.hw_endpoint_reset_transfer
-                0x0000000010006d00        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
-                0x0000000010006d00                hw_endpoint_reset_transfer
+                0x0000000010006c7c        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+                0x0000000010006c7c                hw_endpoint_reset_transfer
  .text.hw_endpoint_xfer_start
-                0x0000000010006d0c      0x128 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
-                0x0000000010006d0c                hw_endpoint_xfer_start
+                0x0000000010006c88      0x128 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+                0x0000000010006c88                hw_endpoint_xfer_start
  .text.hw_endpoint_xfer_continue
-                0x0000000010006e34      0x1d4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
-                0x0000000010006e34                hw_endpoint_xfer_continue
+                0x0000000010006db0      0x1d4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+                0x0000000010006db0                hw_endpoint_xfer_continue
  .text.enum_request_set_addr
-                0x0000000010007008       0xa0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010006f84       0xa0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.enum_hub_get_status0_complete
-                0x00000000100070a8       0x60 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007024       0x60 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.enum_hub_get_status1_complete
-                0x0000000010007108       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007084       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.enum_hub_clear_reset1_complete
-                0x0000000010007140       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x00000000100070bc       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.enum_get_device_desc_complete
-                0x000000001000715c       0x58 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x00000000100070d8       0x58 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.enum_get_9byte_config_desc_complete
-                0x00000000100071b4       0x44 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007130       0x44 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.tuh_task.part.0
-                0x00000000100071f8      0x4ac CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007174      0x4ac CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.enum_get_addr0_device_desc_complete
-                0x00000000100076a4       0x7c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007620       0x7c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.enum_set_address_complete
-                0x0000000010007720       0x9c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x000000001000769c       0x9c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.enum_get_config_desc_complete
-                0x00000000100077bc      0x120 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007738      0x120 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.enum_set_config_complete
-                0x00000000100078dc       0xf8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007858       0xf8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.enum_hub_clear_reset0_complete
-                0x00000000100079d4       0x64 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007950       0x64 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .text.tuh_speed_get
-                0x0000000010007a38       0x24 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007a38                tuh_speed_get
+                0x00000000100079b4       0x24 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x00000000100079b4                tuh_speed_get
  .text.tuh_inited
-                0x0000000010007a5c        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007a5c                tuh_inited
+                0x00000000100079d8        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x00000000100079d8                tuh_inited
  .text.tuh_init
-                0x0000000010007a68       0xa4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007a68                tuh_init
+                0x00000000100079e4       0xa4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x00000000100079e4                tuh_init
  .text.tuh_task
-                0x0000000010007b0c       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007b0c                tuh_task
+                0x0000000010007a88       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007a88                tuh_task
  .text.usbh_get_rhport
-                0x0000000010007b1c       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007b1c                usbh_get_rhport
+                0x0000000010007a98       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007a98                usbh_get_rhport
  .text.usbh_get_enum_buf
-                0x0000000010007b3c        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007b3c                usbh_get_enum_buf
+                0x0000000010007ab8        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007ab8                usbh_get_enum_buf
  .text.hcd_event_handler
-                0x0000000010007b44       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007b44                hcd_event_handler
+                0x0000000010007ac0       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007ac0                hcd_event_handler
  .text.hcd_event_xfer_complete
-                0x0000000010007b7c       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007b7c                hcd_event_xfer_complete
+                0x0000000010007af8       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007af8                hcd_event_xfer_complete
  .text.hcd_event_device_attach
-                0x0000000010007bc8       0x54 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007bc8                hcd_event_device_attach
+                0x0000000010007b44       0x54 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007b44                hcd_event_device_attach
  .text.hcd_event_device_remove
-                0x0000000010007c1c       0x54 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007c1c                hcd_event_device_remove
+                0x0000000010007b98       0x54 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007b98                hcd_event_device_remove
  .text.usbh_driver_set_config_complete
-                0x0000000010007c70      0x160 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007c70                usbh_driver_set_config_complete
+                0x0000000010007bec      0x160 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007bec                usbh_driver_set_config_complete
  .text.usbh_edpt_claim
-                0x0000000010007dd0       0x90 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007dd0                usbh_edpt_claim
+                0x0000000010007d4c       0x90 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007d4c                usbh_edpt_claim
  .text.usbh_edpt_xfer
-                0x0000000010007e60       0x84 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007e60                usbh_edpt_xfer
+                0x0000000010007ddc       0x84 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007ddc                usbh_edpt_xfer
  .text.usbh_edpt_open
-                0x0000000010007ee4       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007ee4                usbh_edpt_open
+                0x0000000010007e60       0x3c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007e60                usbh_edpt_open
  .text.usbh_edpt_busy
-                0x0000000010007f20       0x34 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
-                0x0000000010007f20                usbh_edpt_busy
+                0x0000000010007e9c       0x34 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x0000000010007e9c                usbh_edpt_busy
  .text.tuh_control_xfer
-                0x0000000010007f54       0x44 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh_control.c.obj
-                0x0000000010007f54                tuh_control_xfer
+                0x0000000010007ed0       0x44 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh_control.c.obj
+                0x0000000010007ed0                tuh_control_xfer
  .text.usbh_control_xfer_cb
-                0x0000000010007f98       0x90 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh_control.c.obj
-                0x0000000010007f98                usbh_control_xfer_cb
+                0x0000000010007f14       0x90 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh_control.c.obj
+                0x0000000010007f14                usbh_control_xfer_cb
  .text.connection_port_reset_complete
-                0x0000000010008028       0x34 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x0000000010007fa4       0x34 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
  .text.connection_get_status_complete
-                0x000000001000805c       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x0000000010007fd8       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
  .text.config_set_port_power
-                0x00000000100080ac       0x44 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x0000000010008028       0x44 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
  .text.config_port_power_complete
-                0x00000000100080f0       0x6c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x000000001000806c       0x6c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
  .text.connection_clear_conn_change_complete
-                0x000000001000815c       0x74 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x00000000100080d8       0x74 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
  .text.hub_port_clear_feature
-                0x00000000100081d0       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
-                0x00000000100081d0                hub_port_clear_feature
+                0x000000001000814c       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x000000001000814c                hub_port_clear_feature
  .text.hub_port_reset
-                0x00000000100081f0       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
-                0x00000000100081f0                hub_port_reset
+                0x000000001000816c       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x000000001000816c                hub_port_reset
  .text.hub_port_get_status
-                0x0000000010008210       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
-                0x0000000010008210                hub_port_get_status
+                0x000000001000818c       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x000000001000818c                hub_port_get_status
  .text.hub_init
-                0x000000001000822c       0x14 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
-                0x000000001000822c                hub_init
+                0x00000000100081a8       0x14 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x00000000100081a8                hub_init
  .text.hub_open
-                0x0000000010008240       0x54 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
-                0x0000000010008240                hub_open
+                0x00000000100081bc       0x54 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x00000000100081bc                hub_open
  .text.hub_close
-                0x0000000010008294       0x24 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
-                0x0000000010008294                hub_close
+                0x0000000010008210       0x24 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x0000000010008210                hub_close
  .text.hub_status_pipe_queue
-                0x00000000100082b8       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
-                0x00000000100082b8                hub_status_pipe_queue
+                0x0000000010008234       0x1c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x0000000010008234                hub_status_pipe_queue
  .text.hub_set_config
-                0x00000000100082d4       0x40 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
-                0x00000000100082d4                hub_set_config
+                0x0000000010008250       0x40 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x0000000010008250                hub_set_config
  .text.hub_xfer_cb
-                0x0000000010008314       0x68 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
-                0x0000000010008314                hub_xfer_cb
+                0x0000000010008290       0x68 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x0000000010008290                hub_xfer_cb
  .text.tuh_cdc_receive
-                0x000000001000837c       0x58 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
-                0x000000001000837c                tuh_cdc_receive
+                0x00000000100082f8       0x58 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
+                0x00000000100082f8                tuh_cdc_receive
  .text.cdch_init
-                0x00000000100083d4       0x14 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
-                0x00000000100083d4                cdch_init
+                0x0000000010008350       0x14 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
+                0x0000000010008350                cdch_init
  .text.cdch_open
-                0x00000000100083e8      0x114 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
-                0x00000000100083e8                cdch_open
+                0x0000000010008364      0x114 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
+                0x0000000010008364                cdch_open
  .text.cdch_set_config
-                0x00000000100084fc        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
-                0x00000000100084fc                cdch_set_config
+                0x0000000010008478        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
+                0x0000000010008478                cdch_set_config
  .text.cdch_xfer_cb
-                0x0000000010008500       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
-                0x0000000010008500                cdch_xfer_cb
+                0x000000001000847c       0x10 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
+                0x000000001000847c                cdch_xfer_cb
  .text.cdch_close
-                0x0000000010008510       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
-                0x0000000010008510                cdch_close
+                0x000000001000848c       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/cdc/cdc_host.c.obj
+                0x000000001000848c                cdch_close
  .text.config_set_protocol
-                0x0000000010008530       0xfc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x00000000100084ac       0xfc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
  .text.config_get_report_desc
-                0x000000001000862c      0x150 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x00000000100085a8      0x150 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
  .text.config_get_report_desc_complete
-                0x000000001000877c      0x128 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x00000000100086f8      0x128 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
  .text.tuh_hid_interface_protocol
-                0x00000000100088a4       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
-                0x00000000100088a4                tuh_hid_interface_protocol
+                0x0000000010008820       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x0000000010008820                tuh_hid_interface_protocol
  .text.tuh_hid_receive_report
-                0x00000000100088c4       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
-                0x00000000100088c4                tuh_hid_receive_report
+                0x0000000010008840       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x0000000010008840                tuh_hid_receive_report
  .text.hidh_init
-                0x0000000010008910       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
-                0x0000000010008910                hidh_init
+                0x000000001000888c       0x18 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x000000001000888c                hidh_init
  .text.hidh_xfer_cb
-                0x0000000010008928       0xe4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
-                0x0000000010008928                hidh_xfer_cb
+                0x00000000100088a4       0xe4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x00000000100088a4                hidh_xfer_cb
  .text.hidh_close
-                0x0000000010008a0c       0x5c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
-                0x0000000010008a0c                hidh_close
+                0x0000000010008988       0x5c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x0000000010008988                hidh_close
  .text.hidh_open
-                0x0000000010008a68       0xc4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
-                0x0000000010008a68                hidh_open
+                0x00000000100089e4       0xc4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x00000000100089e4                hidh_open
  .text.hidh_set_config
-                0x0000000010008b2c      0x104 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
-                0x0000000010008b2c                hidh_set_config
+                0x0000000010008aa8      0x104 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x0000000010008aa8                hidh_set_config
  .text.tuh_hid_parse_report_descriptor
-                0x0000000010008c30       0xd4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
-                0x0000000010008c30                tuh_hid_parse_report_descriptor
+                0x0000000010008bac       0xd4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/hid/hid_host.c.obj
+                0x0000000010008bac                tuh_hid_parse_report_descriptor
  .text.config_read_capacity_complete
-                0x0000000010008d04       0x94 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
+                0x0000000010008c80       0x94 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
  .text.config_get_maxlun_complete
-                0x0000000010008d98       0xb0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
+                0x0000000010008d14       0xb0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
  .text.config_request_sense_complete
-                0x0000000010008e48       0xc0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
+                0x0000000010008dc4       0xc0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
  .text.config_test_unit_ready_complete
-                0x0000000010008f08      0x164 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
+                0x0000000010008e84      0x164 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
  .text.msch_init
-                0x000000001000906c       0x14 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
-                0x000000001000906c                msch_init
+                0x0000000010008fe8       0x14 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
+                0x0000000010008fe8                msch_init
  .text.msch_close
-                0x0000000010009080       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
-                0x0000000010009080                msch_close
+                0x0000000010008ffc       0x38 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
+                0x0000000010008ffc                msch_close
  .text.msch_xfer_cb
-                0x00000000100090b8       0xe8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
-                0x00000000100090b8                msch_xfer_cb
+                0x0000000010009034       0xe8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
+                0x0000000010009034                msch_xfer_cb
  .text.msch_open
-                0x00000000100091a0       0xc4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
-                0x00000000100091a0                msch_open
+                0x000000001000911c       0xc4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
+                0x000000001000911c                msch_open
  .text.msch_set_config
-                0x0000000010009264       0x48 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
-                0x0000000010009264                msch_set_config
+                0x00000000100091e0       0x48 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/msc/msc_host.c.obj
+                0x00000000100091e0                msch_set_config
  .text.tusb_init
-                0x00000000100092ac        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x00000000100092ac                tusb_init
+                0x0000000010009228        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x0000000010009228                tusb_init
  .text.tusb_inited
-                0x00000000100092b8        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x00000000100092b8                tusb_inited
+                0x0000000010009234        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x0000000010009234                tusb_inited
  .text.tu_edpt_validate
-                0x00000000100092c0       0x78 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x00000000100092c0                tu_edpt_validate
+                0x000000001000923c       0x78 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x000000001000923c                tu_edpt_validate
  .text.tu_edpt_bind_driver
-                0x0000000010009338       0x2c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x0000000010009338                tu_edpt_bind_driver
+                0x00000000100092b4       0x2c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x00000000100092b4                tu_edpt_bind_driver
  .text.tu_desc_get_interface_total_len
-                0x0000000010009364       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x0000000010009364                tu_desc_get_interface_total_len
+                0x00000000100092e0       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x00000000100092e0                tu_desc_get_interface_total_len
  .text.tu_fifo_read
-                0x00000000100093b0       0x9c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x00000000100093b0                tu_fifo_read
+                0x000000001000932c       0x9c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x000000001000932c                tu_fifo_read
  .text.tu_fifo_write
-                0x000000001000944c       0x7c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x000000001000944c                tu_fifo_write
+                0x00000000100093c8       0x7c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x00000000100093c8                tu_fifo_write
  .text.tu_fifo_clear
-                0x00000000100094c8       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x00000000100094c8                tu_fifo_clear
+                0x0000000010009444       0x4c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x0000000010009444                tu_fifo_clear
  .text.board_init
-                0x0000000010009514       0x30 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
-                0x0000000010009514                board_init
- .text          0x0000000010009544       0x5c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-callocr.o)
-                0x0000000010009544                _calloc_r
- .text          0x00000000100095a0      0x58c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mallocr.o)
-                0x00000000100095a0                _malloc_r
- .text          0x0000000010009b2c        0x8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mlock.o)
-                0x0000000010009b2c                __malloc_lock
-                0x0000000010009b30                __malloc_unlock
- .text          0x0000000010009b34       0x24 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-sbrkr.o)
-                0x0000000010009b34                _sbrk_r
- .text          0x0000000010009b58       0x9c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-sscanf.o)
-                0x0000000010009b58                sscanf
-                0x0000000010009ba8                _sscanf_r
- .text          0x0000000010009bf4       0xa4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-stdio.o)
-                0x0000000010009bf4                __sread
-                0x0000000010009c1c                __seofread
-                0x0000000010009c20                __swrite
-                0x0000000010009c60                __sseek
-                0x0000000010009c8c                __sclose
- .text          0x0000000010009c98       0x68 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strlen-stub.o)
-                0x0000000010009c98                strlen
- .text          0x0000000010009d00      0xf7c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-svfscanf.o)
-                0x0000000010009d00                __ssvfscanf_r
- .text          0x000000001000ac7c       0x28 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-writer.o)
-                0x000000001000ac7c                _write_r
- .text          0x000000001000aca4       0x24 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-closer.o)
-                0x000000001000aca4                _close_r
- .text          0x000000001000acc8      0x27c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-freer.o)
-                0x000000001000acc8                _malloc_trim_r
-                0x000000001000ad68                _free_r
- .text          0x000000001000af44        0xc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-iswspace.o)
-                0x000000001000af44                iswspace
- .text          0x000000001000af50       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-iswspace_l.o)
-                0x000000001000af50                iswspace_l
- .text          0x000000001000af68       0x6c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-locale.o)
-                0x000000001000af68                _setlocale_r
-                0x000000001000afac                __locale_mb_cur_max
-                0x000000001000afbc                setlocale
- .text          0x000000001000afd4       0x14 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-localeconv.o)
-                0x000000001000afd4                __localeconv_l
-                0x000000001000afd8                _localeconv_r
-                0x000000001000afe0                localeconv
- .text          0x000000001000afe8       0x28 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-lseekr.o)
-                0x000000001000afe8                _lseek_r
- .text          0x000000001000b010       0x94 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mbrtowc.o)
-                0x000000001000b010                _mbrtowc_r
-                0x000000001000b058                mbrtowc
- .text          0x000000001000b0a4       0x44 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mbtowc_r.o)
-                0x000000001000b0a4                _mbtowc_r
-                0x000000001000b0bc                __ascii_mbtowc
- .text          0x000000001000b0e8       0x28 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-readr.o)
-                0x000000001000b0e8                _read_r
- .text          0x000000001000b110       0x6c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-sccl.o)
-                0x000000001000b110                __sccl
- .text          0x000000001000b17c        0x8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-sf_nan.o)
-                0x000000001000b17c                nanf
- .text          0x000000001000b184       0x88 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strcmp.o)
-                0x000000001000b184                strcmp
- .text          0x000000001000b20c     0x10b8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtod.o)
-                0x000000001000b23c                _strtod_l
-                0x000000001000c11c                _strtod_r
-                0x000000001000c12c                strtod_l
-                0x000000001000c144                strtod
-                0x000000001000c160                strtof_l
-                0x000000001000c210                strtof
- .text          0x000000001000c2c4      0x184 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtol.o)
-                0x000000001000c410                _strtol_r
-                0x000000001000c418                strtol_l
-                0x000000001000c430                strtol
- .text          0x000000001000c448      0x1d8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtoll.o)
-                0x000000001000c5e8                _strtoll_r
-                0x000000001000c5f0                strtoll_l
-                0x000000001000c608                strtoll
- .text          0x000000001000c620      0x180 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtoul.o)
-                0x000000001000c768                _strtoul_r
-                0x000000001000c770                strtoul_l
-                0x000000001000c788                strtoul
- .text          0x000000001000c7a0      0x1f4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtoull.o)
-                0x000000001000c95c                _strtoull_r
-                0x000000001000c964                strtoull_l
-                0x000000001000c97c                strtoull
- .text          0x000000001000c994      0xc18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-svfiscanf.o)
-                0x000000001000c994                _sungetc_r
-                0x000000001000ca14                __ssrefill_r
-                0x000000001000ca54                _sfread_r
-                0x000000001000cae4                __ssvfiscanf_r
- .text          0x000000001000d5ac      0x184 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-ungetc.o)
-                0x000000001000d5ac                __submore
-                0x000000001000d630                _ungetc_r
-                0x000000001000d718                ungetc
- .text          0x000000001000d730       0x2c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-wctomb_r.o)
-                0x000000001000d730                _wctomb_r
-                0x000000001000d740                __ascii_wctomb
- .text          0x000000001000d75c        0xc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-errno.o)
-                0x000000001000d75c                __errno
- .text          0x000000001000d768      0x1b4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-fflush.o)
-                0x000000001000d768                __sflush_r
-                0x000000001000d8c8                _fflush_r
-                0x000000001000d8f4                fflush
- .text          0x000000001000d91c      0x220 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-findfp.o)
-                0x000000001000d920                _cleanup_r
-                0x000000001000da1c                __sfmoreglue
-                0x000000001000da4c                __sfp
-                0x000000001000dad4                _cleanup
-                0x000000001000daec                __sinit
-                0x000000001000dafc                __sfp_lock_acquire
-                0x000000001000db00                __sfp_lock_release
-                0x000000001000db04                __sinit_lock_acquire
-                0x000000001000db08                __sinit_lock_release
-                0x000000001000db0c                __fp_lock_all
-                0x000000001000db24                __fp_unlock_all
- .text          0x000000001000db3c       0x90 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-fwalk.o)
-                0x000000001000db3c                _fwalk
-                0x000000001000db80                _fwalk_reent
- .text          0x000000001000dbcc      0x634 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-gdtoa-gethex.o)
-                0x000000001000dc70                __gethex
- .text          0x000000001000e200      0x1d8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-gdtoa-hexnan.o)
-                0x000000001000e200                __match
-                0x000000001000e22c                __hexnan
- .text          0x000000001000e3d8      0xa38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mprec.o)
-                0x000000001000e3d8                _Balloc
-                0x000000001000e428                _Bfree
-                0x000000001000e43c                __multadd
-                0x000000001000e4ec                __s2b
-                0x000000001000e598                __hi0bits
-                0x000000001000e5d0                __lo0bits
-                0x000000001000e62c                __i2b
-                0x000000001000e658                __multiply
-                0x000000001000e7e4                __pow5mult
-                0x000000001000e898                __lshift
-                0x000000001000e97c                __mcmp
-                0x000000001000e9b0                __mdiff
-                0x000000001000eaf8                __ulp
-                0x000000001000eb40                __b2d
-                0x000000001000ebf8                __d2b
-                0x000000001000ecd0                __ratio
-                0x000000001000ed44                _mprec_log10
-                0x000000001000ed78                __copybits
-                0x000000001000edb8                __any_on
- .text          0x000000001000ee10      0x35c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-reallocr.o)
-                0x000000001000ee10                _realloc_r
- .text          0x000000001000f16c        0xc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-s_nan.o)
-                0x000000001000f16c                nan
- .text          0x000000001000f178       0x94 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strncmp.o)
-                0x000000001000f178                strncmp
- .text          0x000000001000f20c       0xac /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-fclose.o)
-                0x000000001000f20c                _fclose_r
-                0x000000001000f2a4                fclose
- .text          0x000000001000f2b8       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(close.o)
-                0x000000001000f2b8                _close
- .text          0x000000001000f2c8       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(lseek.o)
-                0x000000001000f2c8                _lseek
+                0x0000000010009490       0x30 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
+                0x0000000010009490                board_init
+ .text          0x00000000100094c0       0x5c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-callocr.o)
+                0x00000000100094c0                _calloc_r
+ .text          0x000000001000951c      0x58c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mallocr.o)
+                0x000000001000951c                _malloc_r
+ .text          0x0000000010009aa8        0x8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mlock.o)
+                0x0000000010009aa8                __malloc_lock
+                0x0000000010009aac                __malloc_unlock
+ .text          0x0000000010009ab0       0x24 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-sbrkr.o)
+                0x0000000010009ab0                _sbrk_r
+ .text          0x0000000010009ad4       0x9c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-sscanf.o)
+                0x0000000010009ad4                sscanf
+                0x0000000010009b24                _sscanf_r
+ .text          0x0000000010009b70       0xa4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-stdio.o)
+                0x0000000010009b70                __sread
+                0x0000000010009b98                __seofread
+                0x0000000010009b9c                __swrite
+                0x0000000010009bdc                __sseek
+                0x0000000010009c08                __sclose
+ .text          0x0000000010009c14       0x68 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strlen-stub.o)
+                0x0000000010009c14                strlen
+ .text          0x0000000010009c7c      0xf7c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-svfscanf.o)
+                0x0000000010009c7c                __ssvfscanf_r
+ .text          0x000000001000abf8       0x28 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-writer.o)
+                0x000000001000abf8                _write_r
+ .text          0x000000001000ac20       0x24 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-closer.o)
+                0x000000001000ac20                _close_r
+ .text          0x000000001000ac44      0x27c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-freer.o)
+                0x000000001000ac44                _malloc_trim_r
+                0x000000001000ace4                _free_r
+ .text          0x000000001000aec0        0xc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-iswspace.o)
+                0x000000001000aec0                iswspace
+ .text          0x000000001000aecc       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-iswspace_l.o)
+                0x000000001000aecc                iswspace_l
+ .text          0x000000001000aee4       0x6c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-locale.o)
+                0x000000001000aee4                _setlocale_r
+                0x000000001000af28                __locale_mb_cur_max
+                0x000000001000af38                setlocale
+ .text          0x000000001000af50       0x14 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-localeconv.o)
+                0x000000001000af50                __localeconv_l
+                0x000000001000af54                _localeconv_r
+                0x000000001000af5c                localeconv
+ .text          0x000000001000af64       0x28 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-lseekr.o)
+                0x000000001000af64                _lseek_r
+ .text          0x000000001000af8c       0x94 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mbrtowc.o)
+                0x000000001000af8c                _mbrtowc_r
+                0x000000001000afd4                mbrtowc
+ .text          0x000000001000b020       0x44 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mbtowc_r.o)
+                0x000000001000b020                _mbtowc_r
+                0x000000001000b038                __ascii_mbtowc
+ .text          0x000000001000b064       0x28 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-readr.o)
+                0x000000001000b064                _read_r
+ .text          0x000000001000b08c       0x6c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-sccl.o)
+                0x000000001000b08c                __sccl
+ .text          0x000000001000b0f8        0x8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-sf_nan.o)
+                0x000000001000b0f8                nanf
+ .text          0x000000001000b100       0x88 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strcmp.o)
+                0x000000001000b100                strcmp
+ .text          0x000000001000b188     0x10b8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtod.o)
+                0x000000001000b1b8                _strtod_l
+                0x000000001000c098                _strtod_r
+                0x000000001000c0a8                strtod_l
+                0x000000001000c0c0                strtod
+                0x000000001000c0dc                strtof_l
+                0x000000001000c18c                strtof
+ .text          0x000000001000c240      0x184 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtol.o)
+                0x000000001000c38c                _strtol_r
+                0x000000001000c394                strtol_l
+                0x000000001000c3ac                strtol
+ .text          0x000000001000c3c4      0x1d8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtoll.o)
+                0x000000001000c564                _strtoll_r
+                0x000000001000c56c                strtoll_l
+                0x000000001000c584                strtoll
+ .text          0x000000001000c59c      0x180 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtoul.o)
+                0x000000001000c6e4                _strtoul_r
+                0x000000001000c6ec                strtoul_l
+                0x000000001000c704                strtoul
+ .text          0x000000001000c71c      0x1f4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtoull.o)
+                0x000000001000c8d8                _strtoull_r
+                0x000000001000c8e0                strtoull_l
+                0x000000001000c8f8                strtoull
+ .text          0x000000001000c910      0xc18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-svfiscanf.o)
+                0x000000001000c910                _sungetc_r
+                0x000000001000c990                __ssrefill_r
+                0x000000001000c9d0                _sfread_r
+                0x000000001000ca60                __ssvfiscanf_r
+ .text          0x000000001000d528      0x184 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-ungetc.o)
+                0x000000001000d528                __submore
+                0x000000001000d5ac                _ungetc_r
+                0x000000001000d694                ungetc
+ .text          0x000000001000d6ac       0x2c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-wctomb_r.o)
+                0x000000001000d6ac                _wctomb_r
+                0x000000001000d6bc                __ascii_wctomb
+ .text          0x000000001000d6d8        0xc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-errno.o)
+                0x000000001000d6d8                __errno
+ .text          0x000000001000d6e4      0x1b4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-fflush.o)
+                0x000000001000d6e4                __sflush_r
+                0x000000001000d844                _fflush_r
+                0x000000001000d870                fflush
+ .text          0x000000001000d898      0x220 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-findfp.o)
+                0x000000001000d89c                _cleanup_r
+                0x000000001000d998                __sfmoreglue
+                0x000000001000d9c8                __sfp
+                0x000000001000da50                _cleanup
+                0x000000001000da68                __sinit
+                0x000000001000da78                __sfp_lock_acquire
+                0x000000001000da7c                __sfp_lock_release
+                0x000000001000da80                __sinit_lock_acquire
+                0x000000001000da84                __sinit_lock_release
+                0x000000001000da88                __fp_lock_all
+                0x000000001000daa0                __fp_unlock_all
+ .text          0x000000001000dab8       0x90 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-fwalk.o)
+                0x000000001000dab8                _fwalk
+                0x000000001000dafc                _fwalk_reent
+ .text          0x000000001000db48      0x634 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-gdtoa-gethex.o)
+                0x000000001000dbec                __gethex
+ .text          0x000000001000e17c      0x1d8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-gdtoa-hexnan.o)
+                0x000000001000e17c                __match
+                0x000000001000e1a8                __hexnan
+ .text          0x000000001000e354      0xa38 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mprec.o)
+                0x000000001000e354                _Balloc
+                0x000000001000e3a4                _Bfree
+                0x000000001000e3b8                __multadd
+                0x000000001000e468                __s2b
+                0x000000001000e514                __hi0bits
+                0x000000001000e54c                __lo0bits
+                0x000000001000e5a8                __i2b
+                0x000000001000e5d4                __multiply
+                0x000000001000e760                __pow5mult
+                0x000000001000e814                __lshift
+                0x000000001000e8f8                __mcmp
+                0x000000001000e92c                __mdiff
+                0x000000001000ea74                __ulp
+                0x000000001000eabc                __b2d
+                0x000000001000eb74                __d2b
+                0x000000001000ec4c                __ratio
+                0x000000001000ecc0                _mprec_log10
+                0x000000001000ecf4                __copybits
+                0x000000001000ed34                __any_on
+ .text          0x000000001000ed8c      0x35c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-reallocr.o)
+                0x000000001000ed8c                _realloc_r
+ .text          0x000000001000f0e8        0xc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-s_nan.o)
+                0x000000001000f0e8                nan
+ .text          0x000000001000f0f4       0x94 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strncmp.o)
+                0x000000001000f0f4                strncmp
+ .text          0x000000001000f188       0xac /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-fclose.o)
+                0x000000001000f188                _fclose_r
+                0x000000001000f220                fclose
+ .text          0x000000001000f234       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(close.o)
+                0x000000001000f234                _close
+ .text          0x000000001000f244       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(lseek.o)
+                0x000000001000f244                _lseek
  *(.fini)
- .fini          0x000000001000f2d8        0x4 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crti.o
-                0x000000001000f2d8                _fini
- *fill*         0x000000001000f2dc        0x4 
- .fini.__stub   0x000000001000f2e0       0x70 linker stubs
+ .fini          0x000000001000f254        0x4 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crti.o
+                0x000000001000f254                _fini
+ .fini.__stub   0x000000001000f258       0x70 linker stubs
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
@@ -2446,210 +2445,210 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
  *(.eh_frame*)
- .eh_frame      0x000000001000f350        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
-                0x000000001000f350                . = ALIGN (0x4)
+ .eh_frame      0x000000001000f2c8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
+                0x000000001000f2c8                . = ALIGN (0x4)
 
-.glue_7         0x000000001000f350        0x0
- .glue_7        0x000000001000f350        0x0 linker stubs
+.glue_7         0x000000001000f2c8        0x0
+ .glue_7        0x000000001000f2c8        0x0 linker stubs
 
-.glue_7t        0x000000001000f350        0x0
- .glue_7t       0x000000001000f350        0x0 linker stubs
+.glue_7t        0x000000001000f2c8        0x0
+ .glue_7t       0x000000001000f2c8        0x0 linker stubs
 
-.vfp11_veneer   0x000000001000f350        0x0
- .vfp11_veneer  0x000000001000f350        0x0 linker stubs
+.vfp11_veneer   0x000000001000f2c8        0x0
+ .vfp11_veneer  0x000000001000f2c8        0x0 linker stubs
 
-.v4_bx          0x000000001000f350        0x0
- .v4_bx         0x000000001000f350        0x0 linker stubs
+.v4_bx          0x000000001000f2c8        0x0
+ .v4_bx         0x000000001000f2c8        0x0 linker stubs
 
-.iplt           0x000000001000f350        0x0
- .iplt          0x000000001000f350        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
+.iplt           0x000000001000f2c8        0x0
+ .iplt          0x000000001000f2c8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
 
-.rodata         0x000000001000f350     0x140c
+.rodata         0x000000001000f2c8     0x140c
  *(EXCLUDE_FILE(*libm.a: *libc.a:*lib_a-mem*.o *libgcc.a:) .rodata*)
  .rodata.main.str1.4
-                0x000000001000f350       0x32 CMakeFiles/simple_vga.dir/main.c.obj
- *fill*         0x000000001000f382        0x2 
+                0x000000001000f2c8       0x32 CMakeFiles/simple_vga.dir/main.c.obj
+ *fill*         0x000000001000f2fa        0x2 
  .rodata.hsync_program
-                0x000000001000f384        0x6 CMakeFiles/simple_vga.dir/main.c.obj
- *fill*         0x000000001000f38a        0x2 
+                0x000000001000f2fc        0x6 CMakeFiles/simple_vga.dir/main.c.obj
+ *fill*         0x000000001000f302        0x2 
  .rodata.hsync_program_instructions
-                0x000000001000f38c       0x12 CMakeFiles/simple_vga.dir/main.c.obj
- *fill*         0x000000001000f39e        0x2 
+                0x000000001000f304       0x12 CMakeFiles/simple_vga.dir/main.c.obj
+ *fill*         0x000000001000f316        0x2 
  .rodata.nrgb_program
-                0x000000001000f3a0        0x6 CMakeFiles/simple_vga.dir/main.c.obj
- *fill*         0x000000001000f3a6        0x2 
+                0x000000001000f318        0x6 CMakeFiles/simple_vga.dir/main.c.obj
+ *fill*         0x000000001000f31e        0x2 
  .rodata.nrgb_program_instructions
-                0x000000001000f3a8       0x10 CMakeFiles/simple_vga.dir/main.c.obj
+                0x000000001000f320       0x10 CMakeFiles/simple_vga.dir/main.c.obj
  .rodata.vsync_program
-                0x000000001000f3b8        0x6 CMakeFiles/simple_vga.dir/main.c.obj
- *fill*         0x000000001000f3be        0x2 
+                0x000000001000f330        0x6 CMakeFiles/simple_vga.dir/main.c.obj
+ *fill*         0x000000001000f336        0x2 
  .rodata.vsync_program_instructions
-                0x000000001000f3c0       0x1e CMakeFiles/simple_vga.dir/main.c.obj
- *fill*         0x000000001000f3de        0x2 
+                0x000000001000f338       0x1e CMakeFiles/simple_vga.dir/main.c.obj
+ *fill*         0x000000001000f356        0x2 
  .rodata.tuh_hid_report_received_cb.str1.4
-                0x000000001000f3e0       0x31 CMakeFiles/simple_vga.dir/hid_app.c.obj
- *fill*         0x000000001000f411        0x3 
+                0x000000001000f358       0x31 CMakeFiles/simple_vga.dir/hid_app.c.obj
+ *fill*         0x000000001000f389        0x3 
  .rodata.keycode2ascii
-                0x000000001000f414      0x100 CMakeFiles/simple_vga.dir/hid_app.c.obj
+                0x000000001000f38c      0x100 CMakeFiles/simple_vga.dir/hid_app.c.obj
  .rodata.fill_background.str1.4
-                0x000000001000f514       0x23 CMakeFiles/simple_vga.dir/text_mode.c.obj
- *fill*         0x000000001000f537        0x1 
+                0x000000001000f48c       0x23 CMakeFiles/simple_vga.dir/text_mode.c.obj
+ *fill*         0x000000001000f4af        0x1 
  .rodata.get_argument.str1.4
-                0x000000001000f538        0x3 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
- *fill*         0x000000001000f53b        0x1 
+                0x000000001000f4b0        0x3 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
+ *fill*         0x000000001000f4b3        0x1 
  .rodata.handle_m
-                0x000000001000f53c       0x70 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
+                0x000000001000f4b4       0x70 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
  .rodata.handle_move.str1.4
-                0x000000001000f5ac        0x3 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
- *fill*         0x000000001000f5af        0x1 
+                0x000000001000f524        0x3 CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
+ *fill*         0x000000001000f527        0x1 
  .rodata.process_recieve
-                0x000000001000f5b0      0x16c CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
+                0x000000001000f528      0x16c CMakeFiles/simple_vga.dir/ansi_terminal.c.obj
  .rodata.spin_lock_claim_unused.str1.4
-                0x000000001000f71c       0x1b CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
- *fill*         0x000000001000f737        0x1 
+                0x000000001000f694       0x1b CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
+ *fill*         0x000000001000f6af        0x1 
  .rodata.at_the_end_of_time
-                0x000000001000f738        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
-                0x000000001000f738                at_the_end_of_time
+                0x000000001000f6b0        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/common/pico_time/time.c.obj
+                0x000000001000f6b0                at_the_end_of_time
  .rodata.hardware_alarm_claim.str1.4
-                0x000000001000f740       0x22 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
- *fill*         0x000000001000f762        0x2 
+                0x000000001000f6b8       0x22 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+ *fill*         0x000000001000f6da        0x2 
  .rodata.__assert_func.str1.4
-                0x000000001000f764       0x3f CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x000000001000f6dc       0x3f CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
                                          0x43 (size before relaxing)
- *fill*         0x000000001000f7a3        0x1 
+ *fill*         0x000000001000f71b        0x1 
  .rodata.panic.str1.4
-                0x000000001000f7a4       0x12 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
- *fill*         0x000000001000f7b6        0x2 
+                0x000000001000f71c       0x12 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+ *fill*         0x000000001000f72e        0x2 
  .rodata.hard_assertion_failure.str1.4
-                0x000000001000f7b8        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x000000001000f730        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
  .rodata._ftoa.str1.4
-                0x000000001000f7c4       0x15 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- *fill*         0x000000001000f7d9        0x3 
+                0x000000001000f73c       0x15 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+ *fill*         0x000000001000f751        0x3 
  .rodata._vsnprintf
-                0x000000001000f7dc      0x1e0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- *fill*         0x000000001000f9bc        0x4 
+                0x000000001000f754      0x1e0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+ *fill*         0x000000001000f934        0x4 
  .rodata.pow10.5435
-                0x000000001000f9c0       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x000000001000f938       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .rodata.str1.4
-                0x000000001000fa10       0x40 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x000000001000f988       0x40 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .rodata.__bi_44
-                0x000000001000fa50        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x000000001000f9c8        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .rodata.__bi_75
-                0x000000001000fa5c        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x000000001000f9d4        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .rodata.__bi_81
-                0x000000001000fa68        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x000000001000f9e0        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .rodata.crlf_str.6051
-                0x000000001000fa74        0x2 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
- *fill*         0x000000001000fa76        0x2 
+                0x000000001000f9ec        0x2 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+ *fill*         0x000000001000f9ee        0x2 
  .rodata.pio_add_program.str1.4
-                0x000000001000fa78       0x11 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
- *fill*         0x000000001000fa89        0x3 
+                0x000000001000f9f0       0x11 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
+ *fill*         0x000000001000fa01        0x3 
  .rodata.hcd_rp2040_irq.str1.4
-                0x000000001000fa8c       0x40 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+                0x000000001000fa04       0x40 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
  .rodata.hcd_port_speed_get.str1.4
-                0x000000001000facc        0xf CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
- *fill*         0x000000001000fadb        0x1 
+                0x000000001000fa44        0xf CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/hcd_rp2040.c.obj
+ *fill*         0x000000001000fa53        0x1 
  .rodata._hw_endpoint_buffer_control_update32.part.0.str1.4
-                0x000000001000fadc       0x1f CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
- *fill*         0x000000001000fafb        0x1 
+                0x000000001000fa54       0x1f CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+ *fill*         0x000000001000fa73        0x1 
  .rodata.hw_endpoint_xfer_continue.str1.4
-                0x000000001000fafc       0x29 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
- *fill*         0x000000001000fb25        0x3 
+                0x000000001000fa74       0x29 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+ *fill*         0x000000001000fa9d        0x3 
  .rodata.str1.4
-                0x000000001000fb28        0x7 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
- *fill*         0x000000001000fb2f        0x1 
- .rodata        0x000000001000fb30       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+                0x000000001000faa0        0x7 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+ *fill*         0x000000001000faa7        0x1 
+ .rodata        0x000000001000faa8       0x20 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
  .rodata.usbh_class_drivers
-                0x000000001000fb50       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
- .rodata        0x000000001000fba0        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
+                0x000000001000fac8       0x50 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/usbh.c.obj
+ .rodata        0x000000001000fb18        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/host/hub.c.obj
  .rodata.str1.4
-                0x000000001000fba8        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
+                0x000000001000fb20        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
  .rodata.__bi_121.8220
-                0x000000001000fbac        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
+                0x000000001000fb24        0xc CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
  .rodata.__bi_131.8223
-                0x000000001000fbb8        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
- .rodata        0x000000001000fbc0        0x4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-impure.o)
-                0x000000001000fbc0                _global_impure_ptr
- .rodata        0x000000001000fbc4      0x3e6 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-svfscanf.o)
- *fill*         0x000000001000ffaa        0x2 
+                0x000000001000fb30        0x8 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
+ .rodata        0x000000001000fb38        0x4 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-impure.o)
+                0x000000001000fb38                _global_impure_ptr
+ .rodata        0x000000001000fb3c      0x3e6 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-svfscanf.o)
+ *fill*         0x000000001000ff22        0x2 
  .rodata.str1.4
-                0x000000001000ffac        0x5 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-svfscanf.o)
+                0x000000001000ff24        0x5 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-svfscanf.o)
                                           0x9 (size before relaxing)
- *fill*         0x000000001000ffb1        0x3 
- .rodata        0x000000001000ffb4      0x101 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-ctype_.o)
-                0x000000001000ffb4                _ctype_
- *fill*         0x00000000100100b5        0x3 
+ *fill*         0x000000001000ff29        0x3 
+ .rodata        0x000000001000ff2c      0x101 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-ctype_.o)
+                0x000000001000ff2c                _ctype_
+ *fill*         0x000000001001002d        0x3 
  .rodata.str1.4
-                0x00000000100100b8        0xe /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-locale.o)
+                0x0000000010010030        0xe /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-locale.o)
                                          0x12 (size before relaxing)
  .rodata.str1.4
-                0x00000000100100c6        0x1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mbrtowc.o)
- *fill*         0x00000000100100c6        0x2 
- .rodata        0x00000000100100c8      0x120 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtod.o)
+                0x000000001001003e        0x1 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mbrtowc.o)
+ *fill*         0x000000001001003e        0x2 
+ .rodata        0x0000000010010040      0x120 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtod.o)
  .rodata.str1.4
-                0x00000000100101e8        0xf /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtod.o)
+                0x0000000010010160        0xf /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strtod.o)
                                          0x11 (size before relaxing)
- *fill*         0x00000000100101f7        0x1 
- .rodata        0x00000000100101f8      0x2aa /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-svfiscanf.o)
- *fill*         0x00000000100104a2        0x2 
- .rodata        0x00000000100104a4      0x100 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-gdtoa-gethex.o)
-                0x00000000100104a4                __hexdig
+ *fill*         0x000000001001016f        0x1 
+ .rodata        0x0000000010010170      0x2aa /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-svfiscanf.o)
+ *fill*         0x000000001001041a        0x2 
+ .rodata        0x000000001001041c      0x100 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-gdtoa-gethex.o)
+                0x000000001001041c                __hexdig
  .rodata.str1.4
-                0x00000000100105a4       0x4e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-gdtoa-gethex.o)
- *fill*         0x00000000100105f2        0x2 
- .rodata        0x00000000100105f4        0xc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-lnumeric.o)
-                0x00000000100105f4                _C_numeric_locale
+                0x000000001001051c       0x4e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-gdtoa-gethex.o)
+ *fill*         0x000000001001056a        0x2 
+ .rodata        0x000000001001056c        0xc /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-lnumeric.o)
+                0x000000001001056c                _C_numeric_locale
  .rodata.str1.4
-                0x0000000010010600        0x5 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-lnumeric.o)
- .rodata        0x0000000010010600      0x128 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mprec.o)
-                0x0000000010010610                __mprec_tinytens
-                0x0000000010010638                __mprec_bigtens
-                0x0000000010010660                __mprec_tens
+                0x0000000010010578        0x5 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-lnumeric.o)
+ .rodata        0x0000000010010578      0x128 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mprec.o)
+                0x0000000010010588                __mprec_tinytens
+                0x00000000100105b0                __mprec_bigtens
+                0x00000000100105d8                __mprec_tens
  .rodata.str1.4
-                0x0000000010010728       0x33 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mprec.o)
+                0x00000000100106a0       0x33 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mprec.o)
                                          0x47 (size before relaxing)
-                0x000000001001075c                . = ALIGN (0x4)
- *fill*         0x000000001001075b        0x1 
+                0x00000000100106d4                . = ALIGN (0x4)
+ *fill*         0x00000000100106d3        0x1 
  *(SORT_BY_ALIGNMENT(SORT_BY_NAME(.flashdata*)))
-                0x000000001001075c                . = ALIGN (0x4)
+                0x00000000100106d4                . = ALIGN (0x4)
 
-.rel.dyn        0x000000001001075c        0x0
- .rel.iplt      0x000000001001075c        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
+.rel.dyn        0x00000000100106d4        0x0
+ .rel.iplt      0x00000000100106d4        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x000000001001075c                __exidx_start = .
+                0x00000000100106d4                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x000000001001075c                __exidx_end = .
-                0x000000001001075c                . = ALIGN (0x4)
-                0x000000001001075c                __binary_info_start = .
+                0x00000000100106d4                __exidx_end = .
+                0x00000000100106d4                . = ALIGN (0x4)
+                0x00000000100106d4                __binary_info_start = .
 
-.binary_info    0x000000001001075c       0x24
+.binary_info    0x00000000100106d4       0x24
  *(.binary_info.keep.*)
  .binary_info.keep.__bi_ptr22
-                0x000000001001075c        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x00000000100106d4        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr30
-                0x0000000010010760        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x00000000100106d8        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr38
-                0x0000000010010764        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x00000000100106dc        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr44
-                0x0000000010010768        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x00000000100106e0        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr50
-                0x000000001001076c        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x00000000100106e4        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr75
-                0x0000000010010770        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x00000000100106e8        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr81
-                0x0000000010010774        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x00000000100106ec        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr121
-                0x0000000010010778        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
+                0x00000000100106f0        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
  .binary_info.keep.__bi_ptr131
-                0x000000001001077c        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
+                0x00000000100106f4        0x4 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
  *(.binary_info.*)
-                0x0000000010010780                __binary_info_end = .
-                0x0000000010010780                . = ALIGN (0x4)
-                0x0000000010010780                __etext = .
+                0x00000000100106f8                __binary_info_end = .
+                0x00000000100106f8                . = ALIGN (0x4)
+                0x00000000100106f8                __etext = .
 
 .ram_vector_table
                 0x0000000020000000       0xc0
@@ -2658,7 +2657,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
                 0x0000000020000000       0xc0 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
                 0x0000000020000000                ram_vector_table
 
-.data           0x00000000200000c0     0x1cf4 load address 0x0000000010010780
+.data           0x00000000200000c0     0x1cf4 load address 0x00000000100106f8
                 0x00000000200000c0                __data_start__ = .
  *(vtable)
  *(.time_critical*)
@@ -2765,33 +2764,33 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
                 0x0000000020001db4                __data_end__ = .
 
 .tm_clone_table
-                0x0000000020001db4        0x0 load address 0x0000000010012474
+                0x0000000020001db4        0x0 load address 0x00000000100123ec
  .tm_clone_table
                 0x0000000020001db4        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
  .tm_clone_table
                 0x0000000020001db4        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtend.o
 
-.igot.plt       0x0000000020001db4        0x0 load address 0x0000000010012474
+.igot.plt       0x0000000020001db4        0x0 load address 0x00000000100123ec
  .igot.plt      0x0000000020001db4        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
 
 .uninitialized_data
-                0x0000000020001db4        0x0 load address 0x0000000010012474
+                0x0000000020001db4        0x0 load address 0x00000000100123ec
                 0x0000000020001db4                . = ALIGN (0x4)
  *(.uninitialized_data*)
 
-.scratch_x      0x0000000020040000        0x0 load address 0x0000000010012474
+.scratch_x      0x0000000020040000        0x0 load address 0x00000000100123ec
                 0x0000000020040000                __scratch_x_start__ = .
  *(.scratch_x.*)
                 0x0000000020040000                . = ALIGN (0x4)
                 0x0000000020040000                __scratch_x_end__ = .
-                0x0000000010012474                __scratch_x_source__ = LOADADDR (.scratch_x)
+                0x00000000100123ec                __scratch_x_source__ = LOADADDR (.scratch_x)
 
-.scratch_y      0x0000000020041000        0x0 load address 0x0000000010012474
+.scratch_y      0x0000000020041000        0x0 load address 0x00000000100123ec
                 0x0000000020041000                __scratch_y_start__ = .
  *(.scratch_y.*)
                 0x0000000020041000                . = ALIGN (0x4)
                 0x0000000020041000                __scratch_y_end__ = .
-                0x0000000010012474                __scratch_y_source__ = LOADADDR (.scratch_y)
+                0x00000000100123ec                __scratch_y_source__ = LOADADDR (.scratch_y)
 
 .bss            0x0000000020001db8     0x506c
                 0x0000000020001db8                . = ALIGN (0x4)
@@ -2930,8 +2929,8 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
  *(.stack*)
  .stack         0x0000000020041000      0x800 CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj
 
-.flash_end      0x0000000010012474        0x0
-                0x0000000010012474                __flash_binary_end = .
+.flash_end      0x00000000100123ec        0x0
+                0x00000000100123ec                __flash_binary_end = .
                 0x0000000020040000                __StackLimit = (ORIGIN (RAM) + LENGTH (RAM))
                 0x0000000020041000                __StackOneTop = (ORIGIN (SCRATCH_X) + LENGTH (SCRATCH_X))
                 0x0000000020042000                __StackTop = (ORIGIN (SCRATCH_Y) + LENGTH (SCRATCH_Y))
@@ -3005,7 +3004,7 @@ LOAD CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/class/vendor
 LOAD CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/tusb.c.obj
 LOAD CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
 LOAD CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
-LOAD /tmp/ccVJbyXr.o
+LOAD /tmp/cctq6DcD.o
 LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libstdc++.a
 LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a
 START GROUP
@@ -3137,7 +3136,7 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000000000000908       0x2c CMakeFiles/simple_vga.dir/home/keyvin/pico-sdk/lib/tinyusb/hw/bsp/rp2040/family.c.obj
  .ARM.attributes
-                0x0000000000000934       0x22 /tmp/ccVJbyXr.o
+                0x0000000000000934       0x22 /tmp/cctq6DcD.o
  .ARM.attributes
                 0x0000000000000956       0x1e /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .ARM.attributes
