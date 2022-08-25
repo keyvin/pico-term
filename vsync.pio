@@ -2,8 +2,8 @@
 ; Hunter Adams (vha3@cornell.edu)
 ; HSync generation for VGA driver
 ; https://vanhunteradams.com/Pico/VGA/VGA.htm
+;Given permission to release under MIT license in this project
 
-; This code is currently of uncertain license and may need to be rewritten.
 
 .program vsync
 .side_set 1 opt
