@@ -24,17 +24,13 @@
 #define RGB_PIN 0
 #define H_ACTIVE   655    // (active + frontporch - 1) - one cycle delay for mov
 #define V_ACTIVE   479    // (active - 1)
-#define RGB_ACTIVE 640    
-#define TXCOUNT 641
+#define RGB_ACTIVE 647    
+#define TXCOUNT 648*16   //1bpp
 
 //character buffer - 80x3
 extern uint32_t t_buffer[ROW*COL+1];
 
-extern char sbuffer[LAST_CHAR+1];
-//attribute buffer - 80x30
-extern char abuffer[LAST_CHAR+1];
-extern char fbuffer[LAST_CHAR+1];
-extern char bbuffer[LAST_CHAR+1];
+
 extern void tuh_task();
 extern void hid_app_task();
 

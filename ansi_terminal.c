@@ -10,7 +10,7 @@ bool at_eol = false;
 uint16_t old_cursor;
 uint8_t current_foreground = 0xFF;
 uint8_t current_background = 0xFF;
-uint32_t current_attr_packed = 0;
+uint32_t current_attributes_packed = 0;
 
 
 uint32_t t_color[] = { 0x00000000,
@@ -93,7 +93,7 @@ void dma_copy_reigon(uint32_t *source, uint32_t *dest, uint32_t count){
 
 void scroll_screen(){
   //use DMA to scroll the screen. 
-  dma_copy_reigon(t_buffer, t_buffer+COL, LAST_CHAR-COL));
+  dma_copy_reigon(t_buffer, t_buffer+COL, LAST_CHAR-COL);
   for (int a =LAST_CHAR; a >=(LAST_CHAR-COL);a--){
     t_buffer[a]=0;
   }

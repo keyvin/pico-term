@@ -29,9 +29,9 @@ uint32_t bell_start_tick;
 uint16_t scanline;
 
 //DMA BUFFERS
-uint8_t RGB_buffer[2][680]; //8bpp
- 
-
+uint32_t RGB_buffer1[16*180]; //8bpp
+uint32_t RGB_buffer2[16*180];
+//need 1/4th pixes (32 bit)
 
 //Keyboard buffer
 #define KB_BUFFER_SIZE 20
@@ -128,6 +128,7 @@ void io_main() {
 	  ch = uart_getc(UART_ID);
 	  recieve_buffer_put(ch);
 	}
+
 	
       }
       
@@ -226,13 +227,9 @@ int main(){
    irq_set_priority(12, 0x40);
    build_f_table();
    usb_init();
-  
-   multicore_launch_core1(io_main);   
-
    
-
- 
-  fill_background();
+   multicore_launch_core1(io_main);    
+   fill_background();
   PIO pio = pio0;
   uint hsync_offset = pio_add_program(pio, &hsync_program);
   uint vsync_offset = pio_add_program(pio, &vsync_program);
@@ -261,7 +258,7 @@ int main(){
 			rgb_chan_0,                 // Channel to be configured
 			&c0,                        // The configuration we just created
 			&pio->txf[rgb_sm],          // write address (RGB PIO TX FIFO)
-			&RGB_buffer[0],            // The initial read address (pixel color array)
+			RGB_buffer1,            // The initial read address (pixel color array)
 			TXCOUNT,                    // Number of transfers; in this case each is 1 byte.
 			false                       // start immediately.
     );
@@ -280,23 +277,25 @@ int main(){
   scanline = 0;
   uint16_t buffer_line =0;
   uint16_t pixel = 0;
-  uint8_t *rgb;
-  uint8_t *rgb_n;
+  uint32_t *rgb;
+  uint32_t *rgb_n;
   uint8_t *sync;	
   uint32_t flip = 0;
 
   // z80io_setup();
-  fill_scan(RGB_buffer[0], t_buffer, 0, 0);
-  fill_scan(RGB_buffer[1], t_buffer, 0, 0);
+  for (int i=0;i < 16; i++){
+    fill_scan(RGB_buffer1+(i*162), t_buffer, i, 0);
+    fill_scan(RGB_buffer2+(i*162), t_buffer, i, 0);
+  }
   uint32_t bstart = 0;
   uint32_t vb;
   pio_enable_sm_mask_in_sync(pio, ((1u << hsync_sm) | (1u << vsync_sm) | (1u << rgb_sm)));
   unsigned int frame = 0;
   uint32_t *ptr;
-  uint8_t *tmp_p;
-  rgb = (uint8_t *) RGB_buffer[0];
-  rgb_n = (uint8_t *) RGB_buffer[1];
-  bstart = (scanline / 16)*COL;
+  uint32_t *tmp_p;
+  rgb = (uint32_t *) RGB_buffer1;
+  rgb_n = (uint32_t *) RGB_buffer2;
+  bstart = 0;
   //  gpio_set_dir(0,true);
   //gpio_set_function(0, GPIO_FUNC_PIO0);
   while (1) {   
@@ -304,40 +303,39 @@ int main(){
     rgb = rgb_n;	    
     rgb_n = tmp_p;
     dma_channel_set_read_addr(rgb_chan_0, rgb, true);
-    //fill the buffer for the flip
-    
-    scanline++;
-    bstart = (scanline / 16)*COL;
-     if (pio_interrupt_get(pio,5)) {
-       //pio_interrupt_clear(pio,5) //irq 5 shows we are in vblank. Do not clear
-      //vblank before last scanline
-      if (scanline < 480){
-	scanline=480;
+    //fill the buffer for the flip    
+    //    scanline+=16;
+    bstart = bstart+1;
+    /*     if (pio_interrupt_get(pio,5)) {
+       pio_interrupt_clear(pio,5); //irq 5 shows we are in vblank. Do not clear
+	                          //vblank before last scanline
+	 if (bstart < 30){
+	bstart=0;
 	dma_channel_abort(rgb_chan_0);
 	pio_sm_clear_fifos(pio, rgb_sm);
 	pio_sm_put_blocking(pio, rgb_sm, RGB_ACTIVE);
 	pio_sm_restart(pio,rgb_sm);
 	pio_sm_clear_fifos(pio, rgb_sm);
-      }
+	}
 
-    }
-    if (scanline == 480){	
+	}*/
+    if (bstart==30){	
       bstart =0;
       scanline=0;
       frame++;
     }
-    fill_scan(rgb_n, (uint32_t *)(t_buffer+bstart),scanline%16,frame);
-    if ((frame%60)<30 &&  (cursor/COL)==(bstart/COL) && scanline!=479) {
-      ptr = (uint32_t *) rgb_n;
-      //TODO - should be cursor color/mode
-      ptr[(cursor%COL)*2]=0xFFFFFFFF;
-      ptr[(cursor%COL)*2+1]=0xFFFFFFFF;
-
-
+    for (int i=0; i <16; i++) {
+      fill_scan(rgb_n +(i*162), (uint32_t *)(t_buffer+(bstart*COL)),i,frame);
     }
-    rgb_n[640] = 0;
-
-
+    if ((frame%60)<30 &&  (cursor/COL)==(bstart/COL)) {
+      //ptr = (uint32_t *) rgb_n;
+      //TODO - should be cursor color/mode
+      //ptr[(cursor%COL)*2]=0xFFFFFFFF;
+      //ptr[(cursor%COL)*2+1]=0xFFFFFFFF;
+      
+      
+    }   
+        
     dma_channel_wait_for_finish_blocking(rgb_chan_0);
   }
       

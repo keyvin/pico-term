@@ -11,6 +11,8 @@ void fill_background() {
     for (int j = 0;  j < COL; j++) {
       t_buffer[i*COL+j] = 0;
     }
+  //t_buffer[5] = pack_cell('H',0,0,0);
+  //t_buffer[4] = pack_cell('I',0,0,0);
   //static string.
   //strcpy(sbuffer, "Initial buffer - IO 39-10 to reset");
 }
@@ -82,9 +84,9 @@ uint32_t pack_cell(uint8_t val, uint8_t attr, uint8_t fg, uint8_t bg){
   return ret_val;
 }
 
-void fill_scan(uint8_t *buffer, uint32_t *t_row, int line, int frame) {
+void fill_scan(uint32_t *buffer, uint32_t *t_row, int line, int frame) {
   unsigned int p=0;
-  uint32_t *b= (uint32_t *) buffer;
+  uint32_t *b=  buffer;
   uint8_t attr=0;  //atrribute
   uint8_t fg=0;    //foreground color for cell
   uint8_t bg=0;    //background color for cell
@@ -102,7 +104,6 @@ void fill_scan(uint8_t *buffer, uint32_t *t_row, int line, int frame) {
     unpack_cell(t_row[i], &ch, &attr, &fg, &bg);
     p = 2*i;    
     offs = ((ch*2)*16)+l;
-    attr;
     rgb_foreground = 0xFFFFFFFF;  //default masks
     rgb_background = 0x00000000;   
 
@@ -131,6 +132,6 @@ void fill_scan(uint8_t *buffer, uint32_t *t_row, int line, int frame) {
       b[p+1] = f1 & rgb_foreground | (b1 & rgb_background);         
     }
   }
-  b[160]=0;  
+  b[160]=0;
 }
 
