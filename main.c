@@ -174,8 +174,8 @@ void z80io_setup() {
   //  pio_sm_set_enabled(p1, sm_z80io, true);    
 }
 
-
-
+//needs to be rewritten to use packed terminal cell format
+/*
 void bus_read() {
   uint32_t r1,r2,r3,r4;
   uint8_t base;
@@ -210,7 +210,7 @@ void bus_read() {
     pio_interrupt_clear(p1,6);				
   }
 }
-
+*/
 
 
 
@@ -286,8 +286,8 @@ int main(){
   uint32_t flip = 0;
 
   // z80io_setup();
-  fill_scan(RGB_buffer[0], sbuffer, abuffer, 0, 0);
-  fill_scan(RGB_buffer[1], sbuffer, abuffer, 0, 0);
+  fill_scan(RGB_buffer[0], t_buffer, 0, 0);
+  fill_scan(RGB_buffer[1], t_buffer, 0, 0);
   uint32_t bstart = 0;
   uint32_t vb;
   pio_enable_sm_mask_in_sync(pio, ((1u << hsync_sm) | (1u << vsync_sm) | (1u << rgb_sm)));
@@ -326,8 +326,7 @@ int main(){
       scanline=0;
       frame++;
     }
-    fill_scan(rgb_n, (char *)(sbuffer+bstart),
-	      (char *)(abuffer+bstart),scanline%16,frame);
+    fill_scan(rgb_n, (uint32_t *)(t_buffer+bstart),scanline%16,frame);
     if ((frame%60)<30 &&  (cursor/COL)==(bstart/COL) && scanline!=479) {
       ptr = (uint32_t *) rgb_n;
       //TODO - should be cursor color/mode

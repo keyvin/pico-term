@@ -3,15 +3,16 @@
 #include "stdlib.h"
 #include "font.h"
 
+uint32_t t_buffer[ROW*COL+1];
+
 
 void fill_background() {
   for (int i =0; i < ROW; i++)
     for (int j = 0;  j < COL; j++) {
-      sbuffer[(i*COL)+j] = ' ';
-      abuffer[(i*COL)+j] = 0;
+      t_buffer[i*COL+j] = 0;
     }
   //static string.
-  strcpy(sbuffer, "Initial buffer - IO 39-10 to reset");
+  //strcpy(sbuffer, "Initial buffer - IO 39-10 to reset");
 }
 
 uint32_t font_table[256][2];
@@ -57,98 +58,77 @@ void get_f_at(char chr, int line,  uint32_t *f0, uint32_t *f1, uint32_t *b0, uin
   *b1 = mask_table[offs][1];
   return;
 }
-//uint32_t unpacked_font[8400];
-//uint32_t unpacked_mask[8400];
 
-void unpack_font() {
-  /*
-  uint8_t buffer[8];
-  uint8_t mask[8];
-  uint8_t offs;
-  for (int i = 0; i < 256; i++) {
-    for (int l = 0;l< 16;l++) {      
-      offs = VGA8_F16[(i*16)+l];
-      buffer[7] = offs & 0x01 ? 255: 0;
-      mask[7] = offs & 0x01 ? 0: 255;
-      buffer[6] = offs & 0x02 ? 255: 0;
-      mask[6] = offs & 0x02 ? 0:255;
-      buffer[5] = offs & 0x04 ? 255: 0;
-      mask[5] = offs & 0x04 ? 0:255;
-      buffer[4] = offs & 0x08 ? 255: 0;
-      mask[4] = offs & 0x08 ? 0:255;
-      buffer[3] = offs & 0x10 ? 255: 0;
-      mask[3] = offs & 0x10 ? 0:255;
-      buffer[2] = offs & 0x20 ? 255: 0;
-      mask[2] = offs & 0x20 ? 0:255;
-      buffer[1] = offs & 0x40 ? 255: 0;
-      mask[1] = offs & 0x40 ? 0:255;
-      buffer[0] = offs & 0x80 ? 255: 0;
-      mask[0] = offs & 0x80 ? 0:255;
-      unpacked_font[((i*2)*16)+(l*2)] = *((uint32_t *) buffer);
-      unpacked_font[((i*2)*16)+(l*2)+1] = *((uint32_t *) (buffer+4));
-      unpacked_mask[((i*2)*16)+(l*2)] = *((uint32_t *) mask);
-      unpacked_mask[((i*2)*16)+(l*2)+1] = *((uint32_t *) (mask+4));
-    }
-  }
-  */
+void unpack_cell(uint32_t cell, uint8_t *val, uint8_t *attr, uint8_t *fg, uint8_t *bg){
+  *val=T_GET_CHARACTER(cell);
+  *attr=T_GET_ATTRIBUTE(cell);
+  *fg=T_GET_FOREGROUND(cell);
+  *bg=T_GET_BACKGROUND(cell);
 }
 
+uint32_t pack_cell(uint8_t val, uint8_t attr, uint8_t fg, uint8_t bg){
+  uint32_t working1=0;
+  uint32_t working2=0;
+  uint32_t working3=0;
+  uint32_t working4=0;
+  uint32_t ret_val=0;
+  working1=val;
+  working2=attr;
+  working3=fg;
+  working4=bg;
+  ret_val = working1 | (working2 << T_ATTRIBUTE) | (working3 << T_FOREGROUND)
+						    | (working4 << T_BACKGROUND);
 
-/*
-void fill_scan_m(uint8_t *buffer, char *string, int line) {
-  unsigned int p;
-  uint32_t *b= (uint32_t *) buffer;
-  uint32_t offs;
-  for (int i =0; i < 80; i++) {
-    p = 2*i;
-    offs = ((string[i]*2)*16)+(2*line);
-    b[p] = unpacked_font[offs];
-    b[p+1] = unpacked_font[offs+1];    
-  }
+  return ret_val;
 }
-*/
 
-void fill_scan(uint8_t *buffer, char *string, char*attr, int line, int frame) {
+void fill_scan(uint8_t *buffer, uint32_t *t_row, int line, int frame) {
   unsigned int p=0;
   uint32_t *b= (uint32_t *) buffer;
-  uint8_t stats=0;
+  uint8_t attr=0;  //atrribute
+  uint8_t fg=0;    //foreground color for cell
+  uint8_t bg=0;    //background color for cell
+  uint8_t ch='\0'; //text at cell
+  
+  
   uint32_t offs=0;
-  uint32_t f0,f1,b0,b1;
-  uint32_t foreground =  0x00;
-  uint32_t background =  0x00;
-  uint32_t tmp;
+  uint32_t f0,f1,b0,b1;   //masks
+  uint32_t rgb_foreground =  0x00;
+  uint32_t rgb_background =  0x00;
+  uint32_t rgb_tmp;
   uint32_t l = 2*line;
 
   for (int i =0; i < COL; i++) {
+    unpack_cell(t_row[i], &ch, &attr, &fg, &bg);
     p = 2*i;    
-    offs = ((string[i]*2)*16)+l;
-    stats = attr[i];
-    foreground = 0xFFFFFFFF;
-    background = 0x00000000;   
+    offs = ((ch*2)*16)+l;
+    attr;
+    rgb_foreground = 0xFFFFFFFF;  //default masks
+    rgb_background = 0x00000000;   
 
-    if (stats){
-      if (stats & BOLD || stats & DIM) {
-	foreground = 0x1F1F1F1F;
-	background = 0x00000000;
+    if (attr){
+      if (attr & BOLD || attr & DIM) {
+	rgb_foreground = 0x1F1F1F1F;
+	rgb_background = 0x00000000;
       }
-      if (stats & REVERSE) {
-	tmp = foreground;
-	foreground = background;
-	background = tmp;
+      if (attr & REVERSE) {
+	rgb_tmp = rgb_foreground;
+	rgb_foreground = rgb_background;
+	rgb_background = rgb_tmp;
       }
-      if ((stats & BLINK) && (frame%60 < 30)) {
-	foreground = background;	
+      if ((attr & BLINK) && (frame%60 < 30)) {
+	rgb_foreground = rgb_background;	
       }
 	
     }
-    if ((stats & UNDERSCORE) && line==15){
-      b[p] = foreground;
-      b[p+1] = foreground;
+    if ((attr & UNDERSCORE) && line==15){
+      b[p] = rgb_foreground;
+      b[p+1] = rgb_foreground;
      }
     else{
-      get_f_at(string[i], line, &f0, &f1, &b0,&b1);
-      b[p] = f0 & foreground | (b0 & background);  
-      b[p+1] = f1 & foreground | (b1 & background);         
+      get_f_at(ch, line, &f0, &f1, &b0,&b1);
+      b[p] = f0 & rgb_foreground | (b0 & rgb_background);  
+      b[p+1] = f1 & rgb_foreground | (b1 & rgb_background);         
     }
   }
   b[160]=0;

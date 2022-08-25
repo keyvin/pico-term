@@ -3,20 +3,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define C_START_OF_ROW(C) ((C/COL)*COL)
-#define C_END_OF_ROW(C) ((C/COL)*COL+(COL-1))
-#define C_START_OF_NEXT_ROW(C) ((C/COL)*COL+COL)
-#define LAST_ROW_START (LAST_CHAR-COL)
-#define C_GET_ROW(C) (C/COL)
-#define C_GET_COL(C) (C%COL)
-
-
 
 uint8_t cursor_attributes = 0;
 uint8_t num_arguments = 0;
 bool at_eol = false;
 uint16_t old_cursor;
-
+uint8_t current_foreground = 0xFF;
+uint8_t current_background = 0xFF;
 
 uint32_t t_color[] = { 0x00000000,
 			 0xC0C0C0C0,
@@ -71,27 +64,26 @@ void scroll_screen(){
   dma_channel_configure(
 			chan1,                
 			&c1,                  
-			sbuffer,          
-			sbuffer+COL,           
-			(LAST_CHAR-COL)/4,       
+			t_buffer,          
+			t_buffer+COL,           
+			(LAST_CHAR-COL),       
 			true                     
     );
   dma_channel_wait_for_finish_blocking(chan1);
-  
+  /*
   dma_channel_configure(
 			chan1,                 // Channel to be configured
 			&c1,                        // The configuration we just created
 			abuffer,          // write address (RGB PIO TX FIFO)
-			abuffer+COL,            // The initial read address (pixel color array)
+ 			abuffer+COL,            // The initial read address (pixel color array)
 			(LAST_CHAR-COL)/4,                    // Number of transfers; in this case each is 1 byte.
 			true                       // start immediately.
     );
 
   dma_channel_wait_for_finish_blocking(chan1);
-
+  */
   for (int a =LAST_CHAR; a >=(LAST_CHAR-COL);a--){
-    abuffer[a]=0;
-    sbuffer[a]=0;
+    t_buffer[a]=0;
   }
 }
 
@@ -238,24 +230,20 @@ void handle_erase(char c){
       //clear from cursor down (inclusive)
       if (escape_buffer_position ==0 || command == '0') {
 	for (int a = cursor; a < LAST_CHAR; a++) {
-	  sbuffer[a] = 0;
-	  abuffer[a] = 0;
+	  t_buffer[a] = 0;
 	}
       }
       //clear from cursor up (inclusive)
       else if (command =='1') {
 	for (int a = cursor; a >=0; a--) {
-	  sbuffer[a] = 0;
-	  abuffer[a] = 0;
+	  t_buffer[a] = 0;
 	}
       }
       //clear screen
       else if (command =='2') {
 	for (int a = 0; a < LAST_CHAR; a++) {
-	  sbuffer[a] = 0;
-	  abuffer[a] = 0;
+	  t_buffer[a] = 0;
 	}
-	//cursor=0;
       }
       else if (command =='3') {}
     }
@@ -265,8 +253,7 @@ void handle_erase(char c){
 	working = cursor;
 	int tmp = C_GET_ROW(cursor);        //while on same row
 	while (C_GET_ROW(working) == tmp) {
-	  abuffer[working] = 0;
-	  sbuffer[working] = 0;
+	  t_buffer[working] = 0;
 	  working++;
 	}
 	
@@ -275,19 +262,16 @@ void handle_erase(char c){
       else if (command =='1') {
 	working = C_START_OF_ROW(cursor);         //while on same row
 	while (working != cursor) {
-	  abuffer[working] = 0;
-	  sbuffer[working] = 0;
+	  t_buffer[working]=0;
 	  working++;
 	}
-	abuffer[working]=0;
-	sbuffer[working]=0;
+	t_buffer[working]=0;
       }
       //Clear line
       else if (command =='2') { 
 	working = C_START_OF_ROW(cursor);              
 	for (int a =working; a < cursor+COL; a++){
-	  abuffer[a] = 0;
-	  sbuffer[a] = 0;
+	  t_buffer[working]=0;
 	}
       }
     }
@@ -296,7 +280,6 @@ void handle_erase(char c){
 }
 
 void handle_insert(char c) {
-
   int num_lines = 0;
   if (escape_buffer_position==0)
     num_lines = 1;
@@ -315,8 +298,7 @@ void handle_insert(char c) {
     int source = destination + COL*num_lines;
     if (source >=LAST_CHAR) {
       for (int a=LAST_CHAR; a >= LAST_CHAR-COL; a--){
-	abuffer[a]=0;
-	sbuffer[a]=0;
+	t_buffer[a]=0;
 	source = COL*(ROW-1);
       }
         
@@ -325,14 +307,12 @@ void handle_insert(char c) {
       int t=destination;
       //from source to end of line
       for (int a=source; a <LAST_CHAR;a++) {
-	abuffer[t]=abuffer[a];
-	sbuffer[t]=sbuffer[a];
+	t_buffer[t]=t_buffer[a];
 	t++;
       }
       t = num_lines*COL;
       while (t >= 0){
-	abuffer[LAST_CHAR-t]='\0';
-	sbuffer[LAST_CHAR-t]='\0';
+	t_buffer[LAST_CHAR-t]='\0';
 	t--;
       }
       cursor = C_START_OF_ROW(cursor);
@@ -346,22 +326,17 @@ void handle_insert(char c) {
       //blank current line to end of screen and set cursor to start of row
       cursor = C_START_OF_ROW(cursor);
       for (int i = cursor; i < LAST_CHAR; i++){
-	abuffer[i] = '\0';
-	sbuffer[i]= '\0';
+	t_buffer[i] = 0;
       }
     }
     else {
       for (int i=LAST_CHAR-1; i >= destination;i--){
-	abuffer[i]=abuffer[i-(COL*num_lines)];
-	sbuffer[i]=sbuffer[i-(COL*num_lines)];
-
+	t_buffer[i]=t_buffer[i-(COL*num_lines)];
       }
       while (source != destination) {
-	abuffer[source] = '\0';
-	sbuffer[source] = '\0';
+	t_buffer[source] = '\0';
 	source++;
       }
- 
       cursor=C_START_OF_ROW(cursor);;
 
     }
@@ -379,9 +354,8 @@ void process_recieve(char c) {
 	  cursor++;	          //advance cursor
 	}
 	at_eol=false;   
-      }
-      sbuffer[cursor] = c;
-      abuffer[cursor] = cursor_attributes;
+      }      
+      t_buffer[cursor] = pack_cell(c, cursor_attributes, current_foreground, current_background);
       if (C_GET_COL(cursor)==COL-1){   
 	at_eol=true;
       }
@@ -398,7 +372,7 @@ void process_recieve(char c) {
     else if (c == '\b' ) {
       if (cursor!=0)
 	cursor--;
-      sbuffer[cursor]='\0';
+      t_buffer[cursor]='\0';
     }
     else if (c == 0x1B) {
       start_escape = true;

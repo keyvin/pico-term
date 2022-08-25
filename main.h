@@ -28,6 +28,8 @@
 #define TXCOUNT 641
 
 //character buffer - 80x30
+extern uint32_t t_buffer[ROW*COL+1];
+
 extern char sbuffer[LAST_CHAR+1];
 //attribute buffer - 80x30
 extern char abuffer[LAST_CHAR+1];
