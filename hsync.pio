@@ -1,3 +1,10 @@
+; Code originally by:
+; Hunter Adams (vha3@cornell.edu)
+; HSync generation for VGA driver
+
+; This code is currently of uncertain license and may need to be rewritten.
+
+
 .program hsync
 pull block              ; Pull from FIFO to OSR (only happens once)
 .wrap_target            ; Program wraps to here

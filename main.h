@@ -27,7 +27,7 @@
 #define RGB_ACTIVE 640    
 #define TXCOUNT 641
 
-//character buffer - 80x30
+//character buffer - 80x3
 extern uint32_t t_buffer[ROW*COL+1];
 
 extern char sbuffer[LAST_CHAR+1];

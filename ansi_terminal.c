@@ -48,13 +48,28 @@ uint32_t bt_color[] = { 0x00000000,
 };
 
 
+void dma_blank_reigon(uint32_t *dest, uint32_t count){
+  int chan1 = 1; //dma channel 1.
+  uint32_t zero=0;
+  dma_channel_config c1 = dma_channel_get_default_config(chan1);  // default configs
+  channel_config_set_transfer_data_size(&c1, DMA_SIZE_32);              // 32-bit txfers
+  channel_config_set_read_increment(&c1, false);                       
+  channel_config_set_write_increment(&c1, true);                      
+  
+  dma_channel_configure(
+			chan1,                
+			&c1,                  
+			dest,          
+			&zero,           
+			count,       
+			true                     
+    );
+  dma_channel_wait_for_finish_blocking(chan1);
+
+}
 
 
-
-
-void scroll_screen(){
-
-  //use DMA channel to scroll the screen. 
+void dma_copy_reigon(uint32_t *source, uint32_t *dest, uint32_t count){
   int chan1 = 1; //dma channel 1. 
   dma_channel_config c1 = dma_channel_get_default_config(chan1);  // default configs
   channel_config_set_transfer_data_size(&c1, DMA_SIZE_32);              // 32-bit txfers
@@ -64,24 +79,19 @@ void scroll_screen(){
   dma_channel_configure(
 			chan1,                
 			&c1,                  
-			t_buffer,          
-			t_buffer+COL,           
-			(LAST_CHAR-COL),       
+			dest,          
+			source,           
+			count,       
 			true                     
     );
   dma_channel_wait_for_finish_blocking(chan1);
-  /*
-  dma_channel_configure(
-			chan1,                 // Channel to be configured
-			&c1,                        // The configuration we just created
-			abuffer,          // write address (RGB PIO TX FIFO)
- 			abuffer+COL,            // The initial read address (pixel color array)
-			(LAST_CHAR-COL)/4,                    // Number of transfers; in this case each is 1 byte.
-			true                       // start immediately.
-    );
 
-  dma_channel_wait_for_finish_blocking(chan1);
-  */
+}
+
+
+void scroll_screen(){
+  //use DMA to scroll the screen. 
+  dma_copy_reigon(t_buffer, t_buffer+COL, LAST_CHAR-COL));
   for (int a =LAST_CHAR; a >=(LAST_CHAR-COL);a--){
     t_buffer[a]=0;
   }
@@ -296,12 +306,12 @@ void handle_insert(char c) {
     //delete M lines
     int destination = C_START_OF_ROW(cursor);
     int source = destination + COL*num_lines;
+    //TODO - This is wrong
     if (source >=LAST_CHAR) {
       for (int a=LAST_CHAR; a >= LAST_CHAR-COL; a--){
 	t_buffer[a]=0;
 	source = COL*(ROW-1);
-      }
-        
+      }        
     }
     else {
       int t=destination;
@@ -322,6 +332,7 @@ void handle_insert(char c) {
     //insert lines
     int source = C_START_OF_ROW(cursor);;
     int destination = source + COL*num_lines;
+    //TODO - this is likely wrong
     if (destination >= LAST_CHAR) {
       //blank current line to end of screen and set cursor to start of row
       cursor = C_START_OF_ROW(cursor);
@@ -338,18 +349,15 @@ void handle_insert(char c) {
 	source++;
       }
       cursor=C_START_OF_ROW(cursor);;
-
     }
   }
-
 }
 
 void process_recieve(char c) {
-  
   if (!in_escape &&!start_escape) {
     if (c >= ' ' && c <= '~') {
       if (at_eol==true){           //emulate vt-100. Cursor doesn't wrap
-	                          //until a printable character is recieved	                         
+	                           //until a printable character is recieved	                         
 	if (C_GET_COL(cursor)==COL-1) {  //check that the cursor wasn't repositioned 
 	  cursor++;	          //advance cursor
 	}
@@ -364,15 +372,15 @@ void process_recieve(char c) {
       }      
     }
     else if (c=='\r'){
-      cursor = C_START_OF_ROW(cursor); //integer division. Place at start of row
+      cursor = C_START_OF_ROW(cursor); //Place at start of row
     }
     else if (c=='\n') {
-      cursor = cursor + COL;
+      cursor = cursor + COL;  //Advance cursor one row
     }
-    else if (c == '\b' ) {
+    else if (c == '\b' ) {    
       if (cursor!=0)
 	cursor--;
-      t_buffer[cursor]='\0';
+      t_buffer[cursor]= pack_cell(0, cursor_attributes, current_foreground, current_background);
     }
     else if (c == 0x1B) {
       start_escape = true;
@@ -383,7 +391,7 @@ void process_recieve(char c) {
     if (c == '['){
       in_escape=true;
     }
-    if (c == 'M') {
+    if (c == 'M') {               //TODO - 7 bit DEC codes
       if (C_GET_ROW(cursor) ==0)
 	cursor = 0;
       else
@@ -397,15 +405,15 @@ void process_recieve(char c) {
     }
   }
   else {   //manage escape codes
-    //^[H -- return home
+
  
     switch (c) {
     case 'H':
     case 'f':
-      handle_h(c);    
+      handle_h(c);    //position cursor absolute
       in_escape=false;    
       break;
-    case 'A':
+    case 'A':         //Position cursor relative
     case 'B':
     case 'C':
     case 'D':
@@ -417,44 +425,44 @@ void process_recieve(char c) {
       handle_move(c);
       in_escape=false;
       break;
-    case 'J':
+    case 'J':           //Erase in screen
     case 'K':
       handle_erase(c);
       in_escape=false;
       break;
-    case 'L':
+    case 'L':           //Insert and Delete lines
     case 'M':
       handle_insert(c);
       in_escape=false;
       break;
     case 'm':
-      handle_m(c);
+      handle_m(c);      //set attributes
       in_escape=false;
       break;
-    case ';':
+    case ';':          //terminate an argument
       get_argument();
       break;
     case 0x1b:
       in_escape=false;
       break;
     default:
-      escape_buffer[escape_buffer_position] = c;
+      escape_buffer[escape_buffer_position] = c; //we are reading part of an argument
       escape_buffer_position++;
       escape_buffer[escape_buffer_position]='\0';
-      if ((c >= 'a' && c <= 'z') || (c >='A' && c<= 'Z')) //Unhandled code
-	escape_buffer_position=MAX_ARG_LENGTH;   
+      if ((c >= 'a' && c <= 'z') || (c >='A' && c<= 'Z')) //Invalid or unsupported code
+	escape_buffer_position=MAX_ARG_LENGTH;            //trigger end of argument
       if (escape_buffer_position >= MAX_ARG_LENGTH) {
 	in_escape = false;
       }
     
     }
-    if (in_escape==false) {
-      escape_buffer_position = 0;
-      num_arguments = 0;      
+    if (in_escape==false) {                            //finished or aborted escape sequence
+      escape_buffer_position = 0;                      //zero escape argument read buffer
+      num_arguments = 0;                               //and zero number of current arguments
     }
   }
-  if (cursor >= LAST_CHAR) {
-    scroll_screen();
+  if (cursor >= LAST_CHAR) {             //if cursor is beyond last position,
+    scroll_screen();                     //scroll the screen
     cursor = LAST_ROW_START;
   }
     

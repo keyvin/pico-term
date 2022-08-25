@@ -27,7 +27,7 @@ extern void scroll_screen();
 extern uint cursor;
 extern char abuffer[2401];
 extern char sbuffer[2401];
-
+extern uint32_t t_buffer[ROW*COL+1];
 void process_recieve(char);
 // #define RGB_ACTIVE 639 // change to this if 1 pixel/byte
 //Terminal color codes

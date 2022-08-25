@@ -131,8 +131,6 @@ void fill_scan(uint8_t *buffer, uint32_t *t_row, int line, int frame) {
       b[p+1] = f1 & rgb_foreground | (b1 & rgb_background);         
     }
   }
-  b[160]=0;
-  //b[161] = 0;
-  
+  b[160]=0;  
 }
 
