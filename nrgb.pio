@@ -1,7 +1,8 @@
 ; Code originally by:
 ; Hunter Adams (vha3@cornell.edu)
-; HSync generation for VGA driver
+; https://vanhunteradams.com/Pico/VGA/VGA.htm
 
+; HSync generation for VGA driver
 ; This code is currently of uncertain license and may need to be rewritten.
 
 .program nrgb
