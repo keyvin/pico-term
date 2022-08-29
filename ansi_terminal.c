@@ -4,50 +4,31 @@
 #include <stdio.h>
 
 
+
+
+#define T_BLACK 0
+#define T_RED 1
+#define T_GREEN 2
+#define T_YELLOW 3
+#define T_BLUE 4
+#define T_MAGENTA 5
+#define T_TURQUOIS 6
+#define T_WHITE 7
+#define T_DEFAULT 8
+
+uint8_t COLOR_CODE[] = {T_BLACK, T_RED, T_GREEN,T_YELLOW,T_BLUE,T_MAGENTA,T_TURQUOIS, T_WHITE, T_DEFAULT};
+
+
+
 uint8_t cursor_attributes = 0;
 uint8_t num_arguments = 0;
 bool at_eol = false;
 uint16_t old_cursor;
-uint8_t current_foreground = 0xFF;
-uint8_t current_background = 0xFF;
+uint8_t current_foreground = 8;
+uint8_t current_background = 0;
 uint32_t current_attributes_packed = 0;
 
 
-uint32_t t_color[] = { 0x00000000,
-			 0xC0C0C0C0,
-			 0x38383838,
-			 0x02020202,
-			 0xC0C0C0C0,
-			 0x38383838,
-			 0x02020202,
-			 0xC0C0C0C0,
-			 0x38383838,
-			 0x02020202,
-			 0xC0C0C0C0,
-			 0x38383838,
-			 0x02020202,
-			 0xC0C0C0C0,
-			 0x38383838,
-			 0xFFFFFFFF
-};
-
-uint32_t bt_color[] = { 0x00000000,
-			 0xC0C0C0C0,
-			 0x38383838,
-			 0x02020202,
-			 0xC0C0C0C0,
-			 0x38383838,
-			 0x02020202,
-			 0xC0C0C0C0,
-			 0x38383838,
-			 0x02020202,
-			 0xC0C0C0C0,
-			 0x38383838,
-			 0x02020202,
-			 0xC0C0C0C0,
-			 0x38383838,
-			 0xFFFFFFFF
-};
 
 
 void dma_blank_reigon(uint32_t *dest, uint32_t count){
@@ -93,7 +74,7 @@ void dma_copy_reigon(uint32_t *source, uint32_t *dest, uint32_t count){
 
 void scroll_screen(){
   //use DMA to scroll the screen. 
-  dma_copy_reigon(t_buffer, t_buffer+COL, LAST_CHAR-COL);
+  dma_copy_reigon(t_buffer+COL, t_buffer, LAST_CHAR-COL);
   for (int a =LAST_CHAR; a >=(LAST_CHAR-COL);a--){
     t_buffer[a]=0;
   }
@@ -117,6 +98,8 @@ void get_argument() {
   return;
 }
 
+
+
 void handle_m(char c){
   if (escape_buffer_position !=0){
     get_argument();
@@ -127,6 +110,8 @@ void handle_m(char c){
     switch (escape_arguments[a]){
     case 0:
       cursor_attributes = 0;
+      current_foreground=T_WHITE;
+      current_background=T_BLACK;
       break;
     case 1:
       cursor_attributes = cursor_attributes | BOLD;
@@ -152,6 +137,12 @@ void handle_m(char c){
     case 27:
       cursor_attributes = (cursor_attributes | REVERSE) ^ REVERSE;
       break;
+    default:          //must be a color code
+      if (escape_arguments[a] >=30 && escape_arguments[a] <40)
+	current_foreground=escape_arguments[a]-30;
+      else if (escape_arguments[a] >=40 && escape_arguments[a] < 50)
+	current_background=escape_arguments[a]-40;
+     
     }
   }
   current_attributes_packed = pack_cell(0,cursor_attributes, current_foreground, current_background);

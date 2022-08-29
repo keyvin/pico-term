@@ -5,6 +5,20 @@
 
 uint32_t t_buffer[ROW*COL+1];
 
+uint32_t eight_color_mode[] = {
+			       0x00000000, //black   //30 foreground, 40 bg
+			       0xD0D0D0D0, //red       31 fg          41 bg
+			       0x38383838,  //Green     32             42
+			       0xF8F8F8F8,  //yellow    33             43			     
+			       0x03030303,  //blue      34             44
+			       0xD3D3D3D3, //Magenta    35             45
+			       0x3F3F3F3F, //Turquoise  36             46
+			       0xFFFFFFFF, //white      37             47   
+			       0XFFFFFFFF, //Default    39             49
+			       0x00000000
+}; //reset codes
+			       
+
 
 void fill_background() {
   for (int i =0; i < ROW; i++)
@@ -109,7 +123,7 @@ void fill_scan(uint32_t *buffer, uint32_t *t_row, int line, int frame) {
 
     if (attr){
       if (attr & BOLD || attr & DIM) {
-	rgb_foreground = 0x1F1F1F1F;
+	rgb_foreground = 0xD0D0D0D0;  //what color?
 	rgb_background = 0x00000000;
       }
       if (attr & REVERSE) {
