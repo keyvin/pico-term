@@ -2,6 +2,13 @@
 #include "text_mode.h"
 #include <stdlib.h>
 #include <stdio.h>
+bool start_escape;
+bool in_escape;
+char escape_buffer[MAX_ARG_LENGTH+1];
+uint8_t escape_buffer_position;
+unsigned int escape_arguments[MAX_ESCAPE_ARGUMENTS];
+uint8_t num_arguments;
+uint8_t cursor_attributes;
 
 
 
@@ -234,19 +241,19 @@ void handle_erase(char c){
       //clear from cursor down (inclusive)
       if (escape_buffer_position ==0 || command == '0') {
 	for (int a = cursor; a < LAST_CHAR; a++) {
-	  t_buffer[a] = 0;
+	  t_buffer[a] = current_attributes_packed;
 	}
       }
       //clear from cursor up (inclusive)
       else if (command =='1') {
 	for (int a = cursor; a >=0; a--) {
-	  t_buffer[a] = 0;
+	  t_buffer[a] = current_attributes_packed;
 	}
       }
       //clear screen
       else if (command =='2') {
 	for (int a = 0; a < LAST_CHAR; a++) {
-	  t_buffer[a] = 0;
+	  t_buffer[a] = current_attributes_packed;
 	}
       }
       else if (command =='3') {}
@@ -257,7 +264,7 @@ void handle_erase(char c){
 	working = cursor;
 	int tmp = C_GET_ROW(cursor);        //while on same row
 	while (C_GET_ROW(working) == tmp) {
-	  t_buffer[working] = 0;
+	  t_buffer[working] = current_attributes_packed;
 	  working++;
 	}
 	
@@ -266,16 +273,16 @@ void handle_erase(char c){
       else if (command =='1') {
 	working = C_START_OF_ROW(cursor);         //while on same row
 	while (working != cursor) {
-	  t_buffer[working]=0;
+	  t_buffer[working]= current_attributes_packed;
 	  working++;
 	}
-	t_buffer[working]=0;
+	t_buffer[working]=current_attributes_packed;
       }
       //Clear line
       else if (command =='2') { 
 	working = C_START_OF_ROW(cursor);              
 	for (int a =working; a < cursor+COL; a++){
-	  t_buffer[working]=0;
+	  t_buffer[working]=current_attributes_packed;
 	}
       }
     }
@@ -316,7 +323,7 @@ void handle_insert(char c) {
       }
       t = num_lines*COL;
       while (t >= 0){
-	t_buffer[LAST_CHAR-t]=0;
+	t_buffer[LAST_CHAR-t]=current_attributes_packed;
 	t--;
       }
       cursor = C_START_OF_ROW(cursor);
@@ -331,7 +338,7 @@ void handle_insert(char c) {
       //blank current line to end of screen and set cursor to start of row
       cursor = C_START_OF_ROW(cursor);
       for (int i = cursor; i < LAST_CHAR; i++){
-	t_buffer[i] = 0;
+	t_buffer[i] = current_attributes_packed;
       }
     }
     else {
@@ -339,7 +346,7 @@ void handle_insert(char c) {
 	t_buffer[i]=t_buffer[i-(COL*num_lines)];
       }
       while (source != destination) {
-	t_buffer[source] = 0;
+	t_buffer[source] = current_attributes_packed;
 	source++;
       }
       cursor=C_START_OF_ROW(cursor);;
@@ -372,13 +379,14 @@ void process_recieve(char c) {
       cursor = cursor + COL;  //Advance cursor one row
     }
     else if (c == '\b' ) {    
-      if (cursor!=0)
+      if (cursor!=0 && C_GET_COL(cursor)!=0)
 	cursor--;
       t_buffer[cursor]= pack_cell(0, cursor_attributes, current_foreground, current_background);
     }
     else if (c == 0x1B) {
       start_escape = true;
     }
+    else if (c == 0x7F) {
   }
   else if (start_escape ==true){
     start_escape = false;

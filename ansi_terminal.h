@@ -7,11 +7,11 @@
 
 #define MAX_ESCAPE_ARGUMENTS 20
 #define MAX_ARG_LENGTH 10
-bool start_escape;
-bool in_escape;
-char escape_buffer[MAX_ARG_LENGTH+1];
-uint8_t escape_buffer_position;
-unsigned int escape_arguments[MAX_ESCAPE_ARGUMENTS];
+extern bool start_escape;
+extern bool in_escape;
+extern char escape_buffer[MAX_ARG_LENGTH+1];
+extern uint8_t escape_buffer_position;
+extern unsigned int escape_arguments[MAX_ESCAPE_ARGUMENTS];
 extern uint8_t num_arguments;
 extern uint8_t cursor_attributes;
 
@@ -25,8 +25,7 @@ extern uint8_t cursor_attributes;
 
 extern void scroll_screen();
 extern uint cursor;
-extern char abuffer[2401];
-extern char sbuffer[2401];
+
 extern uint32_t t_buffer[ROW*COL+1];
 void process_recieve(char);
 // #define RGB_ACTIVE 639 // change to this if 1 pixel/byte

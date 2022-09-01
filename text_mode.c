@@ -3,6 +3,8 @@
 #include "stdlib.h"
 #include "font.h"
 
+uint cursor;
+
 uint32_t t_buffer[ROW*COL+1];
 
 uint32_t eight_color_mode[] = {

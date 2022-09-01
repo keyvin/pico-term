@@ -34,8 +34,6 @@ extern uint32_t t_buffer[ROW*COL+1];
 extern void tuh_task();
 extern void hid_app_task();
 
-uint cursor;
-uint mode;
 
 extern void build_f_table();
 #define T_MONOCHROME 0;
