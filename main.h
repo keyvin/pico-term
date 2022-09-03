@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H 1
-#define UART_TERMINAL 1
+//#define UART_TERMINAL 1
+#define Z80_IO 1
 #define CPU_FREQ 218000
 #define PIXEL_CLOCK 25175000
 #include  "pico/stdlib.h"
@@ -8,7 +9,7 @@
 #define ROW 30
 #define COL 80
 #define LAST_CHAR 2400
-
+//#define UART_TERMINAL 1
 #ifdef UART_TERMINAL
 #include "hardware/uart.h"
 #define UART_ID uart0
@@ -16,6 +17,16 @@
 #define UART_TX_PIN 16
 #define UART_RX_PIN 17
 #endif
+
+
+#ifdef Z80_IO
+#include "z80io.pio.h"
+void z80io_setup();
+void bus_read();
+#endif
+
+
+
 
 #define BUZZER_PIN 27
 

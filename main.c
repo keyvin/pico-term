@@ -51,6 +51,7 @@ void keypress(char p) {
   if (kb_count < KB_BUFFER_SIZE) {
     kb_buffer[kb_count]=p;
     kb_count++;
+    // cursor++;
   }
 }
 
@@ -84,62 +85,53 @@ bool key_ready(){
 void io_main() {
   //unsure if still necessary
   irq_set_priority(7, 0x40);
-  irq_set_priority(8,0x40);
+  irq_set_priority(8, 0x40);
   irq_set_priority(11, 0x40);
   irq_set_priority(12, 0x40);
-
+#ifdef Z80_IO
+  z80io_setup();
+#endif
   unsigned int count = 0;
   char ch = 0;
 
   in_escape = 0;
   while(1) {
+        
+    tuh_task();
+    hid_app_task();
+
 #ifdef BELL_ENABLED
     if (bell_is_on) {
       if (time_us_32()-bell_start_tick > BELL_DURATION_US || bell_start_tick > time_us_32())
 	stop_bell();
     }
 #endif	  
-        
-    tuh_task();
-    hid_app_task();
 
+#ifdef UART_TERMINAL
     if (uart_is_readable(UART_ID)){
       ch = uart_getc(UART_ID);
-
-
-#ifdef BELL_ENABLED
+  #ifdef BELL_ENABLED
       if (ch==BELL_CHAR){
 	start_bell(BELL_HZ);
 	bell_start_tick=time_us_32();
       }
-#endif
+   #endif
+
       process_recieve(ch);
-}
+    }
     if (uart_is_writable(UART_ID) && key_ready()){
       ch = get_keypress();
       uart_putc(UART_ID, (char)ch);
     }   
-    /*    if (pio_interrupt_get(pio0,5)) {
-      for (uint i=0; (i < 500) && recieve_buffer_ready()==true; i++){
-	process_recieve(recieve_buffer_get());
-	if (!pio_interrupt_get(pio0,5))break; 
-	
-	if (uart_is_readable(UART_ID)){
-	  ch = uart_getc(UART_ID);
-	  recieve_buffer_put(ch);
-	}
-
-	
-      }
-      
-      }*/
-
-    
+#endif
+#ifdef Z80_IO
+    bus_read();
+#endif
   }
 
 }
  
-
+#ifdef UART_TERMINAL
 void serial_setup() {
   gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
   gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);  
@@ -147,71 +139,80 @@ void serial_setup() {
   uart_set_hw_flow(UART_ID, false, false);  
   uart_set_fifo_enabled(UART_ID, false);
 }
-
+#endif
  
  
 
  
 void z80io_setup() {
   //  stdio_init_all();
-  float freq = 40000000.0;
+  float freq = 20000000.0;
   float div = (float)clock_get_hz(clk_sys) / freq;
-  //gpio_set_dir(13,0);
+  gpio_set_dir(13,0);
   p1 = pio1;
   offset_z80io = pio_add_program(p1, &z80io_program);
   sm_z80io = pio_claim_unused_sm(p1, true);	  
-
   gpio_init(12);
   gpio_init(11);
   gpio_init(10);
-  gpio_set_dir(10,GPIO_OUT);	
-  gpio_set_dir(11,GPIO_IN);
-  gpio_put(10,1);
+  gpio_set_dir(11,GPIO_OUT);	
+  gpio_set_dir(10,GPIO_IN);
+  gpio_put(11,1);
   gpio_set_dir(12,GPIO_IN);
-  gpio_pull_up(11);
-  gpio_pull_down(12);
-  //for (int i = 0; i < 8; i++) gpio_set_dir(14+i,0);
+  gpio_pull_up(10);
+  gpio_pull_up(12);
+  for (int i = 0; i < 10; i++) gpio_set_dir(13+i,0);
   z80io_init(p1, sm_z80io, offset_z80io, div);
-  //  pio_sm_set_enabled(p1, sm_z80io, true);    
+  pio_sm_set_enabled(p1, sm_z80io, true);    
 }
 
-//needs to be rewritten to use packed terminal cell format
-/*
+
 void bus_read() {
   uint32_t r1,r2,r3,r4;
   uint8_t base;
   uint8_t regs[4];
   if(pio_interrupt_get(p1, 5)){      
     r1 = pio_sm_get(p1,sm_z80io);
+    //base is our register. 
     base = (uint8_t)((r1 & 0x0000FF00) >> 8);
-    regs[base] = (uint8_t) r1 & 0x000000FF;     
-    if (base==0){
-      sbuffer[cursor++]=regs[base];
-      if (cursor >= 2400) cursor = 0;
-    }
-    if (base==1){
-      if (cursor!=0)
-	abuffer[cursor-1]=regs[base];
-      else
-	abuffer[2400]=regs[base];
-    }
-    if (base==3){
-      if (regs[base]==10)
-	cursor=0;
-    }
+    char ch = (uint8_t) r1 & 0x000000FF;     
+    if (ch !=0)
+      if (base==0) {
+	process_recieve(ch);
+	
+#ifdef BELL_ENABLED
+	if (ch==BELL_CHAR){
+	  start_bell(BELL_HZ);
+	  bell_start_tick=time_us_32();
+	}
+#endif
+      }
     pio_interrupt_clear(p1, 5);      
   }
   if(pio_interrupt_get(p1, 6)) {	
-    r1 = pio_sm_get(p1,sm_z80io);
+    r1 = pio_sm_get(p1, sm_z80io);
     base = (uint8_t)((r1 & 0x0000FF00) >> 8);		  
-    //	printf("(in) %d, base - %d, val - %d, count - %d\r\n", r1, base, regs[base],r4++ );
-    r1 = regs[base];
+    //printf("(in) %d, base - %d, val - %d, count - %d\r\n", r1, base, regs[base],r4++ );
+    //keyboard status
+    if (base==0){
+      if (key_ready())
+	r1=0x01;
+      else
+	r1=0x00;
+    }
+    if (base==1) {      
+      r1=0;
+      if(key_ready()){
+	r1=get_keypress();
+      }
+    }
+ 
     r2 = r1 << 24 | r1 << 16 | r1 <<8 | r1;		  
     pio_sm_put(p1, sm_z80io, r2);
     pio_interrupt_clear(p1,6);				
   }
 }
-*/
+
 
 
 
@@ -226,11 +227,11 @@ int main(){
    irq_set_priority(11, 0x40);
    irq_set_priority(12, 0x40);
    build_f_table();
-   usb_init();
-   
+
+   usb_init();   
    multicore_launch_core1(io_main);    
    fill_background();
-  PIO pio = pio0;
+   PIO pio = pio0;
   uint hsync_offset = pio_add_program(pio, &hsync_program);
   uint vsync_offset = pio_add_program(pio, &vsync_program);
   uint rgb_offset = pio_add_program(pio, &nrgb_program);
@@ -327,7 +328,7 @@ int main(){
     for (int i=0; i <16; i++) {
       fill_scan(rgb_n +(i*162), (uint32_t *)(t_buffer+(bstart*COL)),i,frame);
     }
-    if ((frame%60)<30 &&  (cursor/COL)==(bstart/COL)) {
+    if ((frame%60)<30 &&  (cursor/COL)==bstart) {
       for (int i=0; i <16; i++) {
 	//TODO - should be cursor color/mode
 	rgb_n[C_GET_COL(cursor)*2+(i*162)]=0xFFFFFFFF;

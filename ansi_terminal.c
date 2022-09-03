@@ -387,6 +387,7 @@ void process_recieve(char c) {
       start_escape = true;
     }
     else if (c == 0x7F) {
+    }
   }
   else if (start_escape ==true){
     start_escape = false;

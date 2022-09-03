@@ -40,4 +40,5 @@ void fill_scan(uint32_t *, uint32_t *, int, int);
 extern uint32_t t_buffer[ROW*COL+1];
 
 extern uint16_t scanline;
+extern uint cursor;
 #endif
