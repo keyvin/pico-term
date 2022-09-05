@@ -7,6 +7,13 @@ uint cursor;
 
 uint32_t t_buffer[ROW*COL+1];
 
+
+//DMA BUFFERS
+uint32_t RGB_buffer1[16*180]; //8bpp
+uint32_t RGB_buffer2[16*180];
+
+
+
 uint32_t eight_color_mode[] = {
 			       0x00000000, //black   //30 foreground, 40 bg
 			       0xD0D0D0D0, //red       31 fg          41 bg
@@ -149,5 +156,118 @@ void fill_scan(uint32_t *buffer, uint32_t *t_row, int line, int frame) {
     }
   }
   b[160]=0;
+}
+
+//if we need memory, we can dynamically allocate and free. 
+void do_text_mode() {
+  PIO pio = pio0;
+  uint hsync_offset = pio_add_program(pio, &hsync_program);
+  uint vsync_offset = pio_add_program(pio, &vsync_program);
+  uint rgb_offset = pio_add_program(pio, &nrgb_program);
+  
+  // Manually select a few state machines from pio instance pio0.
+  uint hsync_sm = 0;
+  uint vsync_sm = 1;
+  uint rgb_sm = 2;
+  float freq = PIXEL_CLOCK;
+  float div1 = ((float)clock_get_hz(clk_sys)) / freq;
+  float div2 = ((float)clock_get_hz(clk_sys)) / (freq*5); //run it 3 times faster?
+  //float div3 = ((float)clock_get_hz(clk_sys)) / (freq*2);
+
+  // DMA channels - 0 sends color data, 1 reconfigures and restarts 0
+  int rgb_chan_0 = 0;
+    
+
+  // Channel Zero (sends color data to PIO VGA machine)
+  dma_channel_config c0 = dma_channel_get_default_config(rgb_chan_0);  // default configs
+  channel_config_set_transfer_data_size(&c0, DMA_SIZE_8);              // 32-bit txfers
+  channel_config_set_read_increment(&c0, true);                        // yes read incrementing
+  channel_config_set_write_increment(&c0, false);                      // no write incrementing
+  channel_config_set_dreq(&c0, DREQ_PIO0_TX2) ;                        // DREQ_PIO0_TX2 pacing (FIFO)
+  dma_channel_configure(
+			rgb_chan_0,                 // Channel to be configured
+			&c0,                        // The configuration we just created
+			&pio->txf[rgb_sm],          // write address (RGB PIO TX FIFO)
+			RGB_buffer1,            // The initial read address (pixel color array)
+			TXCOUNT,                    // Number of transfers; in this case each is 1 byte.
+			false                       // start immediately.
+    );
+  
+  hsync_program_init(pio, hsync_sm, hsync_offset, HSYNC_PIN, div1);
+  vsync_program_init(pio, vsync_sm, vsync_offset, VSYNC_PIN, div1);
+  nrgb_program_init(pio, rgb_sm, rgb_offset, RGB_PIN, div2);
+  pio_sm_put_blocking(pio, hsync_sm, H_ACTIVE);
+  pio_sm_put_blocking(pio, vsync_sm, V_ACTIVE);
+  pio_sm_put_blocking(pio, rgb_sm, RGB_ACTIVE);
+  // Start the two pio machine IN SYNC
+  // Note that the RGB state machine is running at full speed,
+  // so synchronization doesn't matter for that one. But, we'll
+  // start them all simultaneously anyway.
+  
+  scanline = 0;
+  uint16_t buffer_line =0;
+  uint16_t pixel = 0;
+  uint32_t *rgb;
+  uint32_t *rgb_n;
+  uint8_t *sync;	
+  uint32_t flip = 0;
+
+
+  for (int i=0;i < 16; i++){
+    fill_scan(RGB_buffer1+(i*162), t_buffer, i, 0);
+    fill_scan(RGB_buffer2+(i*162), t_buffer, i, 0);
+  }
+  uint32_t bstart = 0;
+  uint32_t vb;
+  pio_enable_sm_mask_in_sync(pio, ((1u << hsync_sm) | (1u << vsync_sm) | (1u << rgb_sm)));
+  unsigned int frame = 0;
+  uint32_t *ptr;
+  uint32_t *tmp_p;
+  rgb = (uint32_t *) RGB_buffer1;
+  rgb_n = (uint32_t *) RGB_buffer2;
+  bstart = 0;
+  //  gpio_set_dir(0,true);
+  //gpio_set_function(0, GPIO_FUNC_PIO0);
+  while (mode_change != true) {   
+    tmp_p = rgb;
+    rgb = rgb_n;	    
+    rgb_n = tmp_p;
+    dma_channel_set_read_addr(rgb_chan_0, rgb, true);
+    //fill the buffer for the flip    
+    //    scanline+=16;
+    bstart = bstart+1;
+    if (pio_interrupt_get(pio,5)) {
+       pio_interrupt_clear(pio,5); //irq 5 shows we are in vblank. Do not clear
+	                          //vblank before last scanline
+       if (bstart < 30){
+	   bstart=0;
+	   dma_channel_abort(rgb_chan_0);
+	   pio_sm_clear_fifos(pio, rgb_sm);
+	   pio_sm_put_blocking(pio, rgb_sm, RGB_ACTIVE);
+	   pio_sm_restart(pio,rgb_sm);
+	   pio_sm_clear_fifos(pio, rgb_sm);
+       }
+
+    }
+    if (bstart==30){	
+      bstart =0;
+      scanline=0;
+      frame++;
+    }
+    for (int i=0; i <16; i++) {
+      fill_scan(rgb_n +(i*162), (uint32_t *)(t_buffer+(bstart*COL)),i,frame);
+    }
+    if ((frame%60)<30 &&  (cursor/COL)==bstart) {
+      for (int i=0; i <16; i++) {
+	//TODO - should be cursor color/mode
+	rgb_n[C_GET_COL(cursor)*2+(i*162)]=0xFFFFFFFF;
+	rgb_n[C_GET_COL(cursor)*2+(i*162)+1]=0xFFFFFFFF;
+      }
+      
+    }   
+        
+    dma_channel_wait_for_finish_blocking(rgb_chan_0);
+  }
+  pio_enable_sm_mask_in_sync(pio, 0);
 }
 

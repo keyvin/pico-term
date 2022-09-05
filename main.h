@@ -1,6 +1,17 @@
 #ifndef MAIN_H
 #define MAIN_H 1
 //#define UART_TERMINAL 1
+#include "nrgb.pio.h"
+#include "vsync.pio.h"
+#include "hsync.pio.h"
+#include  "pico/stdlib.h"
+#include "hardware/pio.h"
+#include "hardware/gpio.h"
+#include "hardware/clocks.h"
+#include "hardware/dma.h"
+#include "hardware/structs/bus_ctrl.h"
+#include "hardware/irq.h"
+#include "graphics_mode.h"
 #define Z80_IO 1
 #define CPU_FREQ 218000
 #define PIXEL_CLOCK 25175000
@@ -40,13 +51,14 @@ void bus_read();
 
 //character buffer - 80x3
 extern uint32_t t_buffer[ROW*COL+1];
-
-
 extern void tuh_task();
 extern void hid_app_task();
-
-
 extern void build_f_table();
+
+extern bool mode_change;
+enum VIDEO_MODE {text, graphics};
+typedef enum VIDEO_MODE video_mode;
+extern video_mode current_mode;
 #define T_MONOCHROME 0;
 #define T_64C_80x30 1;  //2grb, 2status
 #endif

@@ -34,11 +34,16 @@ void unpack_cell(uint32_t, uint8_t *, uint8_t *, uint8_t *, uint8_t*);
 uint32_t pack_cell( uint8_t , uint8_t , uint8_t , uint8_t);
 void fill_scan_m(uint8_t *, char *, int);
 void fill_scan(uint32_t *, uint32_t *, int, int);
+void do_text_mode();
 
 //buffer for text, attributes, background, foreground.
 //packed for DMA operations. 
 extern uint32_t t_buffer[ROW*COL+1];
-
 extern uint16_t scanline;
 extern uint cursor;
+//DMA BUFFERS
+extern uint32_t RGB_buffer1[16*180]; //8bpp
+extern uint32_t RGB_buffer2[16*180];
+
+
 #endif
