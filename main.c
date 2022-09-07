@@ -173,8 +173,9 @@ void bus_read() {
     //base is our register. 
     base = (uint8_t)((r1 & 0x0000FF00) >> 8);
     char ch = (uint8_t) r1 & 0x000000FF;     
-    if (ch !=0)
-      if (base==0) {
+
+    if (base==0) {
+      if (current_mode==text){
 	process_recieve(ch);
 	
 #ifdef BELL_ENABLED
@@ -184,26 +185,48 @@ void bus_read() {
 	}
 #endif
       }
+      
+      else {
+	g_fbuffer[g_position] = ch;
+	g_position++;
+	if (g_position >= 320*240)g_position=0;
+      }
+    }
+    if (base==1){
+      if (ch & 0x80){
+	if (current_mode !=graphics) {
+	  current_mode=graphics;
+	  mode_change=true;
+	}
+      }
+      else {
+	if (current_mode != text) {
+	  current_mode=text;
+	  mode_change=true;
+	}
+      }
+    }
     pio_interrupt_clear(p1, 5);      
+    
   }
   if(pio_interrupt_get(p1, 6)) {	
     r1 = pio_sm_get(p1, sm_z80io);
     base = (uint8_t)((r1 & 0x0000FF00) >> 8);		  
     //printf("(in) %d, base - %d, val - %d, count - %d\r\n", r1, base, regs[base],r4++ );
     //keyboard status
-    if (base==0){
+    if (base==1){
       if (key_ready())
 	r1=0x01;
       else
 	r1=0x00;
     }
-    if (base==1) {      
+    if (base==0) {      
       r1=0;
       if(key_ready()){
 	r1=get_keypress();
       }
     }
- 
+    
     r2 = r1 << 24 | r1 << 16 | r1 <<8 | r1;		  
     pio_sm_put(p1, sm_z80io, r2);
     pio_interrupt_clear(p1,6);				
@@ -215,9 +238,10 @@ void bus_read() {
 extern void pattern();
 
 int main(){
+  current_mode=text;
   set_sys_clock_khz(CPU_FREQ, true);
 #ifdef UART_TERMINAL
-   serial_setup();
+  serial_setup();
 #endif
    irq_set_priority(7, 0x40);
    irq_set_priority(8,0x40);
@@ -232,5 +256,11 @@ int main(){
    current_mode=text;
    //do_text_mode();
    pattern();
-   graphics_mode();  
+   while (1) {
+     if (current_mode==graphics)
+       graphics_mode();
+     else
+       do_text_mode();
+     mode_change=false;
+   }
 }

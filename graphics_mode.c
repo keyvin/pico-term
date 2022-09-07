@@ -4,7 +4,7 @@
 uint8_t g_dmabuff1[650];
 uint8_t g_dmabuff2[650];
 uint8_t g_fbuffer[HRES*VRES];
-
+uint32_t g_position;
 void solid_fill(uint8_t color) {
   for (int i = 0; i < HRES*VRES; i++)
     g_fbuffer[i] = color;
@@ -33,9 +33,9 @@ void gfill_scan(uint8_t *buffer, int sline) {
 
 
 void graphics_mode(){
-  gfill_scan(g_dmabuff1,0);
-  gfill_scan(g_dmabuff2,0);
+  
   PIO pio = pio0;
+  pio_clear_instruction_memory(pio);
   uint hsync_offset = pio_add_program(pio, &hsync_program);
   uint vsync_offset = pio_add_program(pio, &vsync_program);
   uint rgb_offset = pio_add_program(pio, &nrgb_program);
@@ -66,11 +66,15 @@ void graphics_mode(){
 			g_dmabuff1,             // The initial read address (pixel color array)
 			648,                    // Number of transfers; in this case each is 1 byte.
 			false                       // start immediately.
-    );
+			);
   
   hsync_program_init(pio, hsync_sm, hsync_offset, HSYNC_PIN, div1);
   vsync_program_init(pio, vsync_sm, vsync_offset, VSYNC_PIN, div1);
   nrgb_program_init(pio, rgb_sm, rgb_offset, RGB_PIN, div2);
+  pio_sm_clear_fifos(pio, hsync_sm);
+  pio_sm_clear_fifos(pio, vsync_sm);
+  pio_sm_clear_fifos(pio, rgb_sm);
+  
   pio_sm_put_blocking(pio, hsync_sm, H_ACTIVE);
   pio_sm_put_blocking(pio, vsync_sm, V_ACTIVE);
   pio_sm_put_blocking(pio, rgb_sm, RGB_ACTIVE);
@@ -78,6 +82,8 @@ void graphics_mode(){
   // Note that the RGB state machine is running at full speed,
   // so synchronization doesn't matter for that one. But, we'll
   // start them all simultaneously anyway.
+  gfill_scan(g_dmabuff1,0);
+  gfill_scan(g_dmabuff2,0);
   uint8_t *sending = g_dmabuff1;
   uint8_t *filling = g_dmabuff2;
   uint8_t *tmp;
@@ -118,8 +124,6 @@ void graphics_mode(){
     dma_channel_wait_for_finish_blocking(rgb_chan_0);
   }
   pio_enable_sm_mask_in_sync(pio, 0);
-
-    
 }
   
 
