@@ -12,11 +12,11 @@ mov y, osr                  ; Copy value from OSR to y scratch register
 irq clear 5                   ;Set flag no longer in vblag
 Mov x, y                      ; Initialize counter 
 
-wait 1 irq 1 [4]            ; Wait for vsync active mode (starts 5 cycles after execution)
+wait 1 irq 1 [7]            ; Wait for vsync active mode (starts 5 cycles after execution)
 
 colorout:
     pull block              ; Pull color value
-    out pins, 8 [2]         ; Push out to pins (pixel)
+    out pins, 8             ; Push out to pins (pixel)
     jmp x-- colorout        ; Stay here thru horizontal active mode
 .wrap
 

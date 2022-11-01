@@ -17,7 +17,7 @@ extern void usb_init();
 #include "main.h"
 #include "ansi_terminal.h"
 #include "text_mode.h"
-
+#include "basic_progs.h"
 
 #define BELL_ENABLED 1
 #ifdef BELL_ENABLED
@@ -27,14 +27,6 @@ uint32_t bell_start_tick;
 
 uint16_t scanline;
 
-//need 1/4th pixes (32 bit)
-
-//Keyboard buffer
-#define KB_BUFFER_SIZE 20
-char kb_buffer[KB_BUFFER_SIZE];
-uint8_t kb_count;
-
-
 
 //z80 bus protocol uses pio1
 PIO p1;
@@ -43,48 +35,14 @@ uint sm_z80io;
 bool mode_change;
 video_mode current_mode;
 
-//Callback from hid_task.c. 
-void keypress(char p) {
-  if (kb_count < KB_BUFFER_SIZE) {
-    kb_buffer[kb_count]=p;
-    kb_count++;
-    // cursor++;
-  }
-}
-
-void init_keyboard(){
-  kb_count=0;
-  for (int a=0; a<KB_BUFFER_SIZE;a++){
-    kb_buffer[a]=0;
-  }
-  return;
-}
-
-char get_keypress() {
-  char ch=0;
-  if (kb_count >0){
-    ch = kb_buffer[0];
-    for (int a = 1; a < kb_count ; a++){
-	kb_buffer[a-1] = kb_buffer[a];
-    }
-    kb_count--;
-  }
-  return ch;
-}
-
-bool key_ready(){
-  if (kb_count > 0)
-    return true;
-  return false;
-}
 
 
 void io_main() {
   //unsure if still necessary
-  irq_set_priority(7, 0x40);
-  irq_set_priority(8, 0x40);
-  irq_set_priority(11, 0x40);
-  irq_set_priority(12, 0x40);
+  //  irq_set_priority(7, 0x40);
+  //irq_set_priority(8, 0x40);
+  //irq_set_priority(11, 0x40);
+  //irq_set_priority(12, 0x40);
 #ifdef Z80_IO
   z80io_setup();
 #endif
@@ -121,6 +79,13 @@ void io_main() {
       uart_putc(UART_ID, (char)ch);
     }   
 #endif
+
+    if (key_ready()&&kb_buffer[0]==249)
+      send_program(mandel);
+    if (key_ready()&&kb_buffer[0]==250)
+      send_program(sst);
+
+
 #ifdef Z80_IO
     bus_read();
 #endif
@@ -143,7 +108,7 @@ void serial_setup() {
  
 void z80io_setup() {
   //  stdio_init_all();
-  float freq = 20000000.0;
+  float freq = 60000000.0;
   float div = (float)clock_get_hz(clk_sys) / freq;
   gpio_set_dir(13,0);
   p1 = pio1;
@@ -175,7 +140,7 @@ void bus_read() {
     char ch = (uint8_t) r1 & 0x000000FF;     
 
     if (base==0) {
-      if (current_mode==text){
+      
 	process_recieve(ch);
 	
 #ifdef BELL_ENABLED
@@ -185,14 +150,15 @@ void bus_read() {
 	}
 #endif
       }
-      
-      else {
-	g_fbuffer[g_position] = ch;
-	g_position++;
-	if (g_position >= 320*240)g_position=0;
-      }
+    
+    else if (base==1){
+      g_active_register = ch;
+      g_bytes_processed=0;
     }
-    if (base==1){
+    else if (base==2){
+      g_mode_write(ch);
+    }      
+    else if (base==3){
       if (ch & 0x80){
 	if (current_mode !=graphics) {
 	  current_mode=graphics;
@@ -205,22 +171,35 @@ void bus_read() {
 	  mode_change=true;
 	}
       }
+      if (ch & 0x10)
+	read_ahead_enabled=true;
     }
-    pio_interrupt_clear(p1, 5);      
-    
+    pio_interrupt_clear(p1, 5);          
   }
   if(pio_interrupt_get(p1, 6)) {	
     r1 = pio_sm_get(p1, sm_z80io);
     base = (uint8_t)((r1 & 0x0000FF00) >> 8);		  
     //printf("(in) %d, base - %d, val - %d, count - %d\r\n", r1, base, regs[base],r4++ );
     //keyboard status
-    if (base==1){
+    if (base==3){
       if (key_ready())
 	r1=0x01;
       else
 	r1=0x00;
+      if (current_mode == graphics)
+	r1=r1|0x80;
+      if (read_ahead_enabled)
+	r1=r1|0x10;
     }
-    if (base==0) {      
+    //+ 2
+    else if (base==1) {
+      r1=g_active_register;
+    }
+    //+1
+    else if (base==2) {
+      r1=g_mode_read();
+    }
+    else if (base==0) {
       r1=0;
       if(key_ready()){
 	r1=get_keypress();
@@ -244,7 +223,7 @@ int main(){
   serial_setup();
 #endif
    irq_set_priority(7, 0x40);
-   irq_set_priority(8,0x40);
+   irq_set_priority(8, 0x40);
    irq_set_priority(11, 0x40);
    irq_set_priority(12, 0x40);
    build_f_table();

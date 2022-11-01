@@ -12,7 +12,7 @@ pico_generate_pio_header(simple_vga ${CMAKE_CURRENT_LIST_DIR}/hsync.pio)
 pico_generate_pio_header(simple_vga ${CMAKE_CURRENT_LIST_DIR}/vsync.pio) 
 pico_generate_pio_header(simple_vga ${CMAKE_CURRENT_LIST_DIR}/nrgb.pio)
 pico_generate_pio_header(simple_vga ${CMAKE_CURRENT_LIST_DIR}/z80io.pio)
-target_sources(simple_vga PRIVATE main.c usb_main.c hid_app.c font.h text_mode.c text_mode.h ansi_terminal.c ansi_terminal.h graphics_mode.h graphics_mode.c main.h font.h bell.c bell.h)
+target_sources(simple_vga PRIVATE main.c usb_main.c hid_app.c font.h text_mode.c text_mode.h ansi_terminal.c ansi_terminal.h graphics_mode.h graphics_mode.c main.h font.h bell.c bell.h basic_progs.c basic_progs.h keyboard.h keyboard.c)
 target_include_directories(simple_vga PUBLIC ./)
 
 target_link_libraries(simple_vga PRIVATE

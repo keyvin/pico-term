@@ -1,14 +1,96 @@
 #include "main.h"
 #include "graphics_mode.h"
 
+//extern to module
 uint8_t g_dmabuff1[650];
 uint8_t g_dmabuff2[650];
 uint8_t g_fbuffer[HRES*VRES];
 uint32_t g_position;
+uint32_t g_cursor_position;
+uint8_t g_bytes_processed;
+uint8_t g_active_register;
+uint8_t g_pixel_size;
+
+void g_mode_write(uint8_t ch){
+  uint8_t xh;
+  uint8_t yh;
+  uint16_t tm;
+  switch (g_active_register) {
+  case G_BUFFER:    
+    if (g_pixel_size < 2 ) {
+      g_fbuffer[g_cursor_position]= ch;
+      g_cursor_position++;
+      if (g_cursor_position >=HRES*VRES)
+	g_cursor_position = 0;
+    }
+    else {
+      if ((g_cursor_position%HRES)+g_pixel_size >=HRES)
+	xh = HRES-((g_cursor_position%HRES));      
+      else
+	xh=g_pixel_size;
+      if ((g_cursor_position/VRES) + g_pixel_size >=VRES)
+	yh = VRES-((g_cursor_position/VRES));
+      else
+	yh= g_pixel_size;
+	  
+      for (int j = 0; j < yh; j++) {
+	uint32_t buff_base = g_cursor_position + j*HRES;
+	for (int i = 0; i < xh; i++){
+	  g_fbuffer[buff_base+i] = ch;
+	}
+      }
+      
+    }
+    break;
+  case G_SET_X:
+    if (g_bytes_processed !=0){
+      g_cursor_position = g_cursor_position + 0xFF;
+      g_bytes_processed =0;
+      g_active_register=0;
+    }
+    else {
+      g_cursor_position = (g_cursor_position/HRES)*HRES+ch;
+      g_bytes_processed++;
+    }
+    if (g_cursor_position >= HRES*VRES)g_cursor_position=0;
+    break;
+    
+  case G_SET_Y:
+    tm = g_cursor_position % HRES;
+    g_cursor_position = (ch%VRES)*HRES + tm;
+    g_active_register = 0;
+    break;
+  case G_SET_PIXEL_SIZE:
+    g_pixel_size=ch;
+    g_active_register = 0;
+  case G_RESET_REGS:
+  default:
+    g_pixel_size = 0;
+    g_bytes_processed=0;
+    g_cursor_position=0;
+    g_active_register=0;
+  }
+}
+
+char g_mode_read(){
+  uint8_t t=0;
+  switch (g_active_register) {
+  case G_BUFFER:
+    t= g_fbuffer[g_cursor_position++];
+    if (g_cursor_position >=HRES*VRES)g_cursor_position=0;
+    return t;
+    break;
+  case G_SET_PIXEL_SIZE:
+    return g_pixel_size;
+
+  }
+  return 0;
+}
+    
+
 void solid_fill(uint8_t color) {
   for (int i = 0; i < HRES*VRES; i++)
-    g_fbuffer[i] = color;
-
+    g_fbuffer[i] = color; 
 }
 
 void pattern() {

@@ -130,7 +130,7 @@ void fill_scan(uint32_t *buffer, uint32_t *t_row, int line, int frame) {
     rgb_foreground = 0xFFFFFFFF;  //default masks
     rgb_background = 0x00000000;   
 
-    if (attr){
+/*    if (attr){
       if (attr & BOLD || attr & DIM) {
 	rgb_foreground = 0xD0D0D0D0;  //what color?
 	rgb_background = 0x00000000;
@@ -145,6 +145,7 @@ void fill_scan(uint32_t *buffer, uint32_t *t_row, int line, int frame) {
       }
 	
     }
+*/
     if ((attr & UNDERSCORE) && line==15){
       b[p] = rgb_foreground;
       b[p+1] = rgb_foreground;
@@ -172,7 +173,7 @@ void do_text_mode() {
   uint rgb_sm = 2;
   float freq = PIXEL_CLOCK;
   float div1 = ((float)clock_get_hz(clk_sys)) / freq;
-  float div2 = ((float)clock_get_hz(clk_sys)) / (freq*5); //run it 3 times faster?
+  float div2 = ((float)clock_get_hz(clk_sys)) / (freq*3); //run it 3 times faster?
   //float div3 = ((float)clock_get_hz(clk_sys)) / (freq*2);
 
   // DMA channels - 0 sends color data, 1 reconfigures and restarts 0

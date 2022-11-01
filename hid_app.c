@@ -25,7 +25,7 @@
 
 #include "bsp/board.h"
 #include "tusb.h"
-
+#include "basic_progs.h"
 //--------------------------------------------------------------------+
 // MACRO TYPEDEF CONSTANT ENUM DECLARATION
 //--------------------------------------------------------------------+
@@ -138,6 +138,7 @@ static inline bool find_key_in_report(hid_keyboard_report_t const *report, uint8
   return false;
 }
 
+bool caps_lock=false;
 extern void keypress(char);
 static void process_kbd_report(hid_keyboard_report_t const *report)
 {
@@ -152,20 +153,36 @@ static void process_kbd_report(hid_keyboard_report_t const *report)
         // exist in previous report means the current key is holding
       }else
       {
-        // not existed in previous report means the current key is pressed
-        bool const is_shift = report->modifier & (KEYBOARD_MODIFIER_LEFTSHIFT | KEYBOARD_MODIFIER_RIGHTSHIFT);
-	bool const is_ctrl = report->modifier & (KEYBOARD_MODIFIER_LEFTCTRL | KEYBOARD_MODIFIER_RIGHTCTRL);
-	uint8_t ch = 0;
-	if (!is_ctrl)
-	  ch = keycode2ascii[report->keycode[i]][is_shift ? 1 : 0];
-	else {
-	  ch = keycode2ascii[report->keycode[i]][1];
-	  if ((ch >= 'A' && ch <='Z') || (ch >='a' && ch <= 'z'))
-	    ch = ch &0x3F;
+	if (report->keycode[i] == 69) {
+	  keypress(250);
 	}
-        keypress(ch);
-        //if ( ch == '\r' ) keypress('\n'); // added new line for enter key
-    
+	else if (report->keycode[i]==68) {
+	  keypress(249);
+	}
+	else if (report->keycode[i]==0x39) {
+	  caps_lock = !caps_lock;
+	}
+	else{
+      
+  
+	// not existed in previous report means the current key is pressed
+	  bool is_shift = report->modifier & (KEYBOARD_MODIFIER_LEFTSHIFT | KEYBOARD_MODIFIER_RIGHTSHIFT);
+	  bool const is_ctrl = report->modifier & (KEYBOARD_MODIFIER_LEFTCTRL | KEYBOARD_MODIFIER_RIGHTCTRL);
+	  uint8_t ch = 0;
+	  uint8_t is_caps=0;
+	  if (caps_lock)
+	    if (report->keycode[i] >=0x04 && report->keycode[i] <= 0x1d)
+	      is_shift = !is_shift;
+	  if (!is_ctrl)
+	    ch = keycode2ascii[report->keycode[i]][is_shift ? 1 : 0];
+	  else {
+	    ch = keycode2ascii[report->keycode[i]][1];
+	    if ((ch >= 'A' && ch <='Z') || (ch >='a' && ch <= 'z'))
+	      ch = ch &0x3F;
+	  }
+	  keypress(ch);
+	  //if ( ch == '\r' ) keypress('\n'); // added new line for enter key
+	}
       }
     }
     // TODO example skips key released
