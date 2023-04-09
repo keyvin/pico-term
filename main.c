@@ -95,6 +95,8 @@ void io_main() {
  
 #ifdef UART_TERMINAL
 void serial_setup() {
+  gpio_init(UART_RX_PIN);
+  gpio_pull_down(UART_RX_PIN);	  
   gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
   gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);  
   uart_init(UART_ID, BAUD_RATE);
@@ -138,9 +140,8 @@ void bus_read() {
     //base is our register. 
     base = (uint8_t)((r1 & 0x0000FF00) >> 8);
     char ch = (uint8_t) r1 & 0x000000FF;     
-
-    if (base==0) {
-      
+    switch (base) {
+      case 0:
 	process_recieve(ch);
 	
 #ifdef BELL_ENABLED
@@ -149,38 +150,39 @@ void bus_read() {
 	  bell_start_tick=time_us_32();
 	}
 #endif
-      }
-    
-    else if (base==1){
+      
+      break;
+    case 1:
       g_active_register = ch;
       g_bytes_processed=0;
-    }
-    else if (base==2){
+      break;
+    case 2:
       g_mode_write(ch);
-    }      
-    else if (base==3){
+      break;
+    case 3: 
       if (ch & 0x80){
 	if (current_mode !=graphics) {
 	  current_mode=graphics;
 	  mode_change=true;
 	}
-      }
-      else {
-	if (current_mode != text) {
-	  current_mode=text;
-	  mode_change=true;
+      
+	else {
+	  if (current_mode != text) {
+	    current_mode=text;
+	    mode_change=true;
+	  }
 	}
       }
       if (ch & 0x10)
-	read_ahead_enabled=true;
+	read_ahead_enabled=true;    
+      pio_interrupt_clear(p1, 5);
     }
-    pio_interrupt_clear(p1, 5);          
+    
+   
   }
   if(pio_interrupt_get(p1, 6)) {	
     r1 = pio_sm_get(p1, sm_z80io);
     base = (uint8_t)((r1 & 0x0000FF00) >> 8);		  
-    //printf("(in) %d, base - %d, val - %d, count - %d\r\n", r1, base, regs[base],r4++ );
-    //keyboard status
     if (base==3){
       if (key_ready())
 	r1=0x01;
