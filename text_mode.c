@@ -262,13 +262,13 @@ void do_text_mode() {
       frame++;
     }
     for (int i=0; i <16; i++) {
-      fill_scan(rgb_n +(i*162), (uint32_t *)(t_buffer+(bstart*COL)),i,frame);
+      fill_scan(rgb_n +(i*160), (uint32_t *)(t_buffer+(bstart*COL)),i,frame);
     }
     if ((frame%60)<30 &&  (cursor/COL)==bstart) {
       for (int i=0; i <16; i++) {
 	//TODO - should be cursor color/mode
-	rgb_n[C_GET_COL(cursor)*2+(i*162)]=0xFFFFFFFF;
-	rgb_n[C_GET_COL(cursor)*2+(i*162)+1]=0xFFFFFFFF;
+	rgb_n[C_GET_COL(cursor)*2+(i*160)]=0xFFFFFFFF;
+	rgb_n[C_GET_COL(cursor)*2+(i*160)+1]=0xFFFFFFFF;
       }
       
     }   

@@ -47,8 +47,8 @@ void bus_read();
 #define RGB_PIN 0
 #define H_ACTIVE   655    // (active + frontporch - 1) - one cycle delay for mov
 #define V_ACTIVE   479    // (active - 1)
-#define RGB_ACTIVE 647    
-#define TXCOUNT 648*16   //1bpp
+#define RGB_ACTIVE 639    
+#define TXCOUNT 640*16   //1bpp
 
 //character buffer - 80x3
 extern uint32_t t_buffer[ROW*COL+1];
