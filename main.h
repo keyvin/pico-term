@@ -15,7 +15,7 @@
 #include "keyboard.h"
 //#define Z80_IO 1
 #define CPU_FREQ 218000
-#define PIXEL_CLOCK 25170000
+#define PIXEL_CLOCK 25172000
 #include  "pico/stdlib.h"
 //Static values for screen layout
 #define ROW 30

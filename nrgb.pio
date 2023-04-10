@@ -12,7 +12,7 @@ mov y, osr                  ; Copy value from OSR to y scratch register
 irq clear 5                   ;Set flag no longer in vblag
 Mov x, y                      ; Initialize counter 
 
-wait 1 irq 1 [7]            ; Wait for vsync active mode (starts 5 cycles after execution)
+wait 1 irq 1 [1]            ; Wait for vsync active mode (starts 5 cycles after execution)
 
 colorout:
     pull block              ; Pull color value
