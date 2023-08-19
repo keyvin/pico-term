@@ -79,13 +79,14 @@ void io_main() {
       uart_putc(UART_ID, (char)ch);
     }   
 #endif
+    
 
     if (key_ready()&&kb_buffer[0]==249)
       send_program(mandel);
     if (key_ready()&&kb_buffer[0]==250)
       send_program(sst);
 
-
+    if (key_ready())t_buffer[0]='R';
 #ifdef Z80_IO
     bus_read();
 #endif
@@ -110,7 +111,7 @@ void serial_setup() {
  
 void z80io_setup() {
   //  stdio_init_all();
-  float freq = 60000000.0;
+  float freq = 40000000.0;
   float div = (float)clock_get_hz(clk_sys) / freq;
   gpio_set_dir(13,0);
   p1 = pio1;
@@ -175,9 +176,9 @@ void bus_read() {
       }
       if (ch & 0x10)
 	read_ahead_enabled=true;    
-      pio_interrupt_clear(p1, 5);
+
     }
-    
+      pio_interrupt_clear(p1, 5);    
    
   }
   if(pio_interrupt_get(p1, 6)) {	
@@ -188,10 +189,11 @@ void bus_read() {
 	r1=0x01;
       else
 	r1=0x00;
-      if (current_mode == graphics)
-	r1=r1|0x80;
-      if (read_ahead_enabled)
-	r1=r1|0x10;
+      //if (current_mode == graphics)
+      //r1=r1|0x80;
+      //if (read_ahead_enabled)
+      //	r1=r1|0x10;
+ 
     }
     //+ 2
     else if (base==1) {
@@ -205,6 +207,7 @@ void bus_read() {
       r1=0;
       if(key_ready()){
 	r1=get_keypress();
+        t_buffer[1] = 'R';
       }
     }
     

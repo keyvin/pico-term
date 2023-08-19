@@ -21,7 +21,7 @@ write_to:
 irq wait 5 side 0
 exit:
 nop side 1 
-wait 1 GPIO 12 side 1 
+wait 1 GPIO 12 side 1 [2]
 nop side 1 
 .wrap
 

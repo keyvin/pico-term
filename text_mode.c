@@ -218,7 +218,7 @@ void do_text_mode() {
   uint8_t *sync;	
   uint32_t flip = 0;
   uint32_t frame=0;
-  for (int i =0; i <2300;i++)t_buffer[i]=40+(i%10);
+  //for (int i =0; i <2300;i++)t_buffer[i]=40+(i%10);
   
   for (int i=0;i < 16; i++){
     fill_scan(RGB_buffer1+(i*162), t_buffer, i, 0);

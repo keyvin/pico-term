@@ -128,7 +128,7 @@ void graphics_mode(){
   uint rgb_sm = 2;
   float freq = PIXEL_CLOCK;
   float div1 = ((float)clock_get_hz(clk_sys)) / freq;
-  float div2 = ((float)clock_get_hz(clk_sys)) / (freq*5); //run it 3 times faster?
+  float div2 = ((float)clock_get_hz(clk_sys)) / (freq*3); //run it 3 times faster?
   //float div3 = ((float)clock_get_hz(clk_sys)) / (freq*2);
 
   // DMA channels - 0 sends color data, 1 reconfigures and restarts 0
@@ -146,7 +146,7 @@ void graphics_mode(){
 			&c0,                        // The configuration we just created
 			&pio->txf[rgb_sm],          // write address (RGB PIO TX FIFO)
 			g_dmabuff1,             // The initial read address (pixel color array)
-			648,                    // Number of transfers; in this case each is 1 byte.
+			TXCOUNT,                    // Number of transfers; in this case each is 1 byte.
 			false                       // start immediately.
 			);
   
@@ -199,9 +199,7 @@ void graphics_mode(){
       // frame++;
     }
     
-    gfill_scan(filling, scanline);
-    
-    
+    //gfill_scan(filling, scanline);        
     
     dma_channel_wait_for_finish_blocking(rgb_chan_0);
   }

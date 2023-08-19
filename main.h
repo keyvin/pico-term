@@ -1,6 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H 1
-#define UART_TERMINAL 1
+//#define UART_TERMINAL 1
 #include "nrgb.pio.h"
 #include "vsync.pio.h"
 #include "hsync.pio.h"
@@ -13,7 +13,7 @@
 #include "hardware/irq.h"
 #include "graphics_mode.h"
 #include "keyboard.h"
-//#define Z80_IO 1
+#define Z80_IO 1
 #define CPU_FREQ 218000
 #define PIXEL_CLOCK 25172000
 #include  "pico/stdlib.h"
