@@ -13,6 +13,10 @@
 #include "hardware/irq.h"
 #include "graphics_mode.h"
 #include "keyboard.h"
+
+#include "bsp/board.h"
+#include "tusb.h"
+
 #define Z80_IO 1
 #define CPU_FREQ 218000
 #define PIXEL_CLOCK 25172000

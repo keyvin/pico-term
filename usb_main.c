@@ -1,3 +1,4 @@
+
 /* 
  * The MIT License (MIT)
  *
@@ -63,7 +64,7 @@ void tuh_mount_cb(uint8_t dev_addr)
 {
   // application set-up
 
-  tuh_cdc_receive(dev_addr, serial_in_buffer, sizeof(serial_in_buffer), true); // schedule first transfer
+  //tuh_cdc_recieve(dev_addr, serial_in_buffer, sizeof(serial_in_buffer), true); // schedule first transfer
 }
 
 void tuh_umount_cb(uint8_t dev_addr)
@@ -73,7 +74,7 @@ void tuh_umount_cb(uint8_t dev_addr)
 }
 
 // invoked ISR context
-void tuh_cdc_xfer_isr(uint8_t dev_addr, xfer_result_t event, cdc_pipeid_t pipe_id, uint32_t xferred_bytes)
+/*void tuh_cdc_xfer_isr(uint8_t dev_addr, xfer_result_t event, cdc_pipeid_t pipe_id, uint32_t xferred_bytes)
 {
   (void) event;
   (void) pipe_id;
@@ -82,7 +83,7 @@ void tuh_cdc_xfer_isr(uint8_t dev_addr, xfer_result_t event, cdc_pipeid_t pipe_i
   tu_memclr(serial_in_buffer, sizeof(serial_in_buffer));
 
   tuh_cdc_receive(dev_addr, serial_in_buffer, sizeof(serial_in_buffer), true); // waiting for next data
-}
+  }*/
 
 void cdc_task(void)
 {
