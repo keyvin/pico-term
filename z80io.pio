@@ -2,27 +2,27 @@
 .program z80io
 .side_set 1
 .wrap_target
-nop side 0 [2]
-wait 0 GPIO 12 side 0
-nop side 0 [2]
-mov osr,null side 0
-out pindirs,10 side 0
-nop side 0
-in pins,10 side 0
-push noblock side 0
-jmp pin write_to side 0
-mov osr,!null side 0
-out pindirs,11 side 0
-irq wait 6 side 0
-pull noblock side 0
-out pins,8 side 0
-jmp exit side 0
+nop side 1 [2]
+wait 0 GPIO 12 side 1
+nop side 1 [2]
+mov osr,null side 1
+out pindirs,10 side 1
+nop side 1
+in pins,10 side 1
+push noblock side 1
+jmp pin write_to side 1
+mov osr,!null side 1
+out pindirs,11 side 1
+irq wait 6 side 1
+pull noblock side 1
+out pins,8 side 1
+jmp exit side 1
 write_to:
-irq wait 5 side 0
+irq wait 5 side 1
 exit:
 nop side 1 
-wait 1 GPIO 12 side 1 [2]
-nop side 1 
+wait 1 GPIO 12 side 0 [2]
+nop side 0  
 .wrap
 
 %c-sdk {
@@ -35,6 +35,9 @@ static inline void z80io_init(PIO pio, uint sm, uint offset, float freq) {
 	pio_gpio_init(pio,12);
 	pio_sm_set_consecutive_pindirs(pio, sm, 11, 1, true);
 	sm_config_set_out_pins(&c, 13, 10);
+	sm_config_set_out_pins(&c, 13, 10);
+	sm_config_set_clkdiv(&c, freq);
+	sm_config_set_out_shift(&c, false, true, 32);
 	sm_config_set_clkdiv(&c, freq);
 	sm_config_set_out_shift(&c, false, true, 32);
 	sm_config_set_in_shift(&c, false, false, 32);

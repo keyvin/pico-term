@@ -491,7 +491,8 @@ int main(){
       ptr[(cursor%COL)*2]=0xFFFFFFFF;
       ptr[(cursor%COL)*2+1]=0xFFFFFFFF;
 	
-    }      
+    }
+
     dma_channel_wait_for_finish_blocking(rgb_chan_0);
   }
       

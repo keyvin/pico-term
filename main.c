@@ -33,6 +33,7 @@ PIO p1;
 uint offset_z80io;
 uint sm_z80io;	  
 bool mode_change;
+bool vblank_interrupt;
 video_mode current_mode;
 
 
@@ -81,12 +82,12 @@ void io_main() {
 #endif
     
 
-    if (key_ready()&&kb_buffer[0]==249)
+ /*   if (key_ready()&&kb_buffer[0]==249)
       send_program(mandel);
     if (key_ready()&&kb_buffer[0]==250)
       send_program(sst);
 
-    if (key_ready())t_buffer[0]='R';
+    if (key_ready())t_buffer[0]='R'; */
 #ifdef Z80_IO
     bus_read();
 #endif
@@ -111,6 +112,9 @@ void serial_setup() {
  
 void z80io_setup() {
   //  stdio_init_all();
+  gpio_init(26);
+  gpio_set_dir(26,GPIO_OUT);
+  gpio_put(26,0);
   float freq = 40000000.0;
   float div = (float)clock_get_hz(clk_sys) / freq;
   gpio_set_dir(13,0);
@@ -143,13 +147,13 @@ void bus_read() {
     char ch = (uint8_t) r1 & 0x000000FF;     
     switch (base) {
       case 0:
-	process_recieve(ch);
+	      process_recieve(ch);
 	
 #ifdef BELL_ENABLED
-	if (ch==BELL_CHAR){
-	  start_bell(BELL_HZ);
-	  bell_start_tick=time_us_32();
-	}
+	      if (ch==BELL_CHAR){
+	        start_bell(BELL_HZ);
+	        bell_start_tick=time_us_32();
+	      }
 #endif
       
       break;
@@ -162,33 +166,42 @@ void bus_read() {
       break;
     case 3: 
       if (ch & 0x80){
-	if (current_mode !=graphics) {
-	  current_mode=graphics;
-	  mode_change=true;
-	}
-      
-	else {
-	  if (current_mode != text) {
-	    current_mode=text;
-	    mode_change=true;
-	  }
-	}
-      }
+	      if (current_mode !=graphics) {
+	        current_mode=graphics;
+	        mode_change=true;
+	      }
+        else {
+          if (current_mode != text) {
+	        current_mode=text;
+	        mode_change=true;
+          }
+	      }
+	    }
       if (ch & 0x10)
-	read_ahead_enabled=true;    
+	      read_ahead_enabled=true;    
+      if (ch &0x40)
+        vblank_interrupt=true;
+      else
+        vblank_interrupt=false;
 
     }
-      pio_interrupt_clear(p1, 5);    
+    //End Case
+    pio_interrupt_clear(p1, 5);    
    
   }
+
   if(pio_interrupt_get(p1, 6)) {	
     r1 = pio_sm_get(p1, sm_z80io);
     base = (uint8_t)((r1 & 0x0000FF00) >> 8);		  
     if (base==3){
+      //TODO - Clear Interrupt Here
+      gpio_put(26,0);
       if (key_ready())
-	r1=0x01;
+	      r1=0x01;
       else
-	r1=0x00;
+	      r1=0x00;
+      if (!vblank_interrupt)
+        r1 = r1 | 0x80;
       //if (current_mode == graphics)
       //r1=r1|0x80;
       //if (read_ahead_enabled)
@@ -206,8 +219,7 @@ void bus_read() {
     else if (base==0) {
       r1=0;
       if(key_ready()){
-	r1=get_keypress();
-        t_buffer[1] = 'R';
+	      r1=get_keypress();
       }
     }
     
@@ -222,6 +234,7 @@ void bus_read() {
 extern void pattern();
 
 int main(){
+  vblank_interrupt=false;
   current_mode=text;
   set_sys_clock_khz(CPU_FREQ, true);
 #ifdef UART_TERMINAL

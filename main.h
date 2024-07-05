@@ -64,6 +64,7 @@ extern bool mode_change;
 enum VIDEO_MODE {text, graphics};
 typedef enum VIDEO_MODE video_mode;
 extern video_mode current_mode;
+extern bool vblank_interrupt;
 #define T_MONOCHROME 0;
 #define T_64C_80x30 1;  //2grb, 2status
 #endif

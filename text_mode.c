@@ -272,8 +272,13 @@ void do_text_mode() {
       }
       
     }   
-        
-    dma_channel_wait_for_finish_blocking(rgb_chan_0);
+  //if (frame%200==0 && vblank_interrupt)
+  //{     
+  //    gpio_put(26,1);
+  //    
+  //}
+  dma_channel_wait_for_finish_blocking(rgb_chan_0);
+   // gpio_put(26,0);
   }
   pio_enable_sm_mask_in_sync(pio, 0);
 }
