@@ -163,6 +163,7 @@ void fill_scan(uint32_t *buffer, uint32_t *t_row, int line, int frame) {
 void do_text_mode() {
   PIO pio = pio0;
   pio_clear_instruction_memory(pio);
+  gpio_put(26,0);
   uint hsync_offset = pio_add_program(pio, &hsync_program);
   uint vsync_offset = pio_add_program(pio, &vsync_program);
   uint rgb_offset = pio_add_program(pio, &nrgb_program);
@@ -272,13 +273,13 @@ void do_text_mode() {
       }
       
     }   
-  //if (frame%200==0 && vblank_interrupt)
-  //{     
-  //    gpio_put(26,1);
-  //    
-  //}
+    /*if (frame%200==0 && vblank_interrupt)
+  {     
+      gpio_put(26,1);
+      
+      }*/
   dma_channel_wait_for_finish_blocking(rgb_chan_0);
-   // gpio_put(26,0);
+  //  gpio_put(26,0);
   }
   pio_enable_sm_mask_in_sync(pio, 0);
 }

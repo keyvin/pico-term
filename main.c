@@ -115,7 +115,7 @@ void z80io_setup() {
   gpio_init(26);
   gpio_set_dir(26,GPIO_OUT);
   gpio_put(26,0);
-  float freq = 40000000.0;
+  float freq = 60000000.0;
   float div = (float)clock_get_hz(clk_sys) / freq;
   gpio_set_dir(13,0);
   p1 = pio1;

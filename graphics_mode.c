@@ -146,7 +146,7 @@ void graphics_mode(){
 			&c0,                        // The configuration we just created
 			&pio->txf[rgb_sm],          // write address (RGB PIO TX FIFO)
 			g_dmabuff1,             // The initial read address (pixel color array)
-			TXCOUNT,                    // Number of transfers; in this case each is 1 byte.
+			640,                    // Number of transfers; in this case each is 1 byte.
 			false                       // start immediately.
 			);
   
@@ -199,7 +199,7 @@ void graphics_mode(){
       // frame++;
     }
     
-    //gfill_scan(filling, scanline);        
+    gfill_scan(filling, scanline);        
     
     dma_channel_wait_for_finish_blocking(rgb_chan_0);
   }

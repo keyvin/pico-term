@@ -18,7 +18,9 @@
 #include "tusb.h"
 
 #define Z80_IO 1
-#define CPU_FREQ 218000
+//218000 works
+//22400 works for lenovo 5:4 monitor
+#define CPU_FREQ 224000
 #define PIXEL_CLOCK 25172000
 #include  "pico/stdlib.h"
 //Static values for screen layout

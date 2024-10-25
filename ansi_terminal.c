@@ -60,12 +60,14 @@ void dma_blank_reigon(uint32_t *dest, uint32_t count){
 
 
 void dma_copy_reigon(uint32_t *source, uint32_t *dest, uint32_t count){
-  int chan1 = 1; //dma channel 1. 
+  int chan1 = 5; //dma channel 1. 
   dma_channel_config c1 = dma_channel_get_default_config(chan1);  // default configs
   channel_config_set_transfer_data_size(&c1, DMA_SIZE_32);              // 32-bit txfers
   channel_config_set_read_increment(&c1, true);                       
   channel_config_set_write_increment(&c1, true);                      
-  
+  //set priority to be LOW when lots of scrolling. 
+  //channel_config_set_dreq(&c1, 0x3b);
+  // dma_timer_set_fraction(0,1,);
   dma_channel_configure(
 			chan1,                
 			&c1,                  
@@ -82,6 +84,11 @@ void dma_copy_reigon(uint32_t *source, uint32_t *dest, uint32_t count){
 void scroll_screen(){
   //use DMA to scroll the screen. 
   dma_copy_reigon(t_buffer+COL, t_buffer, LAST_CHAR-COL);
+  /*for (int a=0; a < (LAST_CHAR-COL); a++){
+    t_buffer[a]=t_buffer[a+COL];
+    sleep_us(50);
+    }*/
+
   for (int a =LAST_CHAR; a >=(LAST_CHAR-COL);a--){
     t_buffer[a]=0;
   }
